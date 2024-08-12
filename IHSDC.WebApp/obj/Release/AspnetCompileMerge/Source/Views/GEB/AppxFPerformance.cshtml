@@ -1,0 +1,461 @@
+﻿@model IHSDC.WebApp.Models.AppxFPerformance
+@using IHSDC.WebApp.Connection
+@{
+    ViewBag.Title = "Add Appx F Performance Of";
+    Layout = "~/Views/Shared/_NewAA7Layout.cshtml"; int sno = 0; int sno1 = 0;
+    var message = TempData["Message"] ?? string.Empty;
+    var messageStatus = TempData["messageStatus"] ?? string.Empty;
+    var messagemidStatus = TempData["messagemidStatus"] ?? string.Empty;
+}
+
+<div class="row">
+    <div class="col">
+        <a class="btn btn-info float-right" href="javascript:history.back()" target="_top">
+            Back
+        </a>
+    </div>
+</div>
+
+<div class="card-body">
+
+    <div style="position:absolute; top:10px;left:20%;right:20%">
+        @*<a class="btn btn-info float-right" href="javascript:history.back()" target="_top">*@
+        <div style="text-align:center;font-size: 25px">
+            <label><b>  @Html.DisplayFor(m => m.appxF.AviatorName)</b> </label>
+        </div>
+
+    </div>
+
+
+    <div class="row">
+        <div class="col-12">
+            <table class="table table-bordered" width="100%" cellspacing="0">
+                <tbody>
+                    <tr>
+                        <td><label><b>Instr CatIR Held</b></label></td>
+                        <td><label>@Model.appxF.InstructoionalCatIRHeldName</label></td>
+
+                        <td><label><b>Instr CatIR Held On Type</b></label></td>
+                        <td><label>@Model.appxF.InstructoionalCatIRHeldAircraftName</label></td>
+                        <td>  <label><b> Instr CatIR Date</b></label></td>
+                        <td><label>@Model.appxF.InstructoionalCatIRDate</label></td>
+                        <td>  <label><b> Date of Award/Endorsement </b></label> </td>
+                        <td><label>@Model.appxF.DateofCatAward</label></td>
+
+
+                    </tr>
+                    <tr>
+                        <td>   <label><b>Award on Aircraft Type </b></label> </td>
+                        <td><label>@Model.appxF.AwardTypeAircraftName</label></td>
+                        <td>    <label><b>Applied For</b></label> </td>
+                        <td><label>@Model.appxF.InstructoionalCatAppliedName</label></td>
+                        <td>   <label><b>Applied On Type</b></label> </td>
+                        <td><label>@Model.appxF.AircraftTypeName</label></td>
+                        <td>   <label><b> AHI/QFI Course No</b></label></td>
+                        <td><label>@Model.appxF.AHI_QFICourseNo</label></td>
+
+                    </tr>
+
+                    <tr>
+                        <td>   <label><b> AHI/QFI Course Completion Date</b></label></td>
+                        <td><label>@Model.appxF.QFICatDate</label></td>
+                        <td>  <label><b> Op Instructional Syllabus No </b></label> </td>
+                        <td><label>@Model.appxF.OpInstructionalSyllabusNo</label></td>
+                        <td>   <label><b> Op Syllbus Hrs </b></label></td>
+                        <td><label>@Model.appxF.OpInstructionalHrs</label></td>
+                        <td>  <label><b> Instr CatIR Date</b></label></td>
+                        <td><label>@Model.appxF.InstructoionalCatIRDate</label></td>
+                    </tr>
+
+                    <tr>
+                        <td>  <label><b> Instr CatIR Date</b></label></td>
+                        <td><label>@Model.appxF.InstructoionalCatIRDate</label></td>
+                        <td>     <label><b> Dt of Completion </b></label>  </td>
+                        <td><label>@Model.appxF.OpInstructionalSyllabusComletedOn</label></td>
+                        <td> <label><b> Syllabus Comleted By Army No</b></label>  </td>
+                        <td><label>@Model.appxF.OpInstructionalSyllabusComletedByArmyNo</label></td>
+                        <td>  <label><b> Syllabus Comleted By Rank</b></label>  </td>
+                        <td><label>@Model.appxF.OpInstructionalSyllabusComletedByRankName</label></td>
+                    </tr>
+                    <tr>
+
+                        <td>  <label><b>Aircraft Type</b></label> </td>
+                        <td><label>@Model.appxF.ReccommendInstructionalCatAircraft</label></td>
+                        <td>        <label><b> Recommended For Instructional Cat</b></label></td>
+                        <td><label>@Model.appxF.ReccommendInstructionalCatIR</label></td>
+                        <td>   <label><b>Syllabus Completed By Name</b></label> </td>
+                        <td><label>@Model.appxF.OpInstructionalSyllabusComletedByName</label></td>
+                        <td>     <label><b> Recommended For Instructional Aircraft</b></label></td>
+                        <td><label>@Model.appxF.ReccommendInstructionalCatAircraft</label></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <br />
+    <br />
+
+    <div class="row">
+        <div class="col-6">
+
+            <div class="row">
+                <div class="col-12" style="font-size: 25px;    font-weight: 500;    padding-bottom: 2%;    text-decoration: underline;
+    color: black;  text-align:center">
+                    <label><b><u>Details of Flying</u></b></label>
+
+                </div>
+                <table class="table table-bordered" cellspacing="0" style="max-height:8px" id="fit">
+                    <thead>
+                        <tr>
+                            <th class="center" rowspan="2">S/No</th>
+                            <th class="center" rowspan="2">Aircraft Type</th>
+                            <th class="center" colspan="2">Day Hr</th>
+
+                            <th class="center" colspan="2">Night Hr</th>
+
+
+                        </tr>
+                        <tr>
+                            <th class="center">Dual</th>
+                            <th class="center">Capt</th>
+                            <th class="center">Dual</th>
+                            <th class="center">Capt</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tbody">
+                        @if (Model.ILAppxFFlgHrs.Count > 0)
+                        {
+                            foreach (var item in Model.ILAppxFFlgHrs)
+                            {
+                                <tr>
+                                    <td>
+                                        @{ sno++; }
+                                        @sno
+                                    </td>
+                                    <td>@Html.DisplayFor(modelItem => item.AircraftTypeName)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.DayDualHr)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.DayCaptainHr)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.NightDualHr)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.NightCaptainHr)</td>
+
+
+                                </tr>
+                            }
+                        }
+                        else
+                        {
+                            <tr><td colspan="4" style="font-weight:600;color:red;text-align:center"> No Record Found!!!</td></tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="col-sm-6">
+            <div class="row">
+                <div class="col-12" style="font-size: 25px;    font-weight: 500;    padding-bottom: 2%;    text-decoration: underline;
+    color: black;  text-align:center">
+                    <label><b><u>Instructional Experience</u></b></label>
+
+                </div>
+
+            </div>
+
+            <div>
+                <table class="table table-bordered" width="100%" cellspacing="0" id="fit">
+                    <thead>
+                        <tr>
+                            <th class="center" rowspan="2">S/No</th>
+                            <th class="center" rowspan="2">Aircraft Type</th>
+                            <th class="center" rowspan="2">Award Date</th>
+                            <th class="center" rowspan="2">Cat Held</th>
+                            <th class="center" colspan="2">Instr Hrs</th>
+
+                        </tr>
+                        <tr>
+
+                            <th class="center">Day</th>
+                            <th class="center">Night</th>
+
+
+                        </tr>
+                    </thead>
+                    <tbody id="tbody">
+                        @if (Model.ILAppxFIntsrExp.Count > 0)
+                        {
+                            foreach (var item in Model.ILAppxFIntsrExp)
+                            {
+                                <tr>
+                                    <td>
+                                        @{ sno1++; }
+                                        @sno1
+                                    </td>
+                                    <td>@Html.DisplayFor(modelItem => item.AircraftTypeName)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.DateOfAward)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.CatHeldName)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.InstrDayHrs)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.InstrNightHrs)</td>
+
+                                </tr>
+                            }
+                        }
+                        else
+                        {
+                            <tr><td colspan="4" style="font-weight:600;color:red;text-align:center"> No Record Found!!!</td></tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <br />
+    <br />
+    <br />
+    <br />
+    <div style="text-align:center"> <h5><b><u> DETAILS OF EXAMINATION</u> </b></h5></div>
+    @using (Html.BeginForm("AppxFPerformance", "GEB", FormMethod.Post, new { enctype = "multipart/form-data" }))
+
+    {
+
+        @Html.HiddenFor(h => h.FinalAppxId)
+
+
+
+        <div class="row">
+            <div class="col">
+                <label><b> Examining Auth</b></label>
+                @Html.TextBoxFor(m => m.ExaminingAuth, new { @class = "form-control", @onchange = "Case(this)" })
+
+
+            </div>
+            <div class="col">
+                <label><b> Examined On Type</b></label>
+                @Html.DropDownListFor(m => m.ExaminedOnType, (new IHSDC.WebApp.Models.MasterModels()).LoadAircraftType(), "--Select Aircraft Name --", new { @data_show_subtext = "true", @class = "select form-control", @data_live_search = "true", @required = true })
+
+            </div>
+            <div class="col">
+                <label><b> Date Of Exam</b></label>
+                @Html.TextBoxFor(m => m.DateOfExam, new { @class = "form-control datepicker3", @required = true, @onchange = "Case(this)" })
+
+            </div>
+            <div class="col">
+                <label><b> Place Of Exam</b></label>
+                @Html.TextBoxFor(m => m.PlaceOfExam, new { @class = "form-control", @required = true, @onchange = "Case(this)" })
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <label><b> Flg Ability Percentage</b></label>
+                @Html.DropDownListFor(m => m.FlgAbilityPercentage, (new IHSDC.WebApp.Models.MasterModels()).LoadPercentage(), "--Select--", new { @data_show_subtext = "true", @class = "select form-control", @data_live_search = "true", @required = true })
+
+            </div>
+            <div class="col">
+                <label><b> Flg Ability Standard </b></label>
+                @Html.DropDownListFor(m => m.FlgAbilityStandard, (new IHSDC.WebApp.Models.MasterModels()).LoadSpecialQualifiaction(), "--Select--", new { @data_show_subtext = "true", @class = "select form-control", @data_live_search = "true", @required = true })
+
+            </div>
+            <div class="col">
+                <label><b> Flg Instr Ability Percentage</b></label>
+                @Html.DropDownListFor(m => m.FlgInstrAbilityPercentage, (new IHSDC.WebApp.Models.MasterModels()).LoadPercentage(), "--Select--", new { @data_show_subtext = "true", @class = "select form-control", @data_live_search = "true", @required = true })
+
+
+            </div>
+            <div class="col">
+                <label><b> Flg Instr Ability Standard</b></label>
+                @Html.DropDownListFor(m => m.FlgInstrAbilityStandard, (new IHSDC.WebApp.Models.MasterModels()).LoadSpecialQualifiaction(), "--Select--", new { @data_show_subtext = "true", @class = "select form-control", @data_live_search = "true", @required = true })
+
+
+
+
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <label><b> Grnd Sub Instr Ability Percentage</b></label>
+                @Html.DropDownListFor(m => m.GrdSubInstrAbilityPercentage, (new IHSDC.WebApp.Models.MasterModels()).LoadPercentage(), "--Select--", new { @data_show_subtext = "true", @class = "select form-control", @data_live_search = "true", @required = true })
+
+
+
+            </div>
+            <div class="col">
+                <label><b> Grd Sub Instr Ability Standard  </b></label>
+                @Html.DropDownListFor(m => m.GrdSubInstrAbilityStandard, (new IHSDC.WebApp.Models.MasterModels()).LoadSpecialQualifiaction(), "--Select--", new { @data_show_subtext = "true", @class = "select form-control", @data_live_search = "true", @required = true })
+
+
+
+            </div>
+            <div class="col">
+                <label><b> Spl Knowledge Percentage  </b></label>
+
+                @Html.DropDownListFor(m => m.SplKnowledgePercentage, (new IHSDC.WebApp.Models.MasterModels()).LoadPercentage(), "--Select--", new { @data_show_subtext = "true", @class = "select form-control", @data_live_search = "true" })
+
+
+
+            </div>
+            <div class="col">
+                <label><b> Spl Knowledge Standard</b></label>
+
+                @Html.DropDownListFor(m => m.SplKnowledgeStandard, (new IHSDC.WebApp.Models.MasterModels()).LoadSpecialQualifiaction(), "--Select--", new { @data_show_subtext = "true", @class = "select form-control", @data_live_search = "true" })
+
+
+
+
+
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <label><b> Overall Performance Percentage</b></label>
+                @Html.DropDownListFor(m => m.OverallPerformancePercentage, (new IHSDC.WebApp.Models.MasterModels()).LoadPercentage(), "--Select--", new { @data_show_subtext = "true", @class = "select form-control", @data_live_search = "true", @required = true })
+
+
+
+
+            </div>
+            <div class="col">
+                <label><b> Overall Performance Standard</b></label>
+                @Html.DropDownListFor(m => m.OverallPerformanceStandard, (new IHSDC.WebApp.Models.MasterModels()).LoadSpecialQualifiaction(), "--Select--", new { @data_show_subtext = "true", @class = "select form-control", @data_live_search = "true", @required = true })
+
+
+            </div>
+            <div class="col">
+                <label><b> Recommend Instr Cat</b></label>
+                @Html.DropDownListFor(m => m.RecommendInstrCat, (new IHSDC.WebApp.Models.MasterModels()).LoadSpecialQualifiaction(), "--Select--", new { @data_show_subtext = "true", @class = "select form-control", @data_live_search = "true", @required = true })
+
+
+
+            </div>
+            <div class="col">
+                <label><b> Recommend OnType</b></label>
+                @Html.DropDownListFor(m => m.RecommendOnType, (new IHSDC.WebApp.Models.MasterModels()).LoadAircraftType(), "--Select--", new { @data_show_subtext = "true", @class = "select form-control", @data_live_search = "true", @required = true })
+
+
+
+
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <label><b> Recommend On Date</b></label>
+
+                @Html.TextBoxFor(m => m.RecommendOnDate, new { @class = "form-control datepicker3", @required = true, @onchange = "Case(this)" })
+
+
+            </div>
+            <div class="col">
+                <label><b> Name Of Examiner</b></label>
+                @Html.TextBoxFor(m => m.NameOfExaminer, new { @class = "form-control", @required = true, @onchange = "Case(this)" })
+            </div>
+            <div class="col">
+                <label><b> Rank Of Examiner</b></label>
+                @Html.DropDownListFor(m => m.RankOfExaminer, (new IHSDC.WebApp.Models.MasterModels()).LoadRanks(), "--Select--", new { @data_show_subtext = "true", @class = "select form-control", @data_live_search = "true"})
+
+
+
+
+            </div>
+            <div class="col">
+                <label><b> Appt Of Examiner</b></label>
+                @Html.DropDownListFor(m => m.ApptOfExaminer, (new IHSDC.WebApp.Models.MasterModels()).LoadAppt(), "--Select--", new { @data_show_subtext = "true", @class = "select form-control", @data_live_search = "true" })
+
+
+
+
+
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col">
+                <label><b> Approved Instr Cat</b></label>
+                @Html.DropDownListFor(m => m.ApprovedInstrCat, (new IHSDC.WebApp.Models.MasterModels()).LoadSpecialQualifiaction(), "--Select--", new { @data_show_subtext = "true", @class = "select form-control", @data_live_search = "true", @required = true })
+
+
+
+            </div>
+            <div class="col">
+                <label><b> Approved On Type</b></label>
+                @Html.DropDownListFor(m => m.ApprovedOnType, (new IHSDC.WebApp.Models.MasterModels()).LoadAircraftType(), "--Select--", new { @data_show_subtext = "true", @class = "select form-control", @data_live_search = "true", @required = true })
+
+
+
+            </div>
+            <div class="col">
+
+                <label><b> Approved On Date</b></label>
+                @Html.TextBoxFor(m => m.ApprovedOnDate, new { @class = "form-control datepicker3", @required = true, @onchange = "Case(this)" })
+
+            </div>
+            <div class="col">
+                <label><b> Approved Name Of Dte</b></label>
+                @Html.TextBoxFor(m => m.ApprovedNameOfDte, new { @class = "form-control", @onchange = "Case(this)" })
+
+
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <label><b> Approved Rank Of Dte</b></label>
+                @Html.DropDownListFor(m => m.ApprovedRankOfDte, (new IHSDC.WebApp.Models.MasterModels()).LoadRanks(), "--Select--", new { @data_show_subtext = "true", @class = "select form-control", @data_live_search = "true" })
+
+
+
+            </div>
+            <div class="col">
+                <label><b> Approved Appt Of Dte</b></label>
+                @Html.DropDownListFor(m => m.ApprovedApptOfDte, (new IHSDC.WebApp.Models.MasterModels()).LoadAppt(), "--Select--", new { @data_show_subtext = "true", @class = "select form-control", @data_live_search = "true" })
+
+
+
+            </div>
+            <div class="col" style="margin-top:2%">
+                <input type="submit" value="Update" class="btn btn-success" />
+
+            </div>
+
+        </div>
+
+
+
+    }
+
+</div>
+<script src="~/Scripts/jquery-3.3.1.js"></script>
+@*<script src="~/Content/CustomJS/GEBSubmit.js"></script>*@
+<script src="~/Content/CustomJS/AviatorJS.js"></script>
+@*<script src="~/Content/CustomJS/DeleteConfirmation.js"></script>*@
+<script src="~/Content/css/sweetalert.min.js"></script>
+<link href="~/Content/css/sweetalert.css" rel="stylesheet" />
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryui")
+    @Styles.Render("~/Content/cssjqryUi")
+
+    <script type="text/javascript">
+       var message = '@message';
+    var messageStatus = '@messageStatus';
+    var messagemidStatus = '@messagemidStatus ';
+    if (message)
+            sweetAlert(message, messagemidStatus, messageStatus);
+
+
+
+  //      $('#DateOfExam ').datepicker({
+		//	uiLibrary: 'bootstrap4',
+		//	dateFormat: "dd/M/yy",
+		//	autoclose: true,
+		//});
+  //      $('#RecommendOnDate ').datepicker({
+		//	uiLibrary: 'bootstrap4',
+		//	dateFormat: "dd/M/yy",
+		//	autoclose: true
+  //      });
+  //      $('#ApprovedOnDate').datepicker({
+  //          uiLibrary: 'bootstrap4',
+  //          dateFormat: "dd/M/yy",
+  //          autoclose: true
+  //      });
+
+
+    </script>
+}
+

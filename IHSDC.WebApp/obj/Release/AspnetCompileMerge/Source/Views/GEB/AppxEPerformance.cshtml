@@ -1,0 +1,548 @@
+﻿@model IHSDC.WebApp.Models.AppxEPerformance
+@using IHSDC.WebApp.Connection
+@{
+    ViewBag.Title = "Appendix E Performance Of ";
+    Layout = "~/Views/Shared/_NewAA7Layout.cshtml"; int sno = 0;
+    var message = TempData["Message"] ?? string.Empty;
+    var messageStatus = TempData["messageStatus"] ?? string.Empty;
+    var messagemidStatus = TempData["messagemidStatus"] ?? string.Empty;
+}
+
+
+
+
+
+
+
+<div style="position:absolute; top:10px;left:20%;right:20%">
+
+    <div style="text-align:center;font-size: 25px">
+        <label><b> @Html.DisplayFor(m => m.AviatorName) </b></label>
+    </div>
+
+</div>
+
+<div class="card-body">
+
+    <div class="row">
+        <div class="col">
+            <a class="btn btn-info float-right" href="javascript:history.back()" target="_top">
+                Back
+            </a>
+        </div>
+    </div>
+    <table class="table table-bordered" cellspacing="0" id="fit">
+        <tbody>
+            <tr>
+                <td style="padding-left:40%" colspan="6">
+                    <h5><label><b><u>PART-I : PERSONAL DATA</u></b></label>   </h5>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="6"> <h5> <label><b><u>CATEGORY/INSTRUMENT RATING HELD</u></b></label>   </h5></td>
+
+            </tr>
+            <tr>
+                <td>  <label><b> Rank</b></label></td>
+                <td>@Html.DisplayFor(m => m.finalAppx.RankName)</td>
+                <td>   <label><b> Cat IR</b></label></td>
+                <td>@Html.DisplayFor(m => m.finalAppx.PresentCatIR)</td>
+                <td> <label><b>Date</b></label></td>
+                <td>@Html.DisplayFor(m => m.finalAppx.PresentCatIRDate)</td>
+            </tr>
+
+            <tr>
+                <td>  <label><b> On Type</b></label></td>
+                <td>@Html.DisplayFor(m => m.finalAppx.PresentCatIRType)</td>
+                <td>   <label><b> Type(s)(if any) </b></label></td>
+                <td>@Html.DisplayFor(m => m.finalAppx.TypesIfAny)</td>
+                <td> </td>
+                <td></td>
+            </tr>
+            <tr>
+                <td colspan="6">
+                    <h5>   <label><b><u>DETAILS OF FLYING EXPERIENCE</u></b></label>   </h5>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="6">
+                    <table width="100%">
+                        <thead>
+                            <tr>
+                                <td><b>SNo.</b></td>
+                                <td><b>Type</b></td>
+                                <td>
+                                    <b>
+                                        On Type
+                                    </b>
+                                </td>
+                                <td><b>On Helicopters</b></td>
+                                <td><b>All Types</b></td>
+                                <td><b>IMC Hours</b></td>
+                                <td><b>Remarks</b></td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <b> (a)</b>
+                                </td>
+                                <td>
+                                    <b>Day</b>
+                                </td>
+                                <td>@Html.DisplayFor(m => m.finalAppx.OnHelicoptorDay)</td>
+                                <td>@Html.DisplayFor(m => m.finalAppx.OnHelicoptorDay)</td>
+                                <td>@Html.DisplayFor(m => m.finalAppx.CaptHrsDayOnAllTypes)</td>
+                                <td>@Html.DisplayFor(m => m.finalAppx.IMCDayHrs)</td>
+                                <td>@Html.DisplayFor(m => m.finalAppx.RemarksDay)</td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <b> (b)</b>
+                                </td>
+                                <td>
+                                    <b>Night</b>
+                                </td>
+                                <td>@Html.DisplayFor(m => m.finalAppx.OnHelicoptornight)</td>
+                                <td>@Html.DisplayFor(m => m.finalAppx.OnHelicoptornight)</td>
+                                <td>@Html.DisplayFor(m => m.finalAppx.CaptHrsNightOnAllTypes)</td>
+                                <td>@Html.DisplayFor(m => m.finalAppx.IMCNightHrs)</td>
+                                <td>@Html.DisplayFor(m => m.finalAppx.RemarksNight)</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </td>
+
+            </tr>
+            <tr>
+                <td colspan="6">    <h5>  <label><b><u>CONTINUITY TRAINING</u></b></label>    </h5></td>
+
+            </tr>
+            <tr>
+                <td>    <label><b> Day (Last 03 Months ) </b></label></td>
+                <td>@Html.DisplayFor(m => m.finalAppx.DayHrsLastThreeMonth)</td>
+                <td>  <label><b> Night (Last 06 Months ) </b></label></td>
+                <td>@Html.DisplayFor(m => m.finalAppx.NighHrsLastSixMonth)</td>
+                <td> </td>
+                <td></td>
+            </tr>
+            <tr>
+                <td colspan="6">  <h5> <label><b><u>SPECIAL QUALIFICATION</u></b></label>    </h5></td>
+
+            </tr>
+            <tr>
+                <td>
+                    <label><b> QFI Cat</b></label>
+                </td>
+                <td>@Html.DisplayFor(m => m.finalAppx.QfiCat)</td>
+
+                <td>
+                    <label><b> Date</b></label>
+                </td>
+                <td>@Html.DisplayFor(m => m.finalAppx.QfiDate)</td>
+
+                <td>
+                    <label><b> Total Instr Hrs</b></label>
+                </td>
+                <td>@Html.DisplayFor(m => m.finalAppx.TotalInstHrs)</td>
+            </tr>
+
+            <tr>
+                <td colspan="6">
+                    <h5> <label><b><u>CHECK AVIATORS ENDORSEMENT</u></b></label>   </h5>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td>
+                    <label><b> Awarded On</b></label>
+                </td>
+                <td>@Html.DisplayFor(m => m.finalAppx.CheckAviatorEndorsmentAwardedOn)</td>
+                <td>
+                    <label><b>Comd </b></label>
+                </td>
+                <td>@Html.DisplayFor(m => m.finalAppx.AwardByComdName)</td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td colspan="6">
+                    <h5>  <label><b><u>Appearing GEB </u></b></label>   </h5>
+                </td>
+            </tr>
+
+            <tr>
+                <td>  <label><b> Appearing For</b></label></td>
+
+                <td>@Html.DisplayFor(m => m.finalAppx.AppearingForName)</td>
+                <td>   <label><b> Aircraft Type</b></label></td>
+
+                <td>@Html.DisplayFor(m => m.finalAppx.AircraftTypeName)</td>
+                <td></td>
+                <td></td>
+            </tr>
+
+            <tr>
+                <td colspan="6">
+                    <h5><label><b><u>PART - II RECOMMENDATION BY UNIT COMMANDER</u></b></label>   </h5>
+                </td>
+            </tr>
+            <tr>
+                <td><label><b>Recom For Cat</b></label></td>
+                <td>@Html.DisplayFor(m => m.finalAppx.RecomForCat)</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+        </tbody>
+    </table>
+
+
+
+
+    @using (Html.BeginForm("AppxEPerformance", "GEB", FormMethod.Post, new { enctype = "multipart/form-data" }))
+
+    {
+@Html.HiddenFor(h => h.FinalAppxId)
+
+                <div class="row">
+                    <div class="col-12">
+                        <div style="font-size: 25px;    font-weight: 500;   text-decoration: underline;color: black;  text-align:center">
+                            <label><b><u>PART-III PERFORMANCE DURING EXAMINATION</u></b></label>
+                        </div>
+
+
+                        <div class="row" style="font-size:18px">
+
+                            <div class="col-4">
+                                <h5><b><u>TEST</u></b></h5>
+                            </div>
+
+                            <div class="col-2">
+                                <label><b><u>Date Examined</u></b></label>
+                            </div>
+                            <div class="col-2">
+                                <label><b><u>Grading Attained</u></b></label>
+                            </div>
+                            <div class="col-4">
+                                <label><b><u>Remarks</u></b></label>
+                            </div>
+                        </div>
+                        <div class="row">
+
+                            <div class="col-4" style="font-size:18px">
+                                <h5><b><u>(a) Ground Subjects</u></b></h5>
+                            </div>
+
+                            <div class="col-2">
+
+                            </div>
+                            <div class="col-2">
+
+                            </div>
+                            <div class="col-4">
+
+                            </div>
+                        </div>
+                        <div class="row" style="padding-bottom:15px">
+
+                            <div class="col-4" style="font-size:18px">
+                                <label><b>Flying Subject</b></label>
+                            </div>
+                            <div class="col-2">
+                                @Html.TextBoxFor(m => m.FlgSubDate, new { @class = "form-control datepicker3", @onchange = "Case(this)" })
+                            </div>
+                            <div class="col-2">
+                                @*@Html.TextBoxFor(m => m.FlgSubMarks, new { @class = "form-control", @required = true, @onchange = "Case(this)" })*@
+                                @Html.DropDownListFor(m => m.FlgSubMarks, (new IHSDC.WebApp.Models.MasterModels()).LoadPercentage(), "--Select --", new { @data_show_subtext = "true", @class = "select form-control", @data_live_search = "true" })
+                            </div>
+
+
+                            <div class="col-4">
+                                @Html.TextAreaFor(m => m.FlgSubRemarks, new { @class = "form-control", @onchange = "Case(this)", @style = "Height:40px" })
+                            </div>
+
+                        </div>
+
+                        <div class="row" style="padding-bottom:15px">
+
+                            <div class="col-4" style="font-size:18px">
+                                <label><b>Tactics and Special to Role</b></label>
+                            </div>
+
+                            <div class="col-2">
+                                @Html.TextBoxFor(m => m.TacandSplDate, new { @class = "form-control datepicker3", @onchange = "Case(this)" })
+                            </div>
+                            <div class="col-2">
+                                @Html.DropDownListFor(m => m.TacandSplMarks, (new IHSDC.WebApp.Models.MasterModels()).LoadPercentage(), "--Select --", new { @data_show_subtext = "true", @class = "select form-control", @data_live_search = "true" })
+
+                            </div>
+                            <div class="col-4">
+                                @Html.TextAreaFor(m => m.TacandSplRemarks, new { @class = "form-control", @onchange = "Case(this)", @style = "Height:40px" })
+                            </div>
+
+                        </div>
+
+                        <div class="row" style="padding-bottom:15px">
+
+                            <div class="col-4" style="font-size:18px">
+                                <label><b>Special Bfg (Spl Ex/OP Role)</b></label>
+                            </div>
+
+                            <div class="col-2">
+                                @Html.TextBoxFor(m => m.SplBfgDate, new { @class = "form-control datepicker3", @onchange = "Case(this)" })
+                            </div>
+                            <div class="col-2">
+                                @*@Html.TextBoxFor(m => m.SplBfgMarks, new { @class = "form-control", @required = true, @onchange = "Case(this)" })*@
+                                @Html.DropDownListFor(m => m.SplBfgMarks, (new IHSDC.WebApp.Models.MasterModels()).LoadPercentage(), "--Select --", new { @data_show_subtext = "true", @class = "select form-control", @data_live_search = "true" })
+
+                            </div>
+                            <div class="col-4">
+                                @Html.TextAreaFor(m => m.SplBfgRemarks, new { @class = "form-control", @onchange = "Case(this)", @style = "Height:40px" })
+                            </div>
+
+                        </div>
+
+                        <div class="row">
+
+                            <div class="col-4" style="font-size:18px">
+                                <h5><b><u>(b)  Flying Subjects</u></b></h5>
+                            </div>
+
+                            <div class="col-2">
+
+                            </div>
+                            <div class="col-2">
+
+                            </div>
+                            <div class="col-2">
+
+                            </div>
+                        </div>
+                        <div class="row" style="padding-bottom:15px">
+
+                            <div class="col-4" style="font-size:18px">
+                                <label><b>Day Flying</b></label>
+                            </div>
+                            <div class="col-2">
+                                @Html.TextBoxFor(m => m.DayFlgDate, new { @class = "form-control datepicker3", @onchange = "Case(this)" })
+                            </div>
+                            <div class="col-2">
+                                @*@Html.TextBoxFor(m => m.DayFlgMarks, new { @class = "form-control", @required = true, @onchange = "Case(this)" })*@
+                                @Html.DropDownListFor(m => m.DayFlgMarks, (new IHSDC.WebApp.Models.MasterModels()).LoadPercentage(), "--Select --", new { @data_show_subtext = "true", @class = "select form-control", @data_live_search = "true" })
+                            </div>
+
+
+                            <div class="col-4">
+                                @Html.TextAreaFor(m => m.DayFlgRemarks, new { @class = "form-control", @onchange = "Case(this)", @style = "Height:40px" })
+                            </div>
+
+                        </div>
+
+                        <div class="row" style="padding-bottom:15px">
+
+                            <div class="col-4" style="font-size:18px">
+                                <label><b>Special Exercises</b></label>
+                            </div>
+
+                            <div class="col-2">
+                                @Html.TextBoxFor(m => m.SplExDate, new { @class = "form-control datepicker3", @onchange = "Case(this)" })
+                            </div>
+                            <div class="col-2">
+
+                                @Html.DropDownListFor(m => m.SplExMarks, (new IHSDC.WebApp.Models.MasterModels()).LoadPercentage(), "--Select --", new { @data_show_subtext = "true", @class = "select form-control", @data_live_search = "true" })
+                            </div>
+                            <div class="col-4">
+                                @Html.TextAreaFor(m => m.SplExRemarks, new { @class = "form-control", @onchange = "Case(this)", @style = "Height:40px" })
+                            </div>
+
+                        </div>
+
+                        <div class="row" style="padding-bottom:15px">
+
+                            <div class="col-4" style="font-size:18px">
+                                <label><b>Knowledge of OP Area/Role</b></label>
+                            </div>
+
+                            <div class="col-2">
+                                @Html.TextBoxFor(m => m.OpADate, new { @class = "form-control datepicker3", @onchange = "Case(this)" })
+                            </div>
+                            <div class="col-2">
+
+
+                                @Html.DropDownListFor(m => m.OpAMarks, (new IHSDC.WebApp.Models.MasterModels()).LoadPercentage(), "--Select --", new { @data_show_subtext = "true", @class = "select form-control", @data_live_search = "true" })
+                            </div>
+                            <div class="col-4">
+                                @Html.TextAreaFor(m => m.OpARemarks, new { @class = "form-control", @onchange = "Case(this)", @style = "Height:40px" })
+                            </div>
+
+                        </div>
+                        <div class="row" style="padding-bottom:15px">
+
+                            <div class="col-4" style="font-size:18px">
+                                <label><b>Night Flg (incl instr Flg)</b></label>
+                            </div>
+
+                            <div class="col-2">
+                                @Html.TextBoxFor(m => m.NiFlgDate, new { @class = "form-control datepicker3", @onchange = "Case(this)" })
+                            </div>
+                            <div class="col-2">
+
+                                @Html.DropDownListFor(m => m.NiFlgMarks, (new IHSDC.WebApp.Models.MasterModels()).LoadPercentage(), "--Select --", new { @data_show_subtext = "true", @class = "select form-control", @data_live_search = "true" })
+
+                            </div>
+                            <div class="col-4">
+                                @Html.TextAreaFor(m => m.NiFlgRemarks, new { @class = "form-control", @onchange = "Case(this)", @style = "Height:40px" })
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+
+
+                                <div style="font-size: 25px;    font-weight: 500;   text-decoration: underline;color: black;  text-align:center">
+                                    <label><b><u>REMARKS BY THE EXAMINER</u></b></label>
+                                </div>
+
+
+                                                <div class="row">
+
+                                                    <div class="col">
+                                                        <label><b> Date Of GEB Test</b></label>
+                                                        @Html.TextBoxFor(m => m.DateOfGEB, new { @class = "form-control datepicker3", @required = true, @onchange = "Case(this)" })
+                                                    </div>
+                                                    <div class="col">
+                                                        <label><b>Result of Test</b></label>
+                                                        @*@Html.TextBoxFor(m => m.Result, new { @class = "form-control", @required = true, @onchange = "Case(this)" })*@
+
+                                                        @Html.DropDownListFor(m => m.Result, (new IHSDC.WebApp.Models.MasterModels()).LoadResults(), "--Select Rank --", new { @data_show_subtext = "true", @class = "select form-control", @data_live_search = "true", @required = true })
+                                                    </div>
+
+
+                                                    <div class="col">
+                                                        <label><b>CAT IR Awarded</b></label>
+                                                        @Html.DropDownListFor(m => m.Category, (new IHSDC.WebApp.Models.MasterModels()).LoadCatResult(), "--Select --", new { @data_show_subtext = "true", @class = "select form-control", @data_live_search = "true", @required = true })
+
+                                                    </div>
+                                                </div>
+                                                                <div class="row">
+                                                                    <div class="col">
+                                                                        <label><b> Date Of Awarded</b></label>
+                                                                        @Html.TextBoxFor(m => m.DateOfAward, new { @class = "form-control datepicker3", @required = true, @onchange = "Case(this)" })
+                                                                    </div>
+
+
+                                                                    <div class="col">
+                                                                        <label><b>Good Show</b></label>
+                                                                        @Html.DropDownListFor(m => m.GoodShow, (new IHSDC.WebApp.Models.MasterModels()).LoadGoodShow(), "--Select --", new { @data_show_subtext = "true", @class = "select form-control", @data_live_search = "true" })
+
+                                                                    </div>
+                                                                    <div class="col">
+                                                                        <label><b>Warned For</b></label>
+                                                                        @Html.DropDownListFor(m => m.WarnedFor, (new IHSDC.WebApp.Models.MasterModels()).LoadGoodShow(), "--Select --", new { @data_show_subtext = "true", @class = "select form-control", @data_live_search = "true" })
+                                                                    </div>
+                                                                </div>
+                                                                                <br />
+
+                                                                                                <div class="row">
+                                                                                                    <div class="col-6">
+                                                                                                        <div><label><b>Special Remarks</b></label></div>
+                                                                                                        @Html.TextAreaFor(m => m.SpecialRemarks, new { @class = "form-control", @onchange = "Case(this)", @style = "height:80px;width:800px" })
+
+                                                                                                    </div>
+                                                                                                    <div class="col" style="margin-top:2%;text-align:center">
+                                                                                                        <input type="submit" class="btn btn-success" value="Update" />
+
+                                                                                                    </div>
+
+                                                                                                </div>}
+
+</div>
+
+
+
+<script src="~/Scripts/jquery-3.3.1.js"></script>
+<script src="~/Content/CustomJS/AviatorJS.js"></script>
+<script src="~/Content/css/sweetalert.min.js"></script>
+<link href="~/Content/css/sweetalert.css" rel="stylesheet" />
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryui")
+    @Styles.Render("~/Content/cssjqryUi")
+
+    <script type="text/javascript">
+       var message = '@message';
+    var messageStatus = '@messageStatus';
+    var messagemidStatus = '@messagemidStatus ';
+    if (message)
+            sweetAlert(message, messagemidStatus, messageStatus);
+
+  //      var today = new Date();
+
+  //      $('#SplBfgDate').datepicker({
+		//	uiLibrary: 'bootstrap4',
+		//	dateFormat: "dd/M/yy",
+  //          autoclose: true,
+  //          maxDate: today
+		//});
+  //      $('#DateOfAward').datepicker({
+		//	uiLibrary: 'bootstrap4',
+		//	dateFormat: "dd/M/yy",
+  //          autoclose: true,
+  //          maxDate: today
+  //      }); $('#NiFlgDate ').datepicker({
+  //                  uiLibrary: 'bootstrap4',
+  //                  dateFormat: "dd/M/yy",
+  //          autoclose: true,
+  //          maxDate: today
+  //              });
+  //      //SplExDate
+  //      $('#SplExDate').datepicker({
+  //          uiLibrary: 'bootstrap4',
+  //          dateFormat: "dd/M/yy",
+  //          autoclose: true,
+  //          maxDate: today
+  //      });
+  //      $('#DayFlgDate ').datepicker({
+  //          uiLibrary: 'bootstrap4',
+  //          dateFormat: "dd/M/yy",
+  //          autoclose: true,
+  //          maxDate: today
+  //      }); $('#TacandSplDate  ').datepicker({
+  //          uiLibrary: 'bootstrap4',
+  //          dateFormat: "dd/M/yy",
+  //          autoclose: true,
+  //          maxDate: today
+  //      });
+
+  //      $('#FlgSubDate').datepicker({
+  //          uiLibrary: 'bootstrap4',
+  //          dateFormat: "dd/M/yy",
+  //          autoclose: true,
+  //           maxDate: today
+  //      });
+
+
+  //      $('#DateOfGEB ').datepicker({
+  //          uiLibrary: 'bootstrap4',
+  //          dateFormat: "dd/M/yy",
+  //          autoclose: true,
+  //          maxDate: today
+  //      });
+
+  //      $('#OpADate').datepicker({
+  //          uiLibrary: 'bootstrap4',
+  //          dateFormat: "dd/M/yy",
+  //          autoclose: true,
+  //          maxDate: today
+  //      });
+
+
+    </script>
+}
+
+
+
+

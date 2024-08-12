@@ -1,0 +1,236 @@
+﻿@model IHSDC.WebApp.Models.GEBLetter
+@using IHSDC.WebApp.Models
+@using IHSDC.WebApp.Helper
+@using IHSDC.WebApp.Connection
+@{
+    /**/
+
+    /**/
+
+    var message = TempData["Message"] ?? string.Empty;
+    var messageStatus = TempData["messageStatus"] ?? string.Empty;
+    var messagemidStatus = TempData["messagemidStatus"] ?? string.Empty;
+    ViewBag.Title = "Create GEB";
+    Layout = "~/Views/Shared/_NewAA7Layout.cshtml"; int sno = 0;
+}
+
+
+
+
+
+
+@using (Html.BeginForm("GEBLetter", "GEB", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <div class="card-body" style="box-shadow: -1px 2px 16px 3px;">
+        <br />
+        <div class="col">
+            <a class="btn btn-info float-right" href="@Url.Action("Index","Home")" target="_top" style="margin-top: 2.5rem;">
+                Back
+            </a>
+        </div>
+        @if (SessionManager.RoleId == enum1.AvnDte)
+        {
+            <div class="row">
+                <div class="col">
+                    <label><b>From Date</b></label>
+                    @Html.TextBoxFor(m => m.FromDate, new { @class = "form-control datepicker3", @onkeyup = "ValInData(this)", @required = true, @onchange = "CheckFromDate(this)", @placeholder = "dd/mmm/yyyy" })
+                </div>
+                <div class="col">
+                    <label><b>To Date</b></label>
+                    @Html.TextBoxFor(m => m.ToDate, new { @class = "form-control datepicker3", @onkeyup = "ValInData(this)", @required = true, @onchange = "CheckToDate(this)", @placeholder = "dd/mmm/yyyy" })
+                </div>
+                <div class="col">
+                    <label><b>Ref Letter No with dt</b></label>
+                    @Html.TextBoxFor(m => m.GEBRefNoDt, new { @class = "form-control", @maxlength = "100", @required = true, @onkeyup = "ValInData(this)" })
+                </div>
+                <div class="col">
+                    <label><b>GEB Centre</b></label>
+                    @Html.TextBoxFor(m => m.GEBExamCentre, new { @class = "form-control", @maxlength = "100", @required = true, @onkeyup = "ValInData(this)" })
+                </div>
+            
+                <div class="col" style="margin-top:1.8%">
+
+                    <button type="submit" value="@ViewBag.ButtonName" name="btnval" class="btn btn-success">@ViewBag.ButtonName</button>
+                </div>
+
+            </div>
+        }
+        <br />
+
+       <div class="table-responsive" style=" margin-left: 1rem; padding-right: 2rem;">
+            <table class="table table-striped align-top" id="dataTable" width="100%" cellspacing="0">
+                <thead class="bg-info text-white">
+                    <tr>
+                        <th width="36px" class="center">S/No</th>
+                        <th width="70px" class="center">GEB No</th>
+                        <th class="left" width="100px">From Date</th>
+                        <th class="left" width="100px">To Date</th>
+                        <th class="left" width="230px">Ref No & dt</th>
+                        <th class="left" width="120px">GEB Centre</th>
+                        <th class="center" width="120px">Nominated Aviators</th>
+                        <th width="200px" class="center">Exam Status (open/close)</th>
+                        <th width="75px" class="center">Remarks</th>
+
+
+                    </tr>
+                </thead>
+                <tbody id="tbody">
+                    @if (ViewBag.count > 0)
+                    {
+                        foreach (var item in Model.ILGEBLetter)
+                        {
+                            <tr>
+                                <td class="center">
+                                    @{ sno++; }
+                                    @sno
+                                </td>
+                                <td class="center">@Html.DisplayFor(modelItem => item.GEBLetterId)</td>
+                                <td>@Html.DisplayFor(modelItem => item.FromDate)</td>
+                                <td>@Html.DisplayFor(modelItem => item.ToDate)</td>
+                                <td>@Html.DisplayFor(modelItem => item.GEBRefNoDt)</td>
+                                <td>@Html.DisplayFor(modelItem => item.GEBExamCentre)</td>
+                                <td class="center">
+                                    <a class="btn btn-secondary btn-circle btn-sm" style="color:white;width:35Px;height:23px;font-family:Arial;font-size:14px;text-align:center" onclick="location.href='@Url.Action("GEBAviatorListforGSO", "GEB", new { id = IHSDC.WebApp.RepositryManager.EncryptionManager.Encryption(item.GEBLetterId.ToString()), fid = "0" })'">
+                                        @Html.DisplayFor(modelItem => item.Aviators)
+                                    </a>
+                                </td>
+                                <td class="center">
+                                    @if (item.StatusName == "LOCKED")
+                                    {
+                                        <a id="btnsubmit" data-id='@IHSDC.WebApp.RepositryManager.EncryptionManager.Encryption(item.GEBLetterId.ToString())' data-fid='@IHSDC.WebApp.RepositryManager.EncryptionManager.Encryption(item.StatusName.ToString())' onclick="SubmitGEBConfirmation(this,'/GEB/GEBLetterClose','Do you want to Re-open this GEB ','GEBLetterClose1')">
+                                            <img src="~/images/Reject.png" width="20" height="15" border="0" />
+                                        </a>
+                                    }
+                                    else
+                                    {
+                                        <a id="btnsubmit" data-id='@IHSDC.WebApp.RepositryManager.EncryptionManager.Encryption(item.GEBLetterId.ToString())' data-fid='@IHSDC.WebApp.RepositryManager.EncryptionManager.Encryption(item.StatusName.ToString())' onclick="SubmitGEBConfirmation(this,'/GEB/GEBLetterClose','Do you want to close this GEB','GEBLetterClose')">
+                                            <img src="~/images/CheckSubmit.png" width="20" height="15" border="0" />
+                                        </a>
+                                    }
+                                </td>
+                                <td>@Html.DisplayFor(modelItem => item.StatusName)</td>
+
+                            </tr>
+                        }
+                    }
+                    else
+                    {
+                        <tr><td colspan="4" style="font-weight:600;color:red;text-align:center"> No Record Found!!!</td></tr>
+                    }
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+    <div class="container">
+        <div class="modal fade" id="myModal" role="dialog">
+            <div class="modal-dialog">
+
+                <!-- Modal content-->
+                <div class="modal-content" style="    width: 1000px;margin-left: -47%;margin-top: 26%; eight: 409px;">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <div style="overflow-y:auto; height: 270px;overflow-x:hidden">
+                            <table class="table table-bordered" width="100%" cellspacing="0" id="tbl">
+                                <thead>
+                                    <tr style="    position: fixed;top: 5px;">
+                                        <th class="center">Unit Name</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody id="childTable"></tbody>
+                            </table>
+
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Save</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+}
+<style>
+    .center {
+        text-align: center;
+    }
+</style>
+<script src="~/Scripts/jquery-3.3.1.js"></script>
+<script src="~/Content/CustomJS/GEBSubmit.js"></script>
+<script src="~/Content/CustomJS/AviatorJS.js"></script>
+<script src="~/Content/CustomJS/DeleteConfirmation.js"></script>
+<script src="~/Content/css/sweetalert.min.js"></script>
+<link href="~/Content/css/sweetalert.css" rel="stylesheet" />
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryui")
+    @Styles.Render("~/Content/cssjqryUi")
+
+    <script type="text/javascript">
+       var message = '@message';
+    var messageStatus = '@messageStatus';
+    var messagemidStatus = '@messagemidStatus ';
+    if (message)
+            sweetAlert(message, messagemidStatus, messageStatus);
+
+   //     var today = new Date();
+   //     $('#FromDate').datepicker({
+			//uiLibrary: 'bootstrap4',
+			//dateFormat: "dd/M/yy",
+   //         autoclose: true,
+   //         minDate: today,
+   //        }  );
+        function CheckFromDate(obj) {
+
+            document.getElementById("ToDate").value = null;
+
+            }
+
+   //     $('#ToDate').datepicker({
+   //     uiLibrary: 'bootstrap4',
+			//dateFormat: "dd/M/yy",
+   //         autoclose: true,
+   //         minDate: today
+   //     });
+        function CheckToDate(obj) {
+          // debugger
+            var FromDate = $('#FromDate').val();
+            var ToDate = $(obj).val();
+            var F = new Date(FromDate)
+            var T = new Date(ToDate)
+            if (T < F) {
+                swal("To Date can't be Greater than From Date", "", "warning"); $(obj).val("");
+            }
+
+        }
+//function CancelConfirmation(obj, ActionName) {
+//	swal({
+//		title: "Are you want to sure Cancel this GEB Letter?",
+//		text: "",
+//		type: "warning",
+//		showCancelButton: true,
+//		confirmButtonColor: "#DD6B55",
+//		confirmButtonText: "Yes, Cancel it!",
+//		cancelButtonText: "No, cancel ",
+//		closeOnConfirm: false,
+//		closeOnCancel: false
+//	},
+//		function (isConfirm) {
+//			if (isConfirm) {
+//				var encrypted = $(obj).attr('data-id');
+//				location.href = ActionName + '?gid=' + encrypted;
+//			} else {
+//				swal("GEB Letter is  not Cancel", "", "info");
+//			}
+//		}
+//	);
+//}
+
+
+
+
+    </script>
+}

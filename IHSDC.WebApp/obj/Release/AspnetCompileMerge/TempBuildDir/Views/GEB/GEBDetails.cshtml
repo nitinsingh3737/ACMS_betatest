@@ -1,0 +1,205 @@
+﻿@model IHSDC.WebApp.Models.LetterForwardedGEB
+@using IHSDC.WebApp.Connection
+@{
+    ViewBag.Title = "Details Of Appx E For GEB Module";
+    Layout = "~/Views/Shared/_NewAA7Layout.cshtml";
+}
+<div class="row">
+    <div class="col-12">
+        <input type="button" class="btn btn-success" value="Print" onclick="javascript:printDiv('printablediv')" />
+        <input type="button" id="btnExport" value="Export to Excel" class="btn btn-success" style="padding-left:20px" />
+        <a class="btn btn-info float-right" href="@Url.Action("GEBAviatorList","GEB")" target="_top">
+            Back
+        </a>
+    </div>
+</div>
+@*<div class="row">
+    <div class="col-6" style="text-align:center">
+        <label class="control-label1" ><b>Heading</b></label>
+        <input type="text" value="" class="form-control" id="Heading" />
+    </div>
+    <div class="col-6" style="text-align:center">
+        <label class="control-label1"><b>Sign Block</b></label>
+        <input type="text" value="" class="form-control" id="Signature" />
+
+    </div>
+</div>*@
+
+
+<br />
+<br />
+    <div class="card-body">
+
+        <div class="table-responsive" id="printablediv" >
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <tr>
+                    <td> <label><b> Aviator Name </b></label></td>
+                    <td > <div id="myName">@Html.DisplayFor(m => m.AviatorName)</div></td>
+                    <td>   <label><b> Rank :</b></label></td>
+                    <td> @Html.DisplayFor(m => m.Rank)</td>
+
+                </tr>
+                <tr>
+                    <td>  <label><b> Present Cat </b></label></td>
+                    <td> @Html.DisplayFor(m => m.PresentCatIR)</td>
+                    <td>   <label><b> Present CatIR Date :</b></label></td>
+                    <td> @Html.DisplayFor(m => m.PresentCatIRDate)</td>
+
+                </tr>
+                <tr>
+                    <td> <label><b> Present CatIR On Type </b></label></td>
+                    <td> @Html.DisplayFor(m => m.PresentCatIRType)</td>
+                    <td>
+                        <label>
+                            <b>
+                                Types If Any Other
+                            </b>
+                        </label>
+                    </td>
+                    <td> @Html.DisplayFor(m => m.TypesIfAny)</td>
+
+                </tr>
+                <tr>
+                    <td> <label><b> Special Qualification</b></label></td>
+                    <td> @Html.DisplayFor(m => m.SplQul)</td>
+                    <td>   <label><b> Appearing For</b></label></td>
+                    <td> @Html.DisplayFor(m => m.AppearingFor)</td>
+
+                </tr>
+                <tr>
+                    <td> <label><b> Con Trg Day (Hrs Last 03 Months )</b></label></td>
+                    <td> @Html.DisplayFor(m => m.DayHrsLastThreeMonth)</td>
+                    <td>   <label><b> Con Trg Night (Hrs Last 06 Months )</b></label></td>
+                    <td> @Html.DisplayFor(m => m.NighHrsLastSixMonth)</td>
+
+                </tr>
+
+
+                <tr>
+                    <td> <label><b> Aircraft Type</b></label></td>
+                    <td> @Html.DisplayFor(m => m.AircraftType)</td>
+                    <td>   <label><b> QFI Cat</b></label></td>
+                    <td> @Html.DisplayFor(m => m.QfiCat)</td>
+
+                </tr>
+
+                <tr>
+                    <td> <label><b> QFI Cat Date </b></label></td>
+                    <td> @Html.DisplayFor(m => m.QfiDate)</td>
+                    <td>   <label><b> Total Instr Hrs</b></label></td>
+                    <td> @Html.DisplayFor(m => m.TotalInstHrs)</td>
+
+                </tr>
+
+                <tr>
+                    <td> <label><b> Check Aviator Endorsment Awarded On</b></label></td>
+                    <td> @Html.DisplayFor(m => m.CheckAviatorEndorsmentAwardedOn)</td>
+                    <td>   <label><b> Award By Comd Name </b></label></td>
+                    <td> @Html.DisplayFor(m => m.AwardByComd)</td>
+
+                </tr>
+                <tr>
+                    <td> <label><b> Capt Total Day Hrs On Type</b></label></td>
+                    <td> @Html.DisplayFor(m => m.CaptHrsDayOnAllTypes)</td>
+                    <td>   <label><b> Capt Total Night Hrs On Helicopters</b></label></td>
+                    <td> @Html.DisplayFor(m => m.CaptHrsNightOnAllTypes)</td>
+
+                </tr>
+
+
+
+                <tr>
+                    <td> <label><b> Total Day IMC Hrs</b></label></td>
+                    <td> @Html.DisplayFor(m => m.IMCDayHrs)</td>
+                    <td>   <label><b>Total Night IMC Hrs</b></label></td>
+                    <td> @Html.DisplayFor(m => m.IMCNightHrs)</td>
+
+                </tr>
+                <tr>
+                    <td> <label><b> Total Day Capt Hrs On All Types</b></label></td>
+                    <td> @Html.DisplayFor(m => m.CaptHrsDayOnAllTypes)</td>
+                    <td>   <label><b> Total Night Capt Hrs On All Types </b></label></td>
+                    <td> @Html.DisplayFor(m => m.CaptHrsNightOnAllTypes)</td>
+
+                </tr>
+                <tr>
+                    <td>
+                        <label><b>Recom For Cat</b></label>
+                    </td>
+                    <td>
+                        @Html.DisplayFor(m => m.RecomForCat)
+                    </td>
+                    <td>
+                        <label><b>Recom For IR</b></label>
+                    </td>
+                    <td>
+                        @Html.DisplayFor(m => m.RecomForIR)
+                    </td>
+                </tr>
+                <tr>
+                    <td> <label><b> Day Remarks</b></label></td>
+                    <td colspan="3"> @Html.DisplayFor(m => m.RemarksDay)</td>
+
+
+                </tr>
+                <tr>
+                    <td> <label><b> Night Remarks</b></label></td>
+                    <td colspan="3"> @Html.DisplayFor(m => m.RemarksNight)</td>
+
+                </tr>
+                <tr>
+                    <td> <label><b> Remarks Appearing</b></label></td>
+                    <td colspan="3"> @Html.DisplayFor(m => m.RemarksAppearing)</td>
+
+                </tr>
+
+
+            </table>
+
+        </div>
+
+    </div>
+    <script src="~/NewContent/vendor/jquery/jquery.min.js"></script>
+    <script src="~/Content/CustomJS/AviatorJS.js"></script>
+    <script src="~/Content/css/sweetalert.min.js"></script>
+    <link href="~/Content/css/sweetalert.css" rel="stylesheet" />
+
+
+    <script>
+
+        function printDiv(divID) {
+           // debugger;
+            //Get the HTML of div
+            var divElements = document.getElementById(divID).innerHTML;
+            //Get the HTML of whole page
+            var oldPage = document.body.innerHTML;
+            var Heading = "Application of " + $('#myName').text();// .text se hua kyonki Div Mein hai 
+            var Signature = "Print From AA7 Application" /*$('#Signature').val()*/;
+            //Reset the page's HTML with div's HTML only
+                       document.body.innerHTML =
+                '<html>' +
+            '<head><h1 style="text-align:center">' + Heading + '</h1></head>' +
+
+                '<body>'+ divElements +
+                '<br /><br /><br /><div class="row" style="text-align:center;margin-left:80%"><h3>' + Signature + '</h3></div>' +'</body>'
+            '</html>';
+            window.print();
+           document.body.innerHTML = oldPage;
+        }
+
+        $("#btnExport").click(function (e) {
+            let file = new Blob([$('#printablediv').html()], { type: "application/vnd.ms-excel" });
+          //  debugger;
+            let url = URL.createObjectURL(file);
+
+            let a = $("<a />", {
+                href: url,
+                download: "filename.xls"
+            })
+                .appendTo("body")
+                .get(0)
+                .click();
+            e.preventDefault();
+        });
+
+    </script>

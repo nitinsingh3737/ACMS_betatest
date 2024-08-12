@@ -1,0 +1,213 @@
+﻿@model IHSDC.WebApp.Models.NominalRollForGEB
+@using IHSDC.WebApp.Connection
+@{
+
+
+    ViewBag.Title = "Appx C";
+    Layout = "~/Views/Shared/_NewAA7Layout.cshtml"; int sno = 0;
+}
+<style id="table_style" type="text/css">
+    body {
+        font-family: Arial;
+        font-size: 10pt;
+    }
+
+    table {
+        border: 1px solid #808080;
+        border-collapse: collapse;
+    }
+
+        table th {
+            background-color: #e8e8e8 !important;
+            print-color-adjust: exact;
+            color: #333;
+            font-weight: bold;
+        }
+
+        table th, table td {
+            padding: 5px;
+            border: 1px solid #000000;
+        }
+
+    @@media print {
+        @@page {
+            size: A4 portrait;
+            margin-top: 10px;
+            margin-bottom: 10px;
+        }
+
+        body::after {
+            content: none !important;
+        }
+
+        .card-page {
+            break-after: page;
+        }
+
+            .card-page:last-of-type {
+                break-after: auto;
+            }
+
+        footer {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 10px;
+            background-color: gray;
+            color: white;
+            text-align: center;
+            padding: 10px;
+        }
+
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 10px;
+            background-color: gray;
+            color: white;
+            text-align: center;
+            padding: 10px;
+        }
+    }
+</style>
+<body>
+    <div class="card-body" style="box-shadow: -1px 2px 16px 3px; padding: 0.5rem;">
+        <div class="row">
+            <div class="col">
+                <a class="btn btn-info float-right mb-1" href="javascript:history.back()" target="_top">Back</a>
+                <input type="button" class="btn btn-info float-left" id="btnExport" value="Export Pdf" onclick="PrintDiv()" />
+            </div>
+        </div>
+        <div class="page" id="printAppxC" style="background-color:lightcyan">
+            <header style="text-align:center"><span><b><u>RESTRICTED</u></b></span></header>
+            <br />
+            <br />
+            <div class="row  float-right" style="text-align:right;margin-right:10px">
+                <div class="col-12">
+                    <b><u>Appendix C</u></b>
+                    <br />
+                    <b>
+                        <span>(Refers to Para 22</span><br />
+                        <span>AO : 15/2020/AA-7)</span>
+                    </b>
+                </div>
+            </div>
+            <div class="row" style="margin-top: 5px; text-align:center">
+                <div class="col-12">
+                    <span style="text-align:center"><b><u>LIST OF AVIATORS TO APPEAR BEFORE THE GEB DURING THE VISIT IN THE MONTH OF : @ViewBag.GEBMonth</u></b></span>
+                </div>
+            </div>
+            <br />
+            <div class="table-responsive">
+                <table class="table table-striped align-top" id="dataTable" width="100%" cellspacing="0">
+                    <thead class="bg-info text-white">
+                        <tr style="text-align:center">
+                            <th rowspan="3">Ser</th>
+                            <th rowspan="3">Unit</th>
+                            <th rowspan="3">IC No, Rank and Name</th>
+                            <th rowspan="3">Present Cat/IR</th>
+                            <th rowspan="3">Type and Date of Award</th>
+                            <th rowspan="3">Date of Expiry</th>
+                            <th rowspan="3">Now Appearing For</th>
+                            <th rowspan="3">Remarks</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+
+                        @foreach (var item in Model.ILLetterForwardedGEB)
+                        {
+                            <tr>
+                                <td>
+                                    @{ sno++; }
+                                    @sno
+                                </td>
+                                <td>
+                                    <label>@item.UnitName</label>
+                                </td>
+                                <td>
+                                    <label>@item.ANumber  @item.RankName  @item.AviatorName</label>
+                                </td>
+                                <td>
+                                    <label>@item.PresentCatIR</label>
+                                </td>
+                                <td>
+                                    <label>@item.DateandTypeAward</label>
+                                </td>
+                                <td>
+                                    <label>@item.DateofExpiry</label>
+                                </td>
+                                <td>
+                                    <label>@item.AppearingForName</label>
+                                </td>
+                                <td>
+                                    <label>@item.RemarksAppearing</label>
+                                </td>
+
+
+                            </tr>
+
+
+                        }
+
+
+
+                    </tbody>
+                </table>
+
+            </div>
+            <footer style="text-align:center"><span style="text-align:center"><b><u>RESTRICTED</u></b></span></footer>
+        </div>
+
+        <!--<form action="~/Home/Upload" method="post" id="myForm">-->
+        @*<input type="hidden" name="data1" id="data1">*@
+        <!--<input type="hidden" name="filename" id="filename" value="AppxC">
+
+        </form>-->
+    </div>
+</body>
+<script src="~/Scripts/jquery-3.3.1.min.js"></script>
+<script src="~/Scripts/pdfmake.min.js"></script>
+<script src="~/Scripts/html2canvas.min.js"></script>
+<script>
+    //$("body").on("click", "#btnExport", function () {
+    //    //debugger;
+    //    html2canvas($('#printAppxC')[0], {
+    //        onrendered: function (canvas) {
+    //            var data = canvas.toDataURL();
+    //            var docDefinition = {
+    //                content: [{
+    //                    image: data,
+    //                    width: 500
+    //                }]
+    //            };
+    //           /// pdfMake.createPdf(docDefinition).download("AppxC.pdf");
+    //            const pdfDocGenerator = pdfMake.createPdf(docDefinition);
+    //            pdfDocGenerator.getBase64((data) => {
+    //                $('#data1').val(data);
+    //                $("#myForm").submit();
+    //            });
+    //        }
+
+    //    });
+
+    //});
+
+    function PrintDiv() {
+        var divToPrint = document.getElementById('printAppxC');
+        var popupWin = window.open('', '_blank', 'top=100,width=900,height=500,location=no');
+        popupWin.document.open();
+        var table_style = document.getElementById("table_style").innerHTML;
+        popupWin.document.write('<style type = "text/css">');
+        popupWin.document.write(table_style);
+        popupWin.document.write('</style>')
+        popupWin.document.title = 'AppxC_' + '@ViewBag.GEBRefNo';
+        popupWin.document.write('<html><body onload="window.print()">' + divToPrint.innerHTML + '<div style="transform: rotate(-45deg);z-index:10000;opacity: 0.3;color: BLACK; position:fixed;top: auto; left: 6%; top: 39%;color: #8e9191;font-size: 80px; font-weight: 500px;display: grid;justify-content: center;align-content: center;">' + '@(ViewBag.ipadd)' + "" + '</html>');
+        popupWin.document.close();
+    }
+
+</script>
+

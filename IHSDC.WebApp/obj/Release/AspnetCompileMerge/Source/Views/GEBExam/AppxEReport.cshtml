@@ -1,0 +1,643 @@
+﻿@model IHSDC.WebApp.Models.AppxEPerformance
+@{ ViewBag.Title = "Appx E Report";
+    Layout = "~/Views/Shared/_NewAA7Layout.cshtml"; }
+
+
+
+<style id="table_style" type="text/css">
+    body {
+        font-family: Arial;
+        font-size: 10pt;
+    }
+
+    table {
+        border: 1px solid #808080;
+        border-collapse: collapse;
+    }
+
+        table th {
+            background-color: #e8e8e8 !important;
+            print-color-adjust: exact;
+            color: #333;
+            font-weight: bold;
+        }
+
+        table th, table td {
+            padding: 5px;
+            border: 1px solid #000000;
+        }
+
+    @@media print {
+        @@page {
+            size: A4 portrait;
+            margin-top: 10px;
+            margin-bottom: 10px;
+        }
+
+        body::after {
+            content: none !important;
+        }
+
+        .card-page {
+            break-after: page;
+        }
+
+            .card-page:last-of-type {
+                break-after: auto;
+            }
+
+        footer {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 10px;
+            background-color: gray;
+            color: white;
+            text-align: center;
+            padding: 10px;
+        }
+
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 10px;
+            background-color: gray;
+            color: white;
+            text-align: center;
+            padding: 10px;
+        }
+    }
+</style>
+
+
+
+<body>
+    <div class="card-body" style="box-shadow: -1px 2px 16px 3px; padding: 0.3rem;">
+        <div class="row">
+            <div class="col">
+                <a class="btn btn-info float-right mb-1" href="javascript:history.back()" target="_top">Back</a>
+                <input type="button" class="btn btn-info float-left" id="btnExport" value="Export Pdf" onclick="PrintDiv()" />
+            </div>
+        </div>
+        <div class="card-columns card-page">
+            <div class="card-body" id="PrintAppxE" style="background-color:lightcyan">
+                <header style="text-align:center"><span><b><u>RESTRICTED</u></b></span></header>
+                <br />
+                <br />
+                <div class="row" style="text-align:right;margin-right:10px">
+                    <div class="col-12">
+                        <b><u>Appendix E</u></b>
+                        <br />
+                        <b>
+                            <span>(Refers to para 22(a) of </span><br />
+                            <span>AO : 15/2020/AA-7)</span>
+                        </b>
+                    </div>
+                </div>
+                <div class="row" style="text-align:center">
+                    <div class="col-1"></div>
+                    <div class="col-10">
+                        <span style="font-size: 18px;font-weight: 700;  text-decoration: underline;text-align:center;">ARMY AVIATION</span><br />
+                        <span style="font-size: 16px; font-weight: 700; text-decoration: underline; text-align: center;">APPLICATION AND PERFORMANCE FORM FOR AVIATORS GRADATION </span><br />
+                        <span style="font-size: 16px; font-weight: 700; text-decoration: underline; text-align: center;">PART-I :AVIATORS PERSONAL DATA </span><br />
+                        <span style="text-align: center;font-size: 14px;font-weight: 100;"><u>(To be completed by the aviators)</u></span>
+                    </div>
+                    <br />
+                    <div class="col-1"></div>
+                </div>
+
+                <div class="container">
+                    <div class="row">
+                        <div class="col-12" style="color:black;">
+                            <span style="margin-right: 10px"><b>1.</b></span> <span>No</span> &nbsp;&nbsp;&nbsp;<span><b><u>@Model.finalAppx.ANumber</u></b></span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span>Rank&nbsp;&nbsp;</span> &nbsp;&nbsp;&nbsp;<span><b><u>@Model.finalAppx.RankName</u></b></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span>Name&nbsp;&nbsp;</span> &nbsp;&nbsp;&nbsp;<span><u><b>@Model.finalAppx.AviatorName</b></u></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span>Unit&nbsp;&nbsp;</span> &nbsp;&nbsp;&nbsp;<span><u><b>@Model.finalAppx.UnitName</b></u></span>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span>Corps&nbsp;&nbsp;</span> &nbsp;&nbsp;&nbsp;<span><b><u>@Model.finalAppx.Col1</u></b></span>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span>
+                                <br />
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Command&nbsp;&nbsp;
+                            </span> &nbsp;&nbsp;&nbsp;<span><b><u>@Model.finalAppx.ComdName</u></b></span>
+
+                        </div>
+                    </div>
+                    <div class="row" style="    margin-top: 12px;">
+                        <div class="col-12" style="color:black;">
+                            <b> <span style="margin-right: 10px">2.</span></b>
+                            <span>Aircraft Type</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span><b><u>@Model.finalAppx.AircraftTypeName</u></b></span>
+                        </div>
+                    </div>
+
+                    <div class="row" style="margin-top: 12px;">
+                        <div class="col-12" style="color:black;">
+                            <b><span style="margin-right: 10px">3.</span></b>
+                            <span> Category / Instrument Rating Held (with Date)  </span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span><u><b> @Model.finalAppx.PresentCatIR   @Model.finalAppx.PresentCatIRDate </b></u>   </span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span> Type </span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span><u><b> @Model.finalAppx.PresentCatIRType</b></u></span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <span> Other Type (s) if any </span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span><u><b>@Model.finalAppx.TypesIfAny</b></u></span>
+                        </div>
+                    </div>
+
+                    <div class="row" style="    margin-top: 12px;">
+                        <div class="col-12" style="color:black;">
+                            <b><span style="margin-right: 10px">4.</span></b>
+                            <u><span> Details Of Flying Experience (Captain Hours)</span></u>
+                            <table width="100%" class="table table-striped align-top" style="    margin-top: 10px;">
+                                <thead class="bg-light">
+                                    <tr style="text-align:center">
+                                        <td><b>Ser</b></td>
+                                        <td><b></b></td>
+                                        <td>
+                                            <b>
+                                                On Type
+                                            </b>
+                                        </td>
+                                        <td><b>On Helicopters</b></td>
+                                        <td><b>All Types</b></td>
+                                        <td><b>IMC Hours</b></td>
+                                        <td><b>Remarks</b></td>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr style="text-align:center">
+                                        <td>
+                                            (a)
+                                        </td>
+                                        <td>
+                                            Day
+                                        </td>
+                                        <td>@Model.ConvertFlyingHrs(@Model.finalAppx.OnHelicoptorDay)</td>
+                                        <td>@Model.ConvertFlyingHrs(@Model.finalAppx.OnHelicoptorDay)</td>
+                                        <td>@Model.ConvertFlyingHrs(@Model.finalAppx.CaptHrsDayOnAllTypes)</td>
+                                        <td>@Model.ConvertFlyingHrs(@Model.finalAppx.IMCDayHrs)</td>
+                                        <td>@Model.finalAppx.RemarksDay</td>
+
+
+                                    </tr>
+                                    <tr style="text-align:center">
+                                        <td>
+                                            (b)
+                                        </td>
+                                        <td>
+                                            Night
+                                        </td>
+                                        <td>@Model.ConvertFlyingHrs(@Model.finalAppx.OnHelicoptornight)</td>
+                                        <td>@Model.ConvertFlyingHrs(@Model.finalAppx.OnHelicoptornight)</td>
+                                        <td>@Model.ConvertFlyingHrs(@Model.finalAppx.CaptHrsNightOnAllTypes)</td>
+                                        <td>@Model.ConvertFlyingHrs(@Model.finalAppx.IMCNightHrs)</td>
+                                        <td>@Html.DisplayFor(m => m.finalAppx.RemarksNight)</td>
+
+
+
+                                    </tr>
+                                    <tr style="text-align:center">
+                                        <td>
+                                        </td>
+                                        <td>
+                                            <b>Total</b>
+                                        </td>
+                                        <td><b>@Model.ConvertFlyingHrs(@Model.finalAppx.OnHelicoptorDay + @Model.finalAppx.OnHelicoptornight)</b></td>
+                                        <td><b>@Model.ConvertFlyingHrs(@Model.finalAppx.OnHelicoptorDay + @Model.finalAppx.OnHelicoptornight)</b></td>
+                                        <td><b>@Model.ConvertFlyingHrs(@Model.finalAppx.CaptHrsNightOnAllTypes + @Model.finalAppx.CaptHrsDayOnAllTypes)</b></td>
+                                        <td><b>@Model.ConvertFlyingHrs(@Model.finalAppx.IMCNightHrs + @Model.finalAppx.IMCNightHrs)</b></td>
+
+
+                                        <td></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                        </div>
+                    </div>
+
+
+                    <div class="row" style="    margin-top: 12px;">
+                        <div class="col-12" style="color:black;">
+                            <b><span style="margin-right: 10px">5.</span></b>
+                            <u><span>Continuity Training </span></u> <br />
+                            <div style="margin-top: 9px;">
+                                <span style="margin-left: 25px;">(a)   Day  </span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span><u><b>@Model.finalAppx.DayHrsLastThreeMonth</b></u>  </span> &nbsp;&nbsp;(Last three months)
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                <span>(b)  Night   </span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span><u><b>@Model.finalAppx.NighHrsLastSixMonth</b></u></span>&nbsp;&nbsp;(Last six months)
+                                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                <span>(c)  SIF   </span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span><u><b>@Model.finalAppx.SIFHrs</b></u></span>&nbsp;&nbsp;
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="row" style="    margin-top: 12px;">
+                        <div class="col-12" style="color:black;">
+                            <b><span style="margin-right: 10px">6.</span></b>
+                            <span><u>Special Qualifications</u></span><br />
+                            <div style="margin-top: 9px;">
+                                <span style="margin-left: 25px;">(a)   Instructor Cat (with date) </span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span><u><b>@Model.finalAppx.SplQul   -  @Model.finalAppx.QfiDate </b></u>  </span> &nbsp;&nbsp;
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                <span>Total Instructional Hours  </span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span><u><b>@Model.finalAppx.TotalInstHrs</b></u></span>&nbsp;&nbsp;
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                <br />
+                                <br />
+                                <span style="margin-left: 25px;">(b) Check Aviators/Combat Instructor endorsement awarded on</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span><u><b>@Model.finalAppx.CheckAviatorEndorsmentAwardedOn</b></u></span> &nbsp;&nbsp;
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;at &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span><u><b>@Model.finalAppx.UnitName</b></u></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>Unit and </span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span><u><b>@Model.finalAppx.AwardByComd</b></u></span>&nbsp;&nbsp;Command
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                <br />
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <br />
+                    <div class="row">
+                        <div class="col-12" style="color:black;">
+                            <div class="row">
+                                <div class="col-6">
+                                    <div class="row" style="text-align:left">
+                                        <span style="margin-right: 35px"><b>Date : </b></span>
+
+                                    </div>
+
+                                </div>
+                                <div class="col-6">
+                                    <div class="row float-right" style="text-align:right">
+                                        <span style="margin-right: 50px"><b>(Signature of Aviator)</b></span>
+                                    </div>
+                                    <br />
+                                    <div class="row float-right" style="text-align:right">
+                                        <span style="margin-right: 150px"><b>Name :</b></span>
+                                    </div>
+                                    <br />
+                                    <div class="row float-right" style="text-align:right">
+                                        <span style="margin-right: 150px"><b>Rank :</b></span>
+
+                                    </div>
+                                </div>
+                            </div>
+
+
+                        </div>
+
+                    </div>
+
+                    <br />
+                    <br />
+                    <div class="row" style="text-align: center">
+                        <div class="col-12" style="text-align: center; font-size: 16px; font-weight: 700;">
+                            <span style="font-size: 16px; font-weight: 700; text-decoration: underline; text-align: center">PART - II RECOMMENDATIONS BY UNIT COMMANDER</span><br />
+                        </div>
+                    </div>
+                    <br />
+                    <br />
+
+                    <div class="row" style="    margin-top: 12px;">
+                        <div class="col-12" style="color:black;">
+                            <b><span style="margin-right: 10px">7.</span></b>
+                            <span>Recommended for (Cat /IR)  </span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>______________________________</span>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col-12" style="color:black;">
+                            <div class="row">
+                                <div class="col-6" style="text-align:left">
+                                    <div class="row">
+                                        <span style="margin-right: 35px"><b>Date : </b></span>
+                                    </div>
+                                </div>
+                                <div class="col-6" style="text-align:right">
+                                    <div class="row float-right">
+                                        <span style="margin-right: 10px"><b>(Signature of Unit Commander)</b></span>
+                                    </div>
+                                    <br />
+                                    <div class="row float-right">
+                                        <span style="margin-right: 165px"><b>Name :</b></span>
+                                    </div>
+                                    <br />
+                                    <div class="row float-right">
+                                        <span style="margin-right: 165px"><b>Rank :</b></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <div class="row" style="text-align: center">
+                        <div class="col-12" style="text-align: center; font-size: 16px; font-weight: 700;">
+                            <span style="font-size: 16px; font-weight: 700; text-decoration: underline; text-align: center">PART-III PERFORMANCE DURING EXAMINATION</span><br />
+                            <span style="text-align: center;font-size: 14px;font-weight: 100;"><u>(To be filled by the examiner)</u></span>
+                        </div>
+                    </div>
+                    <div class="row" style="    margin-top: 12px;">
+                        <div class="col-12" style="color:black;">
+                            <b><span style="margin-right: 10px">8.</span></b>
+                            <span><u>Grading Obtained</u></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        </div>
+                    </div>
+                    <table width="100%" class="table table-striped align-top" style="margin-top: 10px;">
+                        <thead class="bg-info text-white">
+                            <tr style="text-align: center;">
+                                <th class="center" rowspan="2">Test</th>
+                                <th></th>
+                                <th class="center" rowspan="2">Date Examined</th>
+                                <th class="center" rowspan="2">Grading Attained</th>
+                                <th class="center" rowspan="2">Remarks</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr style="text-align: left;">
+                                <td><b><u>Ground Subjects</u></b></td>
+                            </tr>
+                            <tr style="text-align: left;">
+                                <td>Flying Subject</td>
+                                <td></td>
+                                <td>@Model.FlgSubDate</td>
+                                @if (Model.FlgSubMarks == 0)
+                                {
+                                    <td></td>
+
+                                }
+                                else
+                                {
+                                    <td>@Model.FlgSubMarks</td>
+                                }
+                                <td>@Model.FlgSubRemarks</td>
+                            </tr>
+                            <tr style="text-align: left;">
+                                <td>Tactics and Special to Role</td>
+                                <td rowspan="2" style="text-align:center; vertical-align:middle">Any One</td>
+                                <td>@Model.TacandSplDate</td>
+                                @if (Model.TacandSplMarks == 0)
+                                {
+                                    <td></td>
+                                }
+                                else
+                                {
+                                    <td>@Model.TacandSplMarks</td>
+                                }
+                                <td>@Model.TacandSplRemarks</td>
+                            </tr>
+                            <tr style="text-align: left;">
+                                <td>Supervisory</td>
+                                <td>@Model.SplBfgDate</td>
+                                @if (Model.SplBfgMarks == 0)
+                                {
+                                    <td></td>
+                                }
+                                else
+                                {
+                                    <td>@Model.SplBfgMarks</td>
+                                }
+                                <td>@Model.SplBfgRemarks</td>
+                            </tr>
+                            <tr style="text-align: left;">
+                                <td><b><u>Flying Subjects</u></b></td>
+                            </tr>
+                            <tr style="text-align: left;">
+                                <td>Day Flying</td>
+                                <td rowspan="3" style="text-align: center; vertical-align: middle">Minimum One Test</td>
+                                <td>@Model.DayFlgDate</td>
+                                @if (Model.DayFlgMarks == 0)
+                                {
+                                    <td></td>
+                                }
+                                else
+                                {
+                                    <td>@Model.DayFlgMarks</td>
+                                }
+                                <td>@Model.DayFlgRemarks</td>
+                            </tr>
+                            <tr style="text-align: left;">
+                                <td>Special Exercises/Role Specific</td>
+                                <td>@Model.SplExDate</td>
+                                @if (Model.SplExMarks == 0)
+                                {
+                                    <td></td>
+                                }
+                                else
+                                {
+                                    <td>@Model.SplExMarks</td>
+                                }
+                                <td>@Model.SplExRemarks</td>
+                            </tr>
+                            <tr style="text-align: left;">
+                                <td>Knowledge of Operational Area/Navigation</td>
+                                <td>@Model.OpADate</td>
+                                @if (Model.OpAMarks == 0)
+                                {
+                                    <td></td>
+                                }
+                                else
+                                {
+                                    <td>@Model.OpAMarks</td>
+                                }
+                                <td>@Model.OpARemarks</td>
+                            </tr>
+
+                            <tr style="text-align: left;">
+                                <td>Night Flying</td>
+                                <td rowspan="2" style="text-align: center; vertical-align: middle">Min One Test</td>
+                                <td>@Model.NiFlgDate</td>
+                                @if (Model.NiFlgMarks == 0)
+                                {
+                                    <td></td>
+                                }
+                                else
+                                {
+                                    <td>@Model.NiFlgMarks</td>
+                                }
+                                <td>@Model.NiFlgRemarks</td>
+                            </tr>
+                            <tr style="text-align: left;">
+                                <td>Instrument Flying</td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <br />
+                    <div class="row" style="    margin-top: 12px;">
+                        <div class="col-12" style="color:black;">
+                            <b><span style="margin-right: 10px">9.</span></b>
+                            <span><u>Remarks by the examiner</u></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br />
+                            <br />
+                            <span style="margin-left: 20px;">(a)   Category/ Instrument Rating Awarded  </span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span><u>@Model.Category</u>   </span>
+                            <br />
+                            <span style="margin-left: 20px;">(b)  Date  of Award  </span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span><u>@Model.DateOfAward</u>   </span>
+                            <br />
+                            <span style="margin-left: 20px;">(c)  Special Remarks </span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span><u>@Model.SpecialRemarks </u>  </span>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col-12" style="color:black;">
+                            <div class="row" style="text-align:right">
+                                <div class="col-6" style="text-align:left">
+                                    <div class="row">
+                                        <span style="margin-right:25px;margin-left:10px"><b>Place :</b></span>
+                                        <span>  </span>
+                                    </div>
+                                    <div class="row">
+                                        <span style="margin-right: 25px; margin-left: 10px"><b>Date :</b></span>
+                                    </div>
+
+                                </div>
+                                <div class="col-6" style="text-align:right">
+                                    <div class="row float-right">
+                                        <span style="margin-right: 35px"><b>Signature :</b></span>
+                                        <span style="    margin-left: 36px;">_________________________  </span>
+                                    </div>
+                                    <div class="row float-right">
+                                        <span style="margin-right: 35px"><b>Name :</b></span>
+                                        <span style="    margin-left: 61px;">_________________________  </span>
+                                    </div>
+                                    <div class="row float-right">
+                                        <span style="margin-right: 35px"><b>Rank :</b></span>
+                                        <span style="    margin-left: 65px;">_________________________  </span>
+                                    </div>
+                                    <div class="row float-right">
+                                        <span style="margin-right: 35px"><b>Designation :</b></span>
+                                        <span style="    margin-left: 21px;">_________________________ </span>
+                                    </div>
+
+                                </div>
+                            </div>
+
+
+                        </div>
+
+                    </div>
+                    <br />
+                    <br />
+                    <div class="row" style="text-align: center">
+                        <div class="col-12" style="text-align: center; font-size: 16px; font-weight: 700;">
+                            <span style="font-size: 16px; font-weight: 700; text-decoration: underline; text-align: center">PART - IV ACTION BY THE GEB</span><br />
+                        </div>
+                    </div>
+                    <br />
+                    <br />
+
+                    <div class="row" style="    margin-top: 6px;">
+                        <div class="col-12" style="color:black;">
+                            <b><span style="margin-right: 10px">10.</span></b>
+                            <span>Aviator's Gradation Card No  </span><span>_______________________________</span>issued/endorsed
+                        </div>
+                    </div>
+
+                    <div class="row" style="    margin-top: 12px;">
+                        <div class="col-12" style="color:black;">
+
+                        </div>
+
+                    </div>
+
+                    <div class="row">
+                        <div class="col-12" style="color:black;">
+                            <div class="row">
+                                <div class="col-6" style="text-align:left">
+                                    <div class="row">
+                                        <span style="margin-right: 25px;margin-left:10px"><b>Date  </b></span>
+                                    </div>
+
+                                </div>
+                                <div class="col-6" style="text-align:right">
+                                    <div class="row float-right">
+                                        <span style="margin-right: 35px"><b>Signature </b></span>
+                                        <span style="    margin-left: 36px;">_________________________  </span>
+                                    </div>
+                                    <div class="row float-right">
+                                        <span style="margin-right: 35px"><b>Name</b></span>
+                                        <span style="    margin-left: 61px;">_________________________  </span>
+                                    </div>
+                                    <div class="row float-right">
+                                        <span style="margin-right: 35px"><b>Rank </b></span>
+                                        <span style="    margin-left: 65px;">_________________________  </span>
+                                    </div>
+                                    <div class="row float-right">
+                                        <span style="margin-right: 35px"><b>Designation </b></span>
+                                        <span style="    margin-left: 21px;">_________________________ </span>
+                                    </div>
+
+                                </div>
+                            </div>
+
+
+                        </div>
+
+
+                    </div>
+
+
+                    <div class="row" style="margin-top: 12px;">
+                        <div class="col-12" style="color:black;">
+                            <b> <span style="margin-right: 10px;margin-left: 10px;">Note</span></b><br />
+                            <span style="margin-left: 10px;"> 1.</span> <span style="font-weight: 500;"> Two copies of the from to be handed over to the examiner along with the Aviator Gradation Card prior to </span><br />
+                            <span style="font-weight: 500;margin-left: 25px;">the commencenment of test</span><br />
+                            <span style="margin-left: 10px;"> 2.</span> <span style="font-weight: 500;"> Application to be printed on one sheet </span>
+                        </div>
+                    </div>
+                </div>
+                <footer style="text-align:center"><span style="text-align:center"><b><u>RESTRICTED</u></b></span></footer>
+            </div>
+        </div>
+        <form action="~/Home/Upload" method="post" id="myForm">
+            <input type="hidden" name="data1" id="data1">
+            <input type="hidden" name="filename" id="filename" value="AppxE">
+
+        </form>
+    </div>
+</body>
+
+
+
+
+<script src="~/Scripts/jquery-3.3.1.min.js"></script>
+<script src="~/Scripts/pdfmake.min.js"></script>
+<script src="~/Scripts/html2canvas.min.js"></script>
+<script>
+
+    //$("body").on("click", "#btnExport", function () {
+    //    // debugger;
+    //    html2canvas($('#PrintAppxE')[0], {
+    //        onrendered: function (canvas) {
+    //            var data = canvas.toDataURL();
+    //            var docDefinition = {
+    //                content: [{
+    //                    image: data,
+    //                    width: 500
+    //                }]
+    //            };
+    //            // pdfMake.createPdf(docDefinition).download("AppxE.pdf");
+    //            const pdfDocGenerator = pdfMake.createPdf(docDefinition);
+    //            pdfDocGenerator.getBase64((data) => {
+    //                $('#data1').val(data);
+    //                $("#myForm").submit();
+    //            });
+    //        }
+    //    });
+    //});
+
+    function PrintDiv() {
+        var divToPrint = document.getElementById('PrintAppxE');
+        var popupWin = window.open('', 'AppxE', 'top=100,width=1000,height=500,location=no');
+        popupWin.document.open();
+        var table_style = document.getElementById("table_style").innerHTML;
+        popupWin.document.write('<style type = "text/css">');
+        popupWin.document.write(table_style);
+        popupWin.document.write('</style>')
+        popupWin.document.title = 'AppxE_' + '@ViewBag.FileName';
+        popupWin.document.write('<html><body onload="window.print()">' + divToPrint.innerHTML + '<div style="transform: rotate(-45deg);z-index:10000;opacity: 0.3;color: BLACK; position:fixed;top: auto; left: 6%; top: 39%;color: #8e9191;font-size: 80px; font-weight: 500px;display: grid;justify-content: center;align-content: center;">' + '@(ViewBag.ipadd)' + "" + '</html>');
+        popupWin.document.close();
+    }
+
+</script>

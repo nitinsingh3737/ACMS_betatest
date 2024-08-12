@@ -1,0 +1,256 @@
+﻿
+
+@model IHSDC.WebApp.Models.AviatorCRUD
+@using IHSDC.WebApp.Connection
+@using IHSDC.WebApp.Helper
+@{
+
+    var message = TempData["Message"] ?? string.Empty;
+    var messageStatus = TempData["messageStatus"] ?? string.Empty;
+    var messagemidStatus = TempData["messagemidStatus"] ?? string.Empty;
+    ViewBag.Title = "Aviator For Appx" ;
+    Layout = "~/Views/Shared/_NewAA7Layout.cshtml"; int sno = 0;
+}
+
+
+<div class="card-body" style="box-shadow: -1px 2px 16px 3px; padding: 0.5rem;">
+
+    <div class="card-body" id="lowzoom">
+        <div class="col">
+
+            <a class="btn btn-info float-right" href="@Url.Action("UserGEBList","GEB")" target="_top">
+                Back
+            </a>
+        </div>
+        <div>
+            <a class="btn btn-secondary" style="color: white; width: 150Px; height: 25px; font-family: Arial; font-size: 14px; text-align: center; padding-bottom: 30px; background-color: #044C92 !important;; " onclick="location.href='@Url.Action("AppxCReport", "GEBExam", new { gid = IHSDC.WebApp.RepositryManager.EncryptionManager.Encryption(Model.GEBLetterID.ToString())})'">
+                Generate Appx C
+            </a>
+            <span>|</span>
+            <a class="btn btn-secondary" style="color: white; width: 150Px; height: 25px; font-family: Arial; font-size: 14px; text-align: center; padding-bottom: 30px; background-color: #044C92 !important;; " onclick="location.href='@Url.Action("AppxDReport", "GEBExam", new {gid = IHSDC.WebApp.RepositryManager.EncryptionManager.Encryption(Model.GEBLetterID.ToString())})'">
+                Generate Appx D
+            </a>
+        </div>
+        <span></span>
+        <div style="text-align:center">
+            <div class="col">
+                <label><b><u>EXAM REF No & dt. <span>@Model.GEBRefNoDt.ToString()</span>&nbsp;FROM <span>@Model.FromDate.ToString()</span>&nbsp;<span>TO DATE &nbsp;</span><span>@Model.ToDate.ToString()</span></u></b></label>
+                @*<span> <b>GEB EXAM FROM</b></span>&nbsp;<span><b>@Model.FromDate.ToString()</b></span>&nbsp;<span> <b>TO DATE</b> &nbsp;</span><span><b>@Model.ToDate.ToString()</b></span>*@
+            </div>
+        </div>
+        <span></span>
+        @if (Model.UnitType != "Non Unit")
+        {
+            <div class="dropdown-divider"></div>
+            <a onclick="location.href='@Url.Action("GEBAviatorList", "GEB", new { id = IHSDC.WebApp.RepositryManager.EncryptionManager.Encryption(Model.GEBLetterID.ToString()), fid = "0", UnitId = IHSDC.WebApp.RepositryManager.EncryptionManager.Encryption("0") })'">
+                <span class="btn btn-primary"> All</span>
+            </a>
+            <a onclick="location.href='@Url.Action("GEBAviatorList", "GEB", new { id = IHSDC.WebApp.RepositryManager.EncryptionManager.Encryption(Model.GEBLetterID.ToString()), fid = "0", UnitId = IHSDC.WebApp.RepositryManager.EncryptionManager.Encryption("1") })'">
+                <span class="btn btn-warning"> Unit Data</span>
+            </a>
+
+            <div class="dropdown-divider"></div>
+        }
+        <div class="table-responsive" style="margin-left: 1rem; padding-right: 2rem;">
+            <table class="table table-striped align-top" id="dataTable" width="100%" cellspacing="0">
+                <thead class="bg-info text-white">
+                    <tr>
+                        <th class="center" width="10px">S/No</th>
+                        <th class="center" style="display:none;">AviatorID</th>
+                        <th class="center" width="50px">IC No</th>
+                        <th class="center" width="75px">Rank</th>
+                        <th class="center" width="250px">Aviator Name</th>
+                        <th class="center" width="100px">Unit</th>
+                        <th class="center" style="display:none;">GEBLetterID</th>
+                        <th class="center" width="300px">Update for GEB</th>
+                        <th class="center">Nominated for GEB</th>
+                    </tr>
+
+                </thead>
+                <tbody id="tbody">
+                    @if (ViewBag.count > 0)
+                    {
+                        foreach (var item in Model.ILAviatorCRUD)
+                        {
+                            <tr>
+                                <td>
+                                    @{ sno++; }
+                                    @sno
+                                </td>
+                                <td style="display:none;">@Html.DisplayFor(modelItem => item.Aviator_ID)</td>
+                                <td>@Html.DisplayFor(modelItem => item.ArmyNumber)</td>
+                                <td>@Html.DisplayFor(modelItem => item.AviatorRank)</td>
+                                <td>@Html.DisplayFor(modelItem => item.AviatorName)</td>
+                                <td>@Html.DisplayFor(modelItem => item.UnitName)</td>
+                                <td style="display:none;">@Html.DisplayFor(modelItem => item.GEBLetterID)</td>
+                                <td>
+                                    @if (item.FinalAppxId != 0)
+                                    {
+                                        if (item.IsPermission == 1)
+                                        {
+                                            if (item.IsAppxE == 1)
+                                            {
+                                                <a class="btn btn-default" style="color:green;width:65Px;height:23px;font-family:Arial;font-size:14px;text-align:center;" onclick="location.href='@Url.Action("AppxE", "GEB", new { id = IHSDC.WebApp.RepositryManager.EncryptionManager.Encryption(item.Aviator_ID.ToString()), fid = IHSDC.WebApp.RepositryManager.EncryptionManager.Encryption(item.FinalAppxId.ToString()), LId = IHSDC.WebApp.RepositryManager.EncryptionManager.Encryption(item.GEBLetterID.ToString()) })'">
+                                                    Appx E
+                                                </a>
+                                            }
+                                            else
+                                            {
+                                                <a class="btn btn-default" style="color:red;width:65Px;height:23px;font-family:Arial;font-size:14px;text-align:center;" onclick="location.href='@Url.Action("AppxE", "GEB", new { id = IHSDC.WebApp.RepositryManager.EncryptionManager.Encryption(item.Aviator_ID.ToString()), fid = IHSDC.WebApp.RepositryManager.EncryptionManager.Encryption(item.FinalAppxId.ToString()), LId = IHSDC.WebApp.RepositryManager.EncryptionManager.Encryption(item.GEBLetterID.ToString()) })'">
+                                                    Appx E
+                                                </a>
+                                            }
+                                            <span>|</span>
+                                            if (item.IsAppxF == 1)
+                                            {
+                                                <a class="btn btn-default" style="color:green;width:65Px;height:23px;font-family:Arial;font-size:14px;text-align:center;" onclick="location.href='@Url.Action("AppxF", "GEB", new { apid = IHSDC.WebApp.RepositryManager.EncryptionManager.Encryption(item.FinalAppxId.ToString()) })'">
+                                                    Appx F
+                                                </a>
+                                            }
+                                            else
+                                            {
+                                                <a class="btn btn-default" style="color:red;width:65Px;height:23px;font-family:Arial;font-size:14px;text-align:center;" onclick="location.href='@Url.Action("AppxF", "GEB", new { apid = IHSDC.WebApp.RepositryManager.EncryptionManager.Encryption(item.FinalAppxId.ToString()) })'">
+                                                    Appx F
+                                                </a>
+                                            }
+                                            <span>|</span>
+                                            if (item.IsAppxG == 1)
+                                            {
+                                                <a class="btn btn-default" style="color:green;width:65Px;height:23px;font-family:Arial;font-size:14px;text-align:center;" onclick="location.href='@Url.Action("AppxG", "GEB", new { apid = IHSDC.WebApp.RepositryManager.EncryptionManager.Encryption(item.FinalAppxId.ToString()) })'">
+                                                    Appx G
+                                                </a>
+                                            }
+                                            else
+                                            {
+                                                <a class="btn btn-default" style="color:red;width:65Px;height:23px;font-family:Arial;font-size:14px;text-align:center;" onclick="location.href='@Url.Action("AppxG", "GEB", new { apid = IHSDC.WebApp.RepositryManager.EncryptionManager.Encryption(item.FinalAppxId.ToString()) })'">
+                                                    Appx G
+                                                </a>
+                                            }
+                                        }
+                                        else
+                                        {
+                                            if (item.IsAppxE == 1)
+                                            {
+                                                <a class="btn btn-default" style="color:green;width:65Px;height:23px;font-family:Arial;font-size:14px;text-align:center;" onclick="location.href='@Url.Action("AppxEReport", "GEBExam", new { fid = IHSDC.WebApp.RepositryManager.EncryptionManager.Encryption(item.FinalAppxId.ToString()) })'">
+                                                    Appx E
+                                                </a>
+                                            }
+                                            else
+                                            {
+                                                <a class="btn btn-default" style="color:red;width:65Px;height:23px;font-family:Arial;font-size:14px;text-align:center;" onclick="location.href='@Url.Action("AppxEReport", "GEBExam", new { fid = IHSDC.WebApp.RepositryManager.EncryptionManager.Encryption(item.FinalAppxId.ToString()) })'">
+                                                    Appx E
+                                                </a>
+                                            }
+
+                                            <span>|</span>
+                                            if (item.IsAppxF == 1)
+                                            {
+                                                <a class="btn btn-default" style="color:green;width:65Px;height:23px;font-family:Arial;font-size:14px;text-align:center;" onclick="location.href='@Url.Action("AppxFReport", "GEBExam", new { fid = IHSDC.WebApp.RepositryManager.EncryptionManager.Encryption(item.FinalAppxId.ToString()) })'">
+                                                    Appx F
+                                                </a>
+                                            }
+                                            else
+                                            {
+                                                <a class="btn btn-default" style="color:red;width:65Px;height:23px;font-family:Arial;font-size:14px;text-align:center;" onclick="location.href='@Url.Action("AppxFReport", "GEBExam", new { fid = IHSDC.WebApp.RepositryManager.EncryptionManager.Encryption(item.FinalAppxId.ToString()) })'">
+                                                    Appx F
+                                                </a>
+                                            }
+                                            <span>|</span>
+                                            if (item.IsAppxG == 1)
+                                            {
+                                                <a class="btn btn-default" style="color:green;width:65Px;height:23px;font-family:Arial;font-size:14px;text-align:center;" onclick="location.href='@Url.Action("AppxGReport", "GEBExam", new { fid = IHSDC.WebApp.RepositryManager.EncryptionManager.Encryption(item.FinalAppxId.ToString()) })'">
+                                                    Appx G
+                                                </a>
+                                            }
+                                            else
+                                            {
+                                                <a class="btn btn-default" style="color:red;width:65Px;height:23px;font-family:Arial;font-size:14px;text-align:center;" onclick="location.href='@Url.Action("AppxGReport", "GEBExam", new { fid = IHSDC.WebApp.RepositryManager.EncryptionManager.Encryption(item.FinalAppxId.ToString()) })'">
+                                                    Appx G
+                                                </a>
+                                            }
+                                        }
+
+                                    }
+                                    else
+                                    {
+                                        <a style="font-family: Arial; font-size: 14px;">Indl Not Participated in GEB</a>
+                                    }
+                                </td>
+
+                                <td>
+                                    @if (item.IsPermission == 1 || SessionManager.RoleId == enum1.AvnDte)
+                                    {
+                                        if (item.IsPermission == 1)
+                                        {
+                                            if (item.FinalAppxId == 0)
+                                            {
+                                                <a id="btnsubmit" data-id='@IHSDC.WebApp.RepositryManager.EncryptionManager.Encryption(item.GEBLetterID.ToString())' data-fid='@IHSDC.WebApp.RepositryManager.EncryptionManager.Encryption(item.Aviator_ID.ToString())' onclick="SubmitGEBConfirmation(this,'/GEB/FWDGEBAviator','Do you want to nominate this aviator for GEB','FWDGEBAviator')">
+                                                    <img src="~/images/Reject.png" width="20" height="15" border="0" />
+                                                </a>
+                                            }
+                                        }
+                                        if (item.FinalAppxId != 0)
+                                        {
+                                            <a id="btnsubmit" data-id='@IHSDC.WebApp.RepositryManager.EncryptionManager.Encryption(item.GEBLetterID.ToString())' data-fid='@IHSDC.WebApp.RepositryManager.EncryptionManager.Encryption(item.FinalAppxId.ToString())' onclick="SubmitGEBConfirmation(this,'/GEB/GEBAviatorRemove','Do you want to cancel nomination of this aviator','GEBAviatorRemove')">
+                                                <img src="~/images/CheckSubmit.png" width="20" height="15" border="0" />
+                                            </a>
+                                        }
+                                    }
+                                </td>
+                            </tr>
+                        }
+                    }
+                    else
+                    {
+                        <tr><td colspan="4" style="font-weight:600;color:red;text-align:center"> No Record Found!!!</td></tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+
+
+
+
+    </div>
+</div>
+<script src="~/Scripts/jquery-3.3.1.js"></script>
+<script src="~/Content/CustomJS/DeleteConfirmation.js"></script>
+<script src="~/Content/CustomJS/AviatorJS.js"></script>
+<script src="~/Content/CustomJS/GEBSubmit.js"></script>
+<script src="~/Content/css/sweetalert.min.js"></script>
+<link href="~/Content/css/sweetalert.css" rel="stylesheet" />
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryui")
+    @Styles.Render("~/Content/cssjqryUi")
+
+    <script type="text/javascript">
+
+	function blockSpecialChar(e) {
+		if ((e.which < 48 || e.which > 57) && e.which != 46) {
+			if (e.which == 8 || e.which == 0) {
+				return true;
+			}
+			else {
+				return false;
+			}
+		}
+
+
+			}
+
+
+      var message = '@message';
+    var messageStatus = '@messageStatus';
+    var messagemidStatus = '@messagemidStatus ';
+    if (message)
+            sweetAlert(message, messagemidStatus, messageStatus);
+
+
+
+        
+
+    </script>
+
+}

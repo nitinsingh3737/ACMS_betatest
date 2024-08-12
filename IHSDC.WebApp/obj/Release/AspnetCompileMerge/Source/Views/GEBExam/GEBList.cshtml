@@ -1,0 +1,71 @@
+﻿@model IHSDC.WebApp.Models.GEBLetter
+@using IHSDC.WebApp.Connection
+@{
+    ViewBag.Title = "GEB Records";
+    Layout = "~/Views/Shared/_NewAA7Layout.cshtml";int sno = 0;
+}
+<div style="position:absolute; right:10px;top:10px">
+    <div class="col">
+        <a class="btn btn-info float-right" href="@Url.Action("Index","Home")" target="_top">
+            Back
+        </a>
+    </div>
+</div>
+<div class="card-body">
+
+    <div class="table-responsive">
+        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+            <thead>
+                <tr>
+                    <th width="36px" class="center">S/No</th>
+                    <th class="center">From Date</th>
+                    <th class="center">To Date</th>
+                    <th class="center">Comd Name</th>
+                    <th class="center">Nominal Roll</th>
+                </tr>
+            </thead>
+            <tbody id="tbody">
+                @if (ViewBag.count > 0)
+                {
+                    foreach (var item in Model.ILGEBLetter)
+                    {
+                <tr>
+                    <td>
+                        <b>
+                            @{ sno++; }
+                            @sno
+                        </b>
+                    </td>
+                    <td><b>@Html.DisplayFor(modelItem => item.FromDate)</b></td>
+                    <td><b>@Html.DisplayFor(modelItem => item.ToDate)</b></td>
+                    <td><b>@Html.DisplayFor(modelItem => item.BrigAvnName)</b></td>
+                    <td>
+
+                        <a class="btn btn-link" style="text-decoration:underline;color:#33b5e5" onclick="location.href='@Url.Action("AppxCReport", "GEBExam", new { gid = IHSDC.WebApp.RepositryManager.EncryptionManager.Encryption(item.GEBLetterId.ToString()) })'">
+                            Appx C
+                        </a>
+                        <span>|</span>
+                        <a class="btn btn-link" style="text-decoration:underline;color:#33b5e5" onclick="location.href='@Url.Action("AppxDReport", "GEBExam", new { gid = IHSDC.WebApp.RepositryManager.EncryptionManager.Encryption(item.GEBLetterId.ToString()) })'">
+                            Appx D
+                        </a>
+                        <span>|</span>
+                        <a class="btn btn-link" style="text-decoration:underline;color:#33b5e5" onclick="location.href='@Url.Action("NominalRollForGEB", "GEB", new { gid = IHSDC.WebApp.RepositryManager.EncryptionManager.Encryption(item.GEBLetterId.ToString()) })'">
+                            Other Appxs 
+                        </a>
+
+
+
+                    </td>
+
+                </tr>
+                    }
+                }
+                else
+                {
+                    <tr><td colspan="5" style="font-weight:600;color:red;text-align:center"> No Record Found!!!</td></tr>
+                }
+            </tbody>
+        </table>
+
+    </div>
+</div>

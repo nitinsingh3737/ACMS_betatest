@@ -1,0 +1,797 @@
+﻿@model IHSDC.WebApp.Models.LetterForwardedGEB
+@using IHSDC.WebApp.Connection
+@{
+    ViewBag.Title = "Edit GEB Details";
+    Layout = null;
+}
+
+
+
+
+
+
+<div class="card-body" >
+
+    @using (Html.BeginForm("UpdateAppxE", "GEB", FormMethod.Post, new { enctype = "multipart/form-data" }))
+
+
+    {
+        @Html.HiddenFor(h => h.Aviator_ID)
+        @Html.HiddenFor(h => h.FinalAppxId)
+        @*@Html.HiddenFor(m => m.SplQul)*@
+
+    <div id="lowzoom">
+        <div class="row">
+            <div style="width:300px">
+            </div>
+            <div style="font-size: 25px;    font-weight: 500;   text-decoration: underline;color: black;  text-align:center">
+                <label><b><u>CATEGORY / INSTRUMENT RATING HELD</u></b></label>
+            </div>
+            <div style="width:390px">
+            </div>
+            <div style="font-size: 25px;    font-weight: 500;   text-decoration: underline;color: black;  text-align:center">
+                <label><b><u>CONTINUITY TRAINING</u></b></label>
+            </div>
+        </div>
+
+        <div class="row">
+
+            <div style="width:150px; padding-right:10px">
+                <label><b> Rank</b></label>
+                @Html.DropDownListFor(m => m.Rank, (new IHSDC.WebApp.Models.MasterModels()).LoadRanks(), "--Select Rank --", new { @data_show_subtext = "true", @class = "select form-control", @data_live_search = "true", @required = true })
+            </div>
+
+            <div style="width:70px;">
+            </div>
+            <div style="width:180px; padding-right:10px">
+                <label><b> Cat IR</b></label>
+                @Html.DropDownListFor(m => m.PresentCatIR, (new IHSDC.WebApp.Models.MasterModels()).LoadAppearingFor(), "--Select Present Cat --", new { @data_show_subtext = "true", @class = "select form-control", @data_live_search = "true", @required = true })
+
+            </div>
+            <div style="width:170px; padding-right:10px">
+                <label><b>Date</b></label>
+                @Html.TextBoxFor(m => m.PresentCatIRDate, new { @class = "form-control datepicker3", @required = true, @onchange = "isDate(this)", @placeholder = "dd/mmm/yyyy" })
+            </div>
+            <div style="width:170px; padding-right:10px">
+                <label><b> On Type</b></label>
+
+                @Html.DropDownListFor(m => m.PresentCatIRType, (new IHSDC.WebApp.Models.MasterModels()).LoadAircraftType(), "--Select Aircraft Name --", new { @data_show_subtext = "true", @class = "select form-control", @data_live_search = "true", @required = true })
+
+            </div>
+            <div style="width:170px; padding-right:10px">
+                <label><b> Type(s)(if any) </b></label>
+                @Html.DropDownListFor(m => m.TypesIfAny, (new IHSDC.WebApp.Models.MasterModels()).LoadAircraftType(), "--Select Aircraft Name --", new { @data_show_subtext = "true", @class = "select form-control", @data_live_search = "true", @required = true })
+
+
+            </div>
+            <div style="width:70px;">
+            </div>
+
+            <div class="col">
+                <label><b> Day (Last 03 Months ) </b></label>
+                @Html.TextBoxFor(m => m.DayHrsLastThreeMonth, new { @class = "form-control", @required = true, @onchange = "CheckMinute(this)", onkeypress = "return blockSpecialChar(event)" })
+            </div><div class="col">
+                <label><b> Night (Last 06 Months ) </b></label>
+                @Html.TextBoxFor(m => m.NighHrsLastSixMonth, new { @class = "form-control", @required = true, @onchange = "CheckMinute(this)", onkeypress = "return blockSpecialChar(event)" })
+            </div>
+        </div>
+
+        <br />
+
+
+        <div class="row">
+            <div style="width:60px">
+            </div>
+            <div style="font-size: 25px;    font-weight: 500;   text-decoration: underline;color: black;  text-align:center">
+                <label><b><u>SPECIAL QUALIFICATION</u></b></label>
+            </div>
+            <div class="col-2">
+            </div>
+            <div style="font-size: 25px;    font-weight: 500;   text-decoration: underline;color: black;  text-align:center">
+                <label><b><u>CHECK AVIATORS ENDORSEMENT</u></b></label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-1">
+                <label><b> QFI Cat</b></label>
+
+                @Html.DropDownListFor(m => m.QfiCat, (new IHSDC.WebApp.Models.MasterModels()).LoadQFI(), "--Select QFI--", new { @data_show_subtext = "true", @class = "select form-control", @data_live_search = "true", @required = true })
+
+            </div>
+
+            <div class="col-1">
+                <label><b> Date</b></label>
+                @Html.TextBoxFor(m => m.QfiDate, new { @class = "form-control datepicker3", @required = true, @onchange = "isDate(this)", @placeholder = "dd/mmm/yyyy" })
+            </div>
+            <div class="col-1">
+                <label><b> Total Instr Hrs</b></label>
+                @Html.TextBoxFor(m => m.TotalInstHrs, new { @class = "form-control", @required = true, onkeypress = "return blockSpecialChar(event)", @onchange = "CheckMinute(this)" })
+            </div>
+
+            <div style="width:100px">
+            </div>
+            <div class="col-2">
+                <label><b> Awarded On</b></label>
+                @Html.TextBoxFor(m => m.CheckAviatorEndorsmentAwardedOn, new { @class = "form-control datepicker3", @required = true, @onchange = "isDate(this)", @placeholder = "dd/mmm/yyyy" })
+            </div>
+            <div class="col-2">
+                <label><b>Comd</b></label>
+                @Html.DropDownListFor(m => m.AwardByComd, (new IHSDC.WebApp.Models.MasterModels()).LoadCommandName(), "--Command --", new { @data_show_subtext = "true", @class = "select form-control", @data_live_search = "true" })
+            </div>
+
+
+            <div style="width:100px">
+            </div>
+            @*//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*@
+            <div style="width:200px;padding-right:20px">
+                <label><b> Appearing For</b></label>
+                @Html.DropDownListFor(m => m.AppearingFor, (new IHSDC.WebApp.Models.MasterModels()).LoadAppearingFor(), "--Select Appearing For --", new { @data_show_subtext = "true", @class = "select form-control", @data_live_search = "true", @required = true, @onchange = "Changes(this)" })
+            </div>
+
+            <div style="width:150px; padding-right:10px">
+                <label><b> Aircraft Type</b></label>
+                @Html.DropDownListFor(m => m.AircraftType, (new IHSDC.WebApp.Models.MasterModels()).LoadAircraftType(), "--Select Aircraft Name --", new { @data_show_subtext = "true", @class = "select form-control", @data_live_search = "true", @required = true })
+            </div>
+
+            <div style="width:150px">
+                <label><b>Remarks Appearing</b></label>
+
+                @Html.DropDownListFor(m => m.RemarksAppearing, (new IHSDC.WebApp.Models.MasterModels()).LoadAppearingRemarks(), "--Select Remarks Appearing --", new { @data_show_subtext = "true", @class = "select form-control", @data_live_search = "true", @required = true, @id = "RemarksAppearingddl" })
+            </div>
+            @*//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*@
+        </div>
+
+        <br />
+        <div class="row">
+            <div class="col-4">
+                <div style="font-size: 25px;    font-weight: 500;   text-decoration: underline;color: black;  text-align:center">
+                    <label><b><u>DETAILS OF FLYING EXPERIENCE</u></b></label>
+                </div>
+
+                <div class="row">
+
+                    <div style="width:550px">
+                    </div>
+                    <div>
+
+                        <div class="row" style="text-align:center;font-size:18px;">
+
+                            <div style="border:solid 1px; width:50px;">
+                                <b>Ser</b>
+                            </div>
+                            <div style="border:solid 1px; width:100px">
+
+                            </div>
+                            <div style="border:solid 1px; width:100px">
+                                <b>On Type</b>
+                            </div>
+                            <div style="border:solid 1px; width:100px">
+                                <b>On Helicopters</b>
+                            </div>
+                            <div style="border:solid 1px; width:100px">
+                                <b>All Types</b>
+                            </div>
+                            <div style="border:solid 1px ; width:100px">
+                                <b>IMC Hours</b>
+                            </div>
+                            <div style="border:solid 1px; width:200px">
+                                <b>Remarks</b>
+                            </div>
+                        </div>
+                        <div class="row">
+
+                            <div style="border:solid 1px ; width:50px">
+                                <b> (a)</b>
+                            </div>
+                            <div style="border:solid 1px; width:100px">
+                                <b>Day</b>
+                            </div>
+                            <div style="border:solid 1px; width:100px">
+                                @Html.TextBoxFor(m => m.TotalCptHrsPresentTypeDay, new { @class = "form-control", @required = true, onkeypress = "return blockSpecialChar(event)", @onchange = "CheckMinute(this)" })
+
+                            </div>
+                            <div style="border:solid 1px; width:100px">
+
+                                @Html.TextBoxFor(m => m.OnHelicoptorDay, new { @class = "form-control", @required = true, onkeypress = "return blockSpecialChar(event)", @onchange = "CheckMinute(this)" })
+                            </div>
+                            <div style="border:solid 1px; width:100px">
+                                @Html.TextBoxFor(m => m.CaptHrsDayOnAllTypes, new { @class = "form-control", @required = true, onkeypress = "return blockSpecialChar(event)", @onchange = "CheckMinute(this)" })
+                            </div>
+                            <div style="border:solid 1px; width:100px">
+                                @Html.TextBoxFor(m => m.IMCDayHrs, new { @class = "form-control", @required = true, onkeypress = "return blockSpecialChar(event)", @onchange = "CheckMinute(this)" })
+                            </div>
+                            <div style="border:solid 1px; width:200px">
+                                @Html.TextBoxFor(m => m.RemarksDay, new { @class = "form-control", @onchange = "Case(this)" })
+                            </div>
+                        </div>
+                        <div class="row">
+
+                            <div style="border:solid 1px ; width:50px">
+                                <b>(a)</b>
+                            </div>
+                            <div style="border:solid 1px; width:100px">
+                                <b>Night</b>
+                            </div>
+                            <div style="border:solid 1px; width:100px">
+                                @Html.TextBoxFor(m => m.TotalCptHrsPresentTypeNight, new { @class = "form-control", @required = true, onkeypress = "return blockSpecialChar(event)", @onchange = "CheckMinute(this)" })
+                            </div>
+                            <div style="border:solid 1px; width:100px">
+                                @Html.TextBoxFor(m => m.OnHelicoptornight, new { @class = "form-control", @required = true, onkeypress = "return blockSpecialChar(event)", @onchange = "CheckMinute(this)" })
+                            </div>
+                            <div style="border:solid 1px; width:100px">
+                                @Html.TextBoxFor(m => m.CaptHrsNightOnAllTypes, new { @class = "form-control", @required = true, onkeypress = "return blockSpecialChar(event)", @onchange = "CheckMinute(this)" })
+                            </div>
+                            <div style="border:solid 1px; width:100px">
+                                @Html.TextBoxFor(m => m.IMCNightHrs, new { @class = "form-control", @required = true, onkeypress = "return blockSpecialChar(event)", @onchange = "CheckMinute(this)" })
+                            </div>
+                            <div style="border:solid 1px; width:200px">
+                                @Html.TextBoxFor(m => m.RemarksNight, new { @class = "form-control", @onchange = "Case(this)" })
+                            </div>
+                        </div>
+
+                    </div>
+
+
+                </div>
+            </div>
+                <div class="col">
+
+                    @if (SessionManager.Role == "BrigAvn" || SessionManager.Role == "GSO1AA7")
+            {
+                <div style="font-size: 25px;    font-weight: 500;   text-decoration: underline;
+    color: black;  text-align:center">
+                    <label><b><u>PART - II RECOMMENDATION BY UNIT COMMANDER</u></b></label>
+
+                </div>
+                <div class="row">
+                    <div class="col-5">
+                    </div>
+                    <div class="col-2">
+
+                        @Html.DropDownListFor(m => m.RecomForCat, (new IHSDC.WebApp.Models.MasterModels()).LoadAppearingFor(), "--Select CatIR --", new { @data_show_subtext = "true", @class = "select form-control", @data_live_search = "true", @required = true })
+
+                    </div>
+                    <div class="col-5">
+                    </div>
+                </div>
+    }
+                </div>
+
+
+
+            </div>
+
+
+        </div>
+
+
+            <br />
+            <div>
+
+
+
+                @if (SessionManager.Role == "SquadronCommander" || SessionManager.Role == "FlightCommander" && SessionManager.UnitType == "INDEPENDENT")
+    {
+            <div style="font-size: 25px;    font-weight: 500;   text-decoration: underline;
+    color: black;  text-align:center">
+                <label><b><u>PART - II RECOMMENDATION BY UNIT COMMANDER</u></b></label>
+
+            </div>
+            <div class="row">
+                <div class="col-5">
+                </div>
+                <div class="col-2">
+
+                    @Html.DropDownListFor(m => m.RecomForCat, (new IHSDC.WebApp.Models.MasterModels()).LoadAppearingFor(), "--Select CatIR --", new { @data_show_subtext = "true", @class = "select form-control", @data_live_search = "true", @required = true })
+
+                </div>
+                <div class="col-5">
+                </div>
+            </div>
+
+
+
+
+}
+                <br />
+                @if (SessionManager.Role == "SquadronCommander" || SessionManager.Role == "FlightCommander" && SessionManager.UnitType == "INDEPENDENT"|| SessionManager.Role == "SecondInCommand")
+                {
+            <div class="row">
+                <div style="padding-left:800px">
+                </div>
+                <div class="col-2">
+                    <button type="submit" value="@ViewBag.ButtonName" name="btnval" class="btn btn-info">@ViewBag.ButtonName</button>      </div>
+                <div class="col-5">
+                </div>
+            </div>
+}
+            </div>
+    }
+</div>
+    @*if (SessionManager.Role == "SecondInCommand" && SessionManager.UnitType == "INDEPENDENT")
+                {
+                @Html.HiddenFor(h => h.Aviator_ID)
+                @Html.HiddenFor(h => h.FinalAppxId)
+                <div class="row">
+                    <div class="col">
+                        <label><b> Aviator Name </b></label>
+                        @Html.TextBoxFor(m => m.AviatorName, new { @class = "form-control", @required = true, @onchange = "Case(this)", @ReadOnly = true })
+
+                    </div>
+                    <div class="col">
+                        <label><b> Rank</b></label>
+                        @Html.DropDownListFor(m => m.Rank, (new IHSDC.WebApp.Models.MasterModels()).LoadRanks(), "--Select Rank --", new { @data_show_subtext = "true", @class = "select form-control", @data_live_search = "true", @required = true })
+                    </div>
+                    <div class="col">
+                        <label><b> Present Cat IR</b></label>
+                        @Html.DropDownListFor(m => m.PresentCatIR, (new IHSDC.WebApp.Models.MasterModels()).LoadAppearingFor(), "--Select Present Cat --", new { @data_show_subtext = "true", @class = "select form-control", @data_live_search = "true", @required = true })
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <label><b>Present CatIR Date</b></label>
+                        @Html.TextBoxFor(m => m.PresentCatIRDate, new { @class = "form-control", @required = true, @onchange = "Case(this)" })
+                    </div>
+                    <div class="col">
+                        <label><b> Present CatIR On Type</b></label>
+                        @Html.DropDownListFor(m => m.PresentCatIRType, (new IHSDC.WebApp.Models.MasterModels()).LoadAircraftType(), "--Select Aircraft Name --", new { @data_show_subtext = "true", @class = "select form-control", @data_live_search = "true", @required = true })
+                    </div><div class="col">
+                        <label><b> Types If Any Other</b></label>
+                        @Html.TextBoxFor(m => m.TypesIfAny, new { @class = "form-control", @required = true, @onchange = "Case(this)" })
+                    </div>
+                    <div class="col">
+                        <label><b> Special Qualification</b></label>
+                        @Html.TextBoxFor(m => m.SplQul, new { @class = "form-control", @required = true, @onchange = "Case(this)" })
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <label><b> Appearing For</b></label>
+                        @Html.DropDownListFor(m => m.AppearingFor, (new IHSDC.WebApp.Models.MasterModels()).LoadAppearingFor(), "--Select Appearing For --", new { @data_show_subtext = "true", @class = "select form-control", @data_live_search = "true", @required = true, @onchange = "Changes(this)" })
+
+                    </div>
+                    <div class="col">
+                        <label><b> Aircraft Type</b></label>
+                        @Html.DropDownListFor(m => m.AircraftType, (new IHSDC.WebApp.Models.MasterModels()).LoadAircraftType(), "--Select Aircraft Name --", new { @data_show_subtext = "true", @class = "select form-control", @data_live_search = "true", @required = true })
+
+
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <label><b> QFI Cat</b></label>
+
+                        @Html.DropDownListFor(m => m.QfiCat, (new IHSDC.WebApp.Models.MasterModels()).LoadQFI(), "--Select QFI--", new { @data_show_subtext = "true", @class = "select form-control", @data_live_search = "true", @required = true })
+
+                    </div>
+                    <div class="col">
+                        <label><b> QFI Cat Date</b></label>
+                        @Html.TextBoxFor(m => m.QfiDate, new { @class = "form-control", @required = true, @onchange = "Case(this)" })
+                    </div><div class="col">
+                        <label><b> Total Instr Hrs</b></label>
+                        @Html.TextBoxFor(m => m.TotalInstHrs, new { @class = "form-control", @required = true, onkeypress = "return blockSpecialChar(event)", @onchange = "CheckMinute(this)" })
+                    </div>
+                    <div class="col">
+                        <label><b> Check Aviator Endorsment Awarded On</b></label>
+                        @Html.TextBoxFor(m => m.CheckAviatorEndorsmentAwardedOn, new { @class = "form-control", @required = true, @onchange = "isDate(this)", @placeholder = "dd/mmm/yyyy" })
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <label><b> Award By Comd Name</b></label>
+                        @Html.TextBoxFor(m => m.AwardByComd, new { @class = "form-control", @required = true, @onchange = "Case(this)" })
+                    </div>
+                    <div class="col">
+                        <label><b> Capt Total Day Hrs On Type</b></label>
+                        @Html.TextBoxFor(m => m.TotalCptHrsPresentTypeDay, new { @class = "form-control", @required = true, onkeypress = "return blockSpecialChar(event)", @onchange = "CheckMinute(this)" })
+                    </div><div class="col">
+                        <label><b> Capt Total  Night Hrs On Helicopters</b></label>
+                        @Html.TextBoxFor(m => m.OnHelicoptornight, new { @class = "form-control", @required = true, onkeypress = "return blockSpecialChar(event)", @onchange = "CheckMinute(this)" })
+                    </div>
+                    <div class="col">
+                        <label><b> Total Day IMC Hrs</b></label>
+                        @Html.TextBoxFor(m => m.IMCDayHrs, new { @class = "form-control", @required = true, onkeypress = "return blockSpecialChar(event)", @onchange = "CheckMinute(this)" })
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <label><b> Total Night IMC Hrs</b></label>
+                        @Html.TextBoxFor(m => m.IMCNightHrs, new { @class = "form-control", @required = true, onkeypress = "return blockSpecialChar(event)", @onchange = "CheckMinute(this)" })
+                    </div>
+                    <div class="col">
+                        <label><b> Total Day Capt Hrs  On All Types</b></label>
+                        @Html.TextBoxFor(m => m.CaptHrsDayOnAllTypes, new { @class = "form-control", @required = true, onkeypress = "return blockSpecialChar(event)", @onchange = "CheckMinute(this)" })
+                    </div><div class="col">
+                        <label><b> Total Night Capt Hrs  On All Types</b></label>
+                        @Html.TextBoxFor(m => m.CaptHrsNightOnAllTypes, new { @class = "form-control", @required = true, onkeypress = "return blockSpecialChar(event)", @onchange = "CheckMinute(this)" })
+                    </div>
+                    <div class="col">
+                        <label><b>Day Remarks </b></label>
+                        @Html.TextBoxFor(m => m.RemarksDay, new { @class = "form-control", @onchange = "Case(this)" })
+                    </div>
+
+                </div>
+                <div class="row">
+
+                    <div class="col">
+                        <label><b> Night Remarks </b></label>
+                        @Html.TextBoxFor(m => m.RemarksNight, new { @class = "form-control", @onchange = "Case(this)" })
+                    </div>
+                    <div class="col">
+                        <label><b>RemarksAppearing</b></label>
+
+                        @Html.DropDownListFor(m => m.RemarksAppearing, (new IHSDC.WebApp.Models.MasterModels()).LoadAppearingRemarks(), "--Select Remarks Appearing --", new { @data_show_subtext = "true", @class = "select form-control", @data_live_search = "true", @required = true, @id = "RemarksAppearingddl" })
+                    </div>
+                </div>
+            </div>
+                    <br />
+                    <div class="row">
+
+                        <div class="col">
+                            <button type="submit" value="@ViewBag.ButtonName" name="btnval" class="btn btn-info">@ViewBag.ButtonName</button>
+                            <button type="reset" class="btn btn-danger">Reset</button>
+                        </div>
+                    </div>
+
+                }
+            }
+
+            <br />
+            @using (Html.BeginForm("UpdateGEBDetailsForSqnCdr", "GEB", FormMethod.Post, new { enctype = "multipart/form-data" }))
+            {
+                if (SessionManager.Role == "SquadronCommander" && SessionManager.UnitType == "NORMAL")
+                {
+
+                    @Html.HiddenFor(h => h.Aviator_ID)
+                    @Html.HiddenFor(h => h.FinalAppxId)
+                    <div class="table-responsive">
+                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                            <tr>
+                                <td> <label><b> Aviator Name </b></label></td>
+                                <td> @Html.DisplayFor(m => m.AviatorName)</td>
+                                <td>   <label><b> Rank</b></label></td>
+                                <td> @Html.DisplayFor(m => m.Rank)</td>
+
+                            </tr>
+                            <tr>
+                                <td>  <label><b> Present Cat</b></label></td>
+                                <td> @Html.DisplayFor(m => m.PresentCat)</td>
+                                <td>   <label><b> Present CatIR Date :</b></label></td>
+                                <td> @Html.DisplayFor(m => m.PresentCatIRDate)</td>
+
+                            </tr>
+                            <tr>
+                                <td> <label><b> Present CatIR On Type </b></label></td>
+                                <td> @Html.DisplayFor(m => m.PresentCatIRType)</td>
+                                <td>
+                                    <label>
+                                        <b>
+                                            Types If Any Other
+                                        </b>
+                                    </label>
+                                </td>
+                                <td> @Html.DisplayFor(m => m.TypesIfAny)</td>
+
+                            </tr>
+                            <tr>
+                                <td> <label><b> Special Qualification</b></label></td>
+                                <td> @Html.DisplayFor(m => m.SplQul)</td>
+                                <td>   <label><b> Appearing For :</b></label></td>
+                                <td> @Html.DisplayFor(m => m.AppearingFor)</td>
+
+                            </tr>
+                            <tr>
+                                <td> <label><b> Con Trg Day (Hrs Last 03 Months ) </b></label></td>
+                                <td> @Html.DisplayFor(m => m.DayHrsLastThreeMonth)</td>
+                                <td>   <label><b> Con Trg Night (Hrs Last 06 Months ) : :</b></label></td>
+                                <td> @Html.DisplayFor(m => m.NighHrsLastSixMonth)</td>
+
+                            </tr>
+
+
+                            <tr>
+                                <td> <label><b> Aircraft Type</b></label></td>
+                                <td> @Html.DisplayFor(m => m.AircraftName)</td>
+                                <td>   <label><b> QFI Cat</b></label></td>
+                                <td> @Html.DisplayFor(m => m.QfiCat)</td>
+
+                            </tr>
+
+                            <tr>
+                                <td> <label><b> QFI Cat Date </b></label></td>
+                                <td> @Html.DisplayFor(m => m.QfiDate)</td>
+                                <td>   <label><b> Total Instr Hrs</b></label></td>
+                                <td> @Html.DisplayFor(m => m.TotalInstHrs)</td>
+
+                            </tr>
+
+                            <tr>
+                                <td> <label><b> Check Aviator Endorsment Awarded On</b></label></td>
+                                <td> @Html.DisplayFor(m => m.CheckAviatorEndorsmentAwardedOn)</td>
+                                <td>   <label><b> Award By Comd Name</b></label></td>
+                                <td> @Html.DisplayFor(m => m.AwardByComd)</td>
+
+                            </tr>
+                            <tr>
+                                <td> <label><b> Capt Total Day Hrs On Type</b></label></td>
+                                <td> @Html.DisplayFor(m => m.CaptHrsDayOnAllTypes)</td>
+                                <td>   <label><b> Capt Total Night Hrs On Helicopters </b></label></td>
+                                <td> @Html.DisplayFor(m => m.CaptHrsNightOnAllTypes)</td>
+
+                            </tr>
+
+
+
+                            <tr>
+                                <td> <label><b> Total Day IMC Hrs</b></label></td>
+                                <td> @Html.DisplayFor(m => m.IMCDayHrs)</td>
+                                <td>   <label><b>Total Night IMC Hrs</b></label></td>
+                                <td> @Html.DisplayFor(m => m.IMCNightHrs)</td>
+
+                            </tr>
+                            <tr>
+                                <td> <label><b> Total Day Capt Hrs On All Types</b></label></td>
+                                <td> @Html.DisplayFor(m => m.CaptHrsDayOnAllTypes)</td>
+                                <td>   <label><b> Total Night Capt Hrs On All Types </b></label></td>
+                                <td> @Html.DisplayFor(m => m.CaptHrsNightOnAllTypes)</td>
+
+                            </tr>
+                            <tr>
+                                <td>
+                                    <label><b>Recom For Cat</b></label>
+                                </td>
+                                <td>
+                                    @Html.DropDownListFor(m => m.RecomForCat, (new IHSDC.WebApp.Models.MasterModels()).LoadCategory(), "--Select Recom Cat --", new { @data_show_subtext = "true", @class = "select form-control", @data_live_search = "true", @required = true })
+                                </td>
+                                <td>
+                                    <label><b>Recom For IR</b></label>
+                                </td>
+                                <td>
+                                    @Html.DropDownListFor(m => m.RecomForIR, (new IHSDC.WebApp.Models.MasterModels()).LoadInstrumentRating(), "--Select Recom IR--", new { @data_show_subtext = "true", @class = "select form-control", @data_live_search = "true", @required = true })
+                                </td>
+                            </tr>
+                            <tr>
+                                <td> <label><b> Day Remarks</b></label></td>
+                                <td colspan="3"> @Html.TextBoxFor(m => m.RemarksDay, new { @class = "form-control", @onchange = "Case(this)" })</td>
+
+
+                            </tr>
+                            <tr>
+                                <td> <label><b> Night Remarks </b></label></td>
+                                <td colspan="3"> @Html.TextBoxFor(m => m.RemarksNight, new { @class = "form-control", @onchange = "Case(this)" })</td>
+
+                            </tr>
+                            <tr>
+                                <td> <label><b> RemarksAppearing</b></label></td>
+                                <td colspan="3"> @Html.TextBoxFor(m => m.RemarksAppearing, new { @class = "form-control", @onchange = "Case(this)" })</td>
+
+                            </tr>
+
+
+
+                            <tr>
+
+
+                                <td>
+                                    <button type="submit" value="@ViewBag.ButtonName" name="btnval" class="btn btn-info">@ViewBag.ButtonName</button>
+
+                                </td>
+
+
+                            </tr>
+                        </table>
+
+                    </div>
+                }
+
+                if (SessionManager.Role == "FlightCommander" && SessionManager.UnitType == "INDEPENDENT")
+                {
+                    @Html.HiddenFor(h => h.Aviator_ID)
+                    @Html.HiddenFor(h => h.FinalAppxId)
+                    <div class="table-responsive">
+                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                            <tr>
+                                <td> <label><b> Aviator Name </b></label></td>
+                                <td> @Html.DisplayFor(m => m.AviatorName)</td>
+                                <td>   <label><b> Rank </b></label></td>
+                                <td> @Html.DisplayFor(m => m.Rank)</td>
+
+                            </tr>
+                            <tr>
+                                <td>  <label><b> Present Cat </b></label></td>
+                                <td> @Html.DisplayFor(m => m.PresentCat)</td>
+                                <td>   <label><b> Present CatIR Date </b></label></td>
+                                <td> @Html.DisplayFor(m => m.PresentCatIRDate)</td>
+
+                            </tr>
+                            <tr>
+                                <td> <label><b> Present CatIR On Type</b></label></td>
+                                <td> @Html.DisplayFor(m => m.PresentCatIRType)</td>
+                                <td>
+                                    <label>
+                                        <b>
+                                            Types If Any Other
+                                        </b>
+                                    </label>
+                                </td>
+                                <td> @Html.DisplayFor(m => m.TypesIfAny)</td>
+
+                            </tr>
+                            <tr>
+                                <td> <label><b> Special Qualification</b></label></td>
+                                <td> @Html.DisplayFor(m => m.SplQul)</td>
+                                <td>   <label><b> Appearing For </b></label></td>
+                                <td> @Html.DisplayFor(m => m.AppearingFor)</td>
+
+                            </tr>
+                            <tr>
+                                <td> <label><b> Con Trg Day (Hrs Last 03 Months ) </b></label></td>
+                                <td> @Html.DisplayFor(m => m.DayHrsLastThreeMonth)</td>
+                                <td>   <label><b> Con Trg Night (Hrs Last 06 Months ) </b></label></td>
+                                <td> @Html.DisplayFor(m => m.NighHrsLastSixMonth)</td>
+
+                            </tr>
+
+
+                            <tr>
+                                <td> <label><b> Aircraft Type</b></label></td>
+                                <td> @Html.DisplayFor(m => m.AircraftName)</td>
+                                <td>   <label><b> QFI Cat</b></label></td>
+                                <td> @Html.DisplayFor(m => m.QfiCat)</td>
+
+                            </tr>
+
+                            <tr>
+                                <td> <label><b> QFI Cat Date </b></label></td>
+                                <td> @Html.DisplayFor(m => m.QfiDate)</td>
+                                <td>   <label><b> Total Instr Hrs</b></label></td>
+                                <td> @Html.DisplayFor(m => m.TotalInstHrs)</td>
+
+                            </tr>
+
+                            <tr>
+                                <td> <label><b> Check Aviator Endorsment Awarded On</b></label></td>
+                                <td> @Html.DisplayFor(m => m.CheckAviatorEndorsmentAwardedOn)</td>
+                                <td>   <label><b> Award By Comd Name </b></label></td>
+                                <td> @Html.DisplayFor(m => m.AwardByComd)</td>
+
+                            </tr>
+                            <tr>
+                                <td> <label><b> Capt Total Day Hrs On Type</b></label></td>
+                                <td> @Html.DisplayFor(m => m.CaptHrsDayOnAllTypes)</td>
+                                <td>   <label><b> Capt Total Night Hrs On Helicopters </b></label></td>
+                                <td> @Html.DisplayFor(m => m.CaptHrsNightOnAllTypes)</td>
+
+                            </tr>
+
+
+
+                            <tr>
+                                <td> <label><b> Total Day IMC Hrs</b></label></td>
+                                <td> @Html.DisplayFor(m => m.IMCDayHrs)</td>
+                                <td>   <label><b>Total Night IMC Hrs</b></label></td>
+                                <td> @Html.DisplayFor(m => m.IMCNightHrs)</td>
+
+                            </tr>
+                            <tr>
+                                <td> <label><b> Total Day Capt Hrs On All Types</b></label></td>
+                                <td> @Html.DisplayFor(m => m.CaptHrsDayOnAllTypes)</td>
+                                <td>   <label><b> Total Night Capt Hrs On All Types</b></label></td>
+                                <td> @Html.DisplayFor(m => m.CaptHrsNightOnAllTypes)</td>
+
+                            </tr>
+                            <tr>
+                                <td>
+                                    <label><b>Recom For Cat</b></label>
+                                </td>
+                                <td>
+                                    @Html.DropDownListFor(m => m.RecomForCat, (new IHSDC.WebApp.Models.MasterModels()).LoadCategory(), "--Select Recom Cat --", new { @data_show_subtext = "true", @class = "select form-control", @data_live_search = "true", @required = true })
+                                </td>
+                                <td>
+                                    <label><b>Recom For IR</b></label>
+                                </td>
+                                <td>
+                                    @Html.DropDownListFor(m => m.RecomForIR, (new IHSDC.WebApp.Models.MasterModels()).LoadInstrumentRating(), "--Select Recom IR--", new { @data_show_subtext = "true", @class = "select form-control", @data_live_search = "true", @required = true })
+                                </td>
+                            </tr>
+                            <tr>
+                                <td> <label><b> Day Remarks</b></label></td>
+                                <td colspan="3"> @Html.TextBoxFor(m => m.RemarksDay, new { @class = "form-control", @onchange = "Case(this)" })</td>
+
+
+                            </tr>
+                            <tr>
+                                <td> <label><b> Night Remarks </b></label></td>
+                                <td colspan="3"> @Html.TextBoxFor(m => m.RemarksNight, new { @class = "form-control", @onchange = "Case(this)" })</td>
+
+                            </tr>
+                            <tr>
+                                <td> <label><b> RemarksAppearing</b></label></td>
+                                <td colspan="3"> @Html.TextBoxFor(m => m.RemarksAppearing, new { @class = "form-control", @onchange = "Case(this)" })</td>
+
+                            </tr>
+
+
+
+                            <tr>
+
+
+                                <td>
+                                    <button type="submit" value="@ViewBag.ButtonName" name="btnval" class="btn btn-info">@ViewBag.ButtonName</button>
+
+                                </td>
+
+
+                            </tr>
+                        </table>
+
+                    </div>
+                }
+            }
+
+
+        </div>*@
+
+    <script src="~/NewContent/vendor/jquery/jquery.min.js"></script>
+    <script src="~/Content/CustomJS/AviatorJS.js"></script>
+    <script src="~/Content/css/sweetalert.min.js"></script>
+    <link href="~/Content/css/sweetalert.css" rel="stylesheet" />
+
+    @section Scripts {
+        @Scripts.Render("~/bundles/jqueryui")
+        @Styles.Render("~/Content/cssjqryUi")
+        <script type="text/javascript">
+            function Changes(obj) {
+                var va = $(obj).val();
+                if (va == "Not Appeared") {
+
+                    $("#RemarksAppearingddl").prop("required", true);
+                }
+                else {
+                    $("#RemarksAppearingddl").prop("required", false);
+                }
+
+            }
+
+            //var today = new Date();
+            //$('#PresentCatIRDate').datepicker({
+            //    uiLibrary: 'bootstrap4',
+            //    dateFormat: "dd/M/yy",
+            //    autoclose: true,
+            //    maxDate: today
+            //});
+            //$('#CheckAviatorEndorsmentAwardedOn').datepicker({
+            //    uiLibrary: 'bootstrap4',
+            //    dateFormat: "dd/M/yy",
+            //    autoclose: true,
+            //    maxDate: today
+            //});
+            //$('#QfiDate').datepicker({
+            //    uiLibrary: 'bootstrap4',
+            //    dateFormat: "dd/M/yy",
+            //    autoclose: true,
+            //    maxDate: today
+            //});
+                    </script>
+    }
+
+       <script>
+           
+           var role = '@SessionManager.Role';
+           if (role == 'FlightCommander' || role == 'SquadronCommander' || role == 'BrigAvn' || role == 'GSO1AA7')
+        {
+                $(document).ready(function () {
+                    $("#lowzoom *").prop("disabled", true);
+                });
+           }
+       </script>
+
+
+       <style>
+
+           #lowzoom {
+               -moz-transform: scale(0.8, 0.8);
+               zoom: 0.8;
+               zoom: 80%;
+           }
+       </style>

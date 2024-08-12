@@ -1,0 +1,463 @@
+﻿@model IHSDC.WebApp.Models.AppxGPerformance
+@using IHSDC.WebApp.Connection
+@{
+    ViewBag.Title = "Add Appx G Performance of:";
+    Layout = "~/Views/Shared/_NewAA7Layout.cshtml"; int sno = 0;
+    var message = TempData["Message"] ?? string.Empty;
+    var messageStatus = TempData["messageStatus"] ?? string.Empty;
+    var messagemidStatus = TempData["messagemidStatus"] ?? string.Empty;
+}
+<div class="row">
+    <div class="col">
+        <a class="btn btn-info float-right" href="javascript:history.back()" target="_top">
+            Back
+        </a>
+    </div>
+</div>
+
+<div class="card-body">
+
+    <div style="position:absolute; top:10px;left:20%;right:20%">
+        @*<a class="btn btn-info float-right" href="javascript:history.back()" target="_top">*@
+        <div style="text-align:center;font-size: 25px">
+            <label><b>  @Html.DisplayFor(m => m.AppxG.AviatorName)</b> </label>
+        </div>
+
+    </div>
+    <br />
+
+
+    <table class="table table-bordered" cellspacing="0" id="fit">
+
+        <tbody>
+            <tr>
+                <td colspan="6"> <h5> <label><b><u>DETAILS OF FLYING EXPERIENCE</u></b></label>   </h5></td>
+            </tr>
+            <tr>
+
+                <td colspan="6">
+                    <table class="table table-bordered" cellspacing="0">
+                        <thead>
+                            <tr>
+                                <th class="center">S/No</th>
+                                <th class="center">AircraftType</th>
+
+                                <th class="center">DayCaptainHr</th>
+                                <th class="center">NightCaptainHr</th>
+
+                            </tr>
+                        </thead>
+                        <tbody id="tbody">
+                            @if (Model.ILAppxGFlgHrs.Count > 0)
+                            {
+                                foreach (var item in Model.ILAppxGFlgHrs)
+                                {
+                                    <tr>
+                                        <td>
+                                            @{ sno++; }
+                                            @sno
+                                        </td>
+                                        <td>@Html.DisplayFor(modelItem => item.AircraftTypeName)</td>
+
+                                        <td>@Html.DisplayFor(modelItem => item.DayCaptainHr)</td>
+
+                                        <td>@Html.DisplayFor(modelItem => item.NightCaptainHr)</td>
+
+                                    </tr>
+                                }
+                            }
+                            else
+                            {
+                                <tr><td colspan="6" style="font-weight:600;color:red;text-align:center"> No Record Found!!!</td></tr>
+                            }
+                        </tbody>
+                    </table>
+                </td>
+            </tr>
+
+            <tr>
+                <td colspan="6"> <h5><b><u> PREVIOUS EXPERIENCE AS CHECK AVIATOR (IF APPLICABLE)</u> </b></h5></td>
+            </tr>
+            <tr>
+                <td>
+                    <label><b> Endorsement Date</b></label>
+                </td>
+                <td>
+                    @Html.DisplayFor(m => m.AppxG.CheckAviatorEndorsementExp)
+                </td>
+                <td>
+                    <label><b>AirCraft Type</b></label>
+                </td>
+                <td>
+                    @Html.DisplayFor(m => m.AppxG.CheckAviatorEndorsementOnAirCraftTypeName)
+                </td>
+                <td>
+                    <label><b>Unit</b></label>
+                </td>
+                <td>
+                    @Html.DisplayFor(m => m.AppxG.CheckAviatorEndorsementExpUnitName)
+                </td>
+            </tr>
+            <tr>
+                <td> <label><b>Day Exp</b></label></td>
+                <td>
+                    @Html.DisplayFor(m => m.AppxG.TotalInstrDayExp)
+                </td>
+                <td>  <label><b>Night Exp</b></label></td>
+                <td>
+                    @Html.DisplayFor(m => m.AppxG.TotalInstrNightExp)
+                </td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td colspan="6">
+                    <h5><b><u> PART - II DETAILS OF OP INSTRUCTOR SYLLABUS 9A / OP SUPERVISOR SYLLABUS 9B </u> </b></h5>
+                </td>
+
+            </tr>
+            <tr>
+                <td>
+                    <label><b> Completed On</b></label>
+                </td>
+                <td>
+                    @Html.DisplayFor(m => m.AppxG.Syllabus9ACompletedOn)
+                </td>
+                <td>
+                    <label><b>Completed By IC No</b></label>
+                </td>
+                <td>
+                    @Html.DisplayFor(m => m.AppxG.CompletedByICNo)
+                </td>
+                <td>
+                    <label><b> Completed By Rank</b></label>
+                </td>
+                <td>
+                    @Html.DisplayFor(m => m.AppxG.CompletedByRankName)
+                </td>
+
+            </tr>
+            <tr>
+                <td>
+                    <label><b> Completed By Name</b></label>
+                </td>
+                <td>
+                    @Html.DisplayFor(m => m.AppxG.CompletedByName)
+                </td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td colspan="6">
+                    <h5><b><u> PART - III : RECOMMENDATIONS BY THE UNIT COMMANDER</u> </b></h5>
+                </td>
+
+            </tr>
+            <tr>
+                <td>
+                    <label><b> Total Qualified Instr</b></label>
+                </td>
+                <td>
+                    @Html.DisplayFor(m => m.AppxG.NoQFIInTheUnit)
+                </td>
+                <td>
+                    <label><b> Recommendation </b></label>
+                </td>
+                <td>
+                    @Html.DisplayFor(m => m.AppxG.RecomeForCheckAviatorUnit)
+                </td>
+                <td>
+                    <label><b>On Type</b></label>
+                </td>
+                <td>
+                    @Html.DisplayFor(m => m.AppxG.RecomeForCheckAviatorOnTypeName)
+                </td>
+            </tr>
+
+            <tr>
+                <td colspan="6">
+                    <h5><b><u>  PART - IV : RECOMMENDATIONS BY THE BRIG /COL AVN HQ COMD</u> </b></h5>
+                </td>
+
+            </tr>
+            <tr>
+                <td>
+                    <label><b> Recommended/Not Recommended </b></label>
+                </td>
+                <td>
+                    @if (Model.AppxG.IsPermission == 1)
+                    {
+                        @Html.DropDownListFor(m => m.AppxG.ISRecommendByBrigAvn, (new IHSDC.WebApp.Models.MasterModels()).LoadRecommededBrigAvn(), "--Select--", new { @data_show_subtext = "true", @class = "select form-control", @data_live_search = "true", @required = true })
+                    }
+                    else
+                    {
+                        @Html.DropDownListFor(m => m.AppxG.ISRecommendByBrigAvn, (new IHSDC.WebApp.Models.MasterModels()).LoadRecommededBrigAvn(), "--Select--", new { @data_show_subtext = "true", @class = "select form-control", @data_live_search = "true", @required = true, @disabled = "disabled" })
+                    }
+
+                </td>
+                <td colspan="4"></td>
+            </tr>
+
+            <tr>
+                <td colspan="6">
+                    <h5><b><u>   PART - V : APPROVAL BY DTE GEN ARMY AVN</u> </b></h5>
+                </td>
+
+            </tr>
+            <tr>
+                <td>
+                    <label><b> Approved/Not Approved </b></label>
+                </td>
+                <td>
+                    @Html.DropDownListFor(m => m.AppxG.IsApprovedByGSO, (new IHSDC.WebApp.Models.MasterModels()).LoadApprovedAvndte(), "--Select--", new { @data_show_subtext = "true", @class = "select form-control", @data_live_search = "true", @required = true })
+                </td>
+                <td colspan="4"></td>
+            </tr>
+
+        </tbody>
+    </table>
+
+
+
+
+    <div style="text-align:center"> <h5><b><u> DETAILS OF EXAMINATION</u> </b></h5></div>
+    @using (Html.BeginForm("AppxGPerformance", "GEB", FormMethod.Post, new { enctype = "multipart/form-data" }))
+
+    {
+
+        @Html.HiddenFor(h => h.FinalAppxId)
+        if (Model.IsPermission != 1)
+        {
+            @Html.HiddenFor(h => h.AppxG.ISRecommendByBrigAvn)
+        }
+
+        <div class="row">
+            <div class="col">
+                <label><b>Examining Auth</b></label>
+                @Html.TextBoxFor(m => m.ExaminingAuth, new { @class = "form-control", @onchange = "Case(this)" })
+
+
+            </div>
+            <div class="col">
+                <label><b> Examined OnType  :</b></label>
+                @Html.DropDownListFor(m => m.ExaminedOnType, (new IHSDC.WebApp.Models.MasterModels()).LoadAircraftType(), "--Select Aircraft Name --", new { @data_show_subtext = "true", @class = "select form-control", @data_live_search = "true", @required = true })
+
+            </div>
+            <div class="col">
+                <label><b> Date Of Exam</b></label>
+                @Html.TextBoxFor(m => m.DateOfExam, new { @class = "form-control datepicker3", @required = true, @onchange = "Case(this)" })
+
+            </div>
+            <div class="col">
+                <label><b> Place Of Exam</b></label>
+                @Html.TextBoxFor(m => m.PlaceOfExam, new { @class = "form-control", @required = true, @onchange = "Case(this)" })
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col">
+                <label><b> Flg Ability Percentage</b></label>
+                @Html.DropDownListFor(m => m.FlgAbilityPercentage, (new IHSDC.WebApp.Models.MasterModels()).LoadPercentage(), "--Select--", new { @data_show_subtext = "true", @class = "select form-control", @data_live_search = "true" })
+
+
+
+
+            </div>
+            <div class="col">
+                <label><b> Flg Ability Standard</b></label>
+                @Html.DropDownListFor(m => m.FlgAbilityStandard, (new IHSDC.WebApp.Models.MasterModels()).LoadSpecialQualifiaction(), "--Select--", new { @data_show_subtext = "true", @class = "select form-control", @data_live_search = "true" })
+
+            </div>
+            <div class="col">
+                <label><b> Flg Instr Ability Percentage</b></label>
+                @Html.DropDownListFor(m => m.FlgInstrAbilityPercentage, (new IHSDC.WebApp.Models.MasterModels()).LoadPercentage(), "--Select--", new { @data_show_subtext = "true", @class = "select form-control", @data_live_search = "true" })
+
+            </div>
+            <div class="col">
+                <label><b> Flg Instr Ability Standard</b></label>
+                @Html.DropDownListFor(m => m.FlgInstrAbilityStandard, (new IHSDC.WebApp.Models.MasterModels()).LoadSpecialQualifiaction(), "--Select--", new { @data_show_subtext = "true", @class = "select form-control", @data_live_search = "true" })
+
+            </div>
+        </div>
+
+
+
+        <div class="row">
+            <div class="col">
+                <label><b> Grd Sub Instr Ability </b></label>
+                @Html.DropDownListFor(m => m.GrdSubInstrAbility, (new IHSDC.WebApp.Models.MasterModels()).LoadPercentage(), "--Select--", new { @data_show_subtext = "true", @class = "select form-control", @data_live_search = "true" })
+
+
+
+            </div>
+            <div class="col">
+                <label><b> Grd Sub Instr Ability Standards</b></label>
+                @Html.DropDownListFor(m => m.GrdSubInstrAbilityStandards, (new IHSDC.WebApp.Models.MasterModels()).LoadSpecialQualifiaction(), "--Select--", new { @data_show_subtext = "true", @class = "select form-control", @data_live_search = "true" })
+
+            </div>
+            <div class="col">
+                <label><b> Recommend Check Aviator</b></label>
+                @Html.DropDownListFor(m => m.RecommendCheckAviator, (new IHSDC.WebApp.Models.MasterModels()).LoadCA(), "--Select--", new { @data_show_subtext = "true", @class = "select form-control", @data_live_search = "true", @required = true })
+
+
+
+            </div>
+            <div class="col">
+                <label><b> Recommend On Type </b></label>
+                @Html.DropDownListFor(m => m.RecommendOnType, (new IHSDC.WebApp.Models.MasterModels()).LoadAircraftName(), "--Select--", new { @data_show_subtext = "true", @class = "select form-control", @data_live_search = "true", @required = true })
+
+
+
+            </div>
+        </div>
+
+
+
+        <div class="row">
+            <div class="col">
+                <label><b> RecommendDate</b></label>
+                @Html.TextBoxFor(m => m.RecommendDate, new { @class = "form-control datepicker3", @required = true, @onchange = "Case(this)" })
+
+
+            </div>
+            <div class="col">
+                <label><b> Name Of Examiner</b></label>
+                @Html.TextBoxFor(m => m.NameOfExaminer, new { @class = "form-control", @required = true, @onchange = "Case(this)" })
+            </div>
+            <div class="col">
+                <label><b> Rank Of Examiner</b></label>
+                @Html.DropDownListFor(m => m.RankOfExaminer, (new IHSDC.WebApp.Models.MasterModels()).LoadRanks(), "--Select--", new { @data_show_subtext = "true", @class = "select form-control", @data_live_search = "true", @required = true })
+
+
+
+            </div>
+            <div class="col">
+                <label><b> Appt Of Examiner</b></label>
+                @Html.DropDownListFor(m => m.ApptOfExaminer, (new IHSDC.WebApp.Models.MasterModels()).LoadAppt(), "--Select--", new { @data_show_subtext = "true", @class = "select form-control", @data_live_search = "true", @required = true })
+
+
+
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col">
+                <label><b> Approved Check Aviator</b></label>
+                @Html.DropDownListFor(m => m.ApprovedCheckAviator, (new IHSDC.WebApp.Models.MasterModels()).LoadCA(), "--Select--", new { @data_show_subtext = "true", @class = "select form-control", @data_live_search = "true", @required = true })
+
+
+
+            </div>
+            <div class="col">
+                <label><b> Approved On Type</b></label>
+                @Html.DropDownListFor(m => m.ApprovedOnType, (new IHSDC.WebApp.Models.MasterModels()).LoadAircraftName(), "--Select--", new { @data_show_subtext = "true", @class = "select form-control", @data_live_search = "true", @required = true })
+
+
+
+            </div>
+            <div class="col">
+                <label><b> Approved On Date</b></label>
+                @Html.TextBoxFor(m => m.ApprovedOnDate, new { @class = "form-control datepicker3", @required = true, @onchange = "Case(this)" })
+
+            </div>
+            <div class="col">
+                <label><b> Approved Name Of Dte</b></label>
+                @Html.TextBoxFor(m => m.ApprovedNameOfDte, new { @class = "form-control", @required = true, @onchange = "Case(this)" })
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col">
+                <label><b> Approved Rank Of Dte</b></label>
+                @Html.DropDownListFor(m => m.ApprovedRankOfDte, (new IHSDC.WebApp.Models.MasterModels()).LoadRanks(), "--Select--", new { @class = "select form-control" })
+
+
+
+
+
+            </div>
+            <div class="col">
+                <label><b> Approved Appt Of Dte</b></label>
+                @Html.DropDownListFor(m => m.ApprovedApptOfDte, (new IHSDC.WebApp.Models.MasterModels()).LoadAppt(), "--Select--", new { @class = "select form-control" })
+
+
+            </div>
+            <div class="col" style="margin-top:2%">
+                <input type="submit" class="btn btn-success" value="Update" />
+
+            </div>
+
+        </div>
+
+
+
+
+
+
+
+
+
+    }
+</div>
+
+
+
+<script src="~/Scripts/jquery-3.3.1.js"></script>
+
+<script src="~/Content/CustomJS/AviatorJS.js"></script>
+<script src="~/Content/css/sweetalert.min.js"></script>
+<link href="~/Content/css/sweetalert.css" rel="stylesheet" />
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryui")
+    @Styles.Render("~/Content/cssjqryUi")
+
+    <script type="text/javascript">
+       var message = '@message';
+    var messageStatus = '@messageStatus';
+    var messagemidStatus = '@messagemidStatus ';
+    if (message)
+            sweetAlert(message, messagemidStatus, messageStatus);
+            //var AppxG_ISRecommendByBrigAvn = $("#AppxG_ISRecommendByBrigAvn").val();
+
+            //if (AppxG_ISRecommendByBrigAvn == '') {
+            //    $("#AppxG_ISRecommendByBrigAvn").val("");
+            //    $("#AppxG_ISRecommendByBrigAvn").prop("disabled", false);
+            //}
+            //else {
+            //    $("#AppxG_ISRecommendByBrigAvn").prop("disabled", true);
+            //}
+
+
+            var AppxG_IsApprovedByGSO = $("#AppxG_IsApprovedByGSO").val();
+            if (AppxG_IsApprovedByGSO == '') {
+                $("#AppxG_IsApprovedByGSO").val("");
+                $("#AppxG_IsApprovedByGSO").prop("disabled", false);
+            }
+            else {
+
+                $("#AppxG_IsApprovedByGSO").prop("disabled", true);
+            }
+
+
+  //      $('#DateOfExam ').datepicker({
+		//	uiLibrary: 'bootstrap4',
+		//	dateFormat: "dd/M/yy",
+		//	autoclose: true,
+		//});
+  //              $('#RecommendDate').datepicker({
+		//	uiLibrary: 'bootstrap4',
+		//	dateFormat: "dd/M/yy",
+		//	autoclose: true
+  //              }); $('#ApprovedOnDate').datepicker({
+  //                  uiLibrary: 'bootstrap4',
+  //                  dateFormat: "dd/M/yy",
+  //                  autoclose: true
+  //              });
+
+
+    </script>
+}
+
+

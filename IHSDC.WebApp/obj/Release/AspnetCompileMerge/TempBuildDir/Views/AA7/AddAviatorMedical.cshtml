@@ -1,0 +1,463 @@
+﻿
+@model IHSDC.WebApp.Models.AviatorMedicalCRUD
+@using IHSDC.WebApp.Connection
+
+@{
+
+    var message = TempData["Message"] ?? string.Empty;
+    var messageStatus = TempData["messageStatus"] ?? string.Empty;
+    var messagemidStatus = TempData["messagemidStatus"] ?? string.Empty;
+
+    ViewBag.Title = " Aviator Medical  ";
+    Layout = "~/Views/Shared/_NewAA7LayoutMenu.cshtml"; int sno = 0;
+}
+
+@using (Html.BeginForm("AddAviatorMedical", "AA7", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+
+    <div class="card-body">
+        <div class="modal fade" id="SelfDeclaration">
+            <div class="modal-dialog" style="margin-top:350px">
+                <div class="modal-content">
+                    <h4 style="text-align:center">Declaration</h4>
+                    <p style="margin-left:10px;margin-right:10px;font-size:14px;font-family:Arial">I <b><u>@SessionManager.UserName</u></b> solemnly declare the information mentioned herein is true and correct to the best of my beliefs.</p>
+                    <div class="modal-footer">
+                        <button type="submit" id="btnval" value="@ViewBag.ButtonName" name="btnval" class="btn btn-success">@ViewBag.ButtonName</button>
+                        <a id="btnCancel" style="color:white;" class="btn btn-danger" data-dismiss="modal">Cancel</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <span id="spnStartDate" style="display:none">@ViewBag.StartDate</span>
+        @if (SessionManager.IsPermission == 1 || SessionManager.IsPermission == 3 || SessionManager.IsPermission == 5)
+        {
+
+
+            <div class="rcorners">
+                <div class="row">
+
+                    <div class="col-2">
+                        <p class="mb-0"> Aviator Name</p>
+                        @*@Html.DropDownListFor(m => m.Aviator_ID, (new IHSDC.WebApp.Models.MasterModels()).LoadAviatorName(), "--Select Aviator  Name --", new { @data_show_subtext = "true", @class = "select form-control", @data_live_search = "true", @required = true })*@
+                        @Html.HiddenFor(m => m.Aviator_ID)
+                        @Html.HiddenFor(m => m.IsHistory)
+                        @Html.TextBoxFor(m => m.AviatorName, new { @class = "form-control", @onkeyup = "ValInData(this)", @required = true, style = "font-weight: bold;color: black; font-size: 14px;", @readonly = true })
+
+
+                    </div>
+
+
+                    <div class="col-2">
+                        <p class="mb-0"> Type of Medical</p>
+                        @Html.DropDownListFor(m => m.TypeMedicalId, (new IHSDC.WebApp.Models.MasterModels()).LoadTypeMedical(), "--Select Type --", new { @class = "select form-control", @data_live_search = "true", @Required = true })
+                    </div>
+
+                    <div class="col-2">
+                        <p class="mb-0"> Medical Start Date</p>
+                        @Html.TextBoxFor(m => m.MedicalStartDate, new { @class = "form-control datepicker3", @onkeyup = "ValInData(this)", @required = true, @onchange = "isDate(this)", @placeholder = "dd/mm/yyyy" })
+                    </div>
+                    <div class="col-2">
+                        <p class="mb-0">Medical End Date</p>
+                        @Html.TextBoxFor(m => m.MedicalEndDate, new { @class = "form-control datepicker3", @onkeyup = "ValInData(this)", @required = true, @onchange = "isDate(this),check(this,'MedicalStartDate','Medical Start Date')", @placeholder = "dd/mm/yyyy" })
+                    </div>
+
+                    <div class="col-2">
+                        <p class="mb-0"> Place of Medical</p>
+                        @Html.DropDownListFor(m => m.PlaceMedicalId, (new IHSDC.WebApp.Models.MasterModels()).LoadPlaceMedical(), "--Select Place --", new { @class = "select form-control", @data_live_search = "true", @Required = true })
+                    </div>
+                    <div class="col-2">
+                        <p class="mb-0">Medical Cat Date</p>
+                        @Html.TextBoxFor(m => m.MedicalCatDate, new { @class = "form-control datepicker3", @onkeyup = "ValInData(this)", @onchange = "isDate(this),checkDate(this)", @placeholder = "dd/mm/yyyy" })
+                    </div>
+                    <div class="col-2">
+                        <p class="mb-0"> Medical Cat</p>
+                        <span id="MedicalCat" class="d-none">@ViewBag.MedicalCat</span>
+                        @Html.DropDownListFor(m => m.MedicalCatId, (new IHSDC.WebApp.Models.MasterModels()).LoadMedicalCat(), "--Select Cat --", new { id = "MedicalCatId", @class = "select form-control", @data_live_search = "true", @Required = true })
+                    </div>
+
+                    <div class="col-2" id="OtherMedicalRemarksId" title="S?H?A?P?E?">
+                        <p class="mb-0">Other Medical Cat</p>
+                        @Html.TextBoxFor(m => m.OtherMedicalRemarks, new { id = "OtherMedicalRemarks", @class = "form-control", @onkeyup = "ValInData(this)", @placeholder = "S?H?A?P?E?" })
+                    </div>
+
+                    <div class="col-2">
+                        <p class="mb-0"> COPE Code</p>
+                        <span id="CopeCode" class="d-none">@ViewBag.CopeCode</span>
+                        @Html.DropDownListFor(m => m.CopeCodeId, (new IHSDC.WebApp.Models.MasterModels()).LoadCopeCode(), "--Select COPE Code --", new { id = "CopeCodeId", @class = "select form-control", @data_live_search = "true", @Required = true})
+                    </div>
+
+                    <div class="col-2" id="OtherCopeRemarksId">
+                        <p class="mb-0">Other COPE Code</p>
+                        @Html.TextBoxFor(m => m.OtherCopeRemarks, new { id = "OtherCopeRemarks", @class = "form-control", @onkeyup = "ValInData(this)" })
+                    </div>
+
+
+                    <div class="col-2">
+                        <p class="mb-0">Duration in Week</p>
+                        @Html.TextBoxFor(m => m.DurationInWeeks, new { @class = "form-control", @onkeyup = "ValInData(this)", @onkeypress = "return blockSpecialChar(event)" })
+                    </div>
+                    <div class="col-2">
+                        <p class="mb-0">Recat Due Date</p>
+                        @Html.TextBoxFor(m => m.ReCatDueDate, new { @class = "form-control datepicker3", @onkeyup = "ValInData(this)", @onchange = "isDate(this),check(this,'MedicalCatDate','Medical Cat Date')", @placeholder = "dd/mm/yyyy" })
+                    </div>
+
+
+                    <div class="col-2">
+                        <p class="mb-0"> Medical Status</p>
+                        @Html.DropDownListFor(m => m.StatusMedicalId, (new IHSDC.WebApp.Models.MasterModels()).LoadMedicalStatus(), new { @data_show_subtext = "true", @class = "select form-control", @data_live_search = "true", @required = true })
+                    </div>
+
+                    <div class="col-2">
+                        <p class="mb-0">Remarks</p>
+                        @Html.TextBoxFor(m => m.Remarks, new { @class = "form-control", @onkeyup = "ValInData(this)", @onkeypress = "return onlyAlphaNumeric(event)" })
+                    </div>
+                </div>
+
+
+                <div class="d-flex justify-content-center" style="margin-top:10px;padding-left:5px;">
+
+                    @if (ViewBag.ButtonName == "Update")
+                    {
+                        @*<button type="submit" value="@ViewBag.ButtonName" name="btnval" class="btn btn-success">@ViewBag.ButtonName</button>*@
+                        <button type="button" data-toggle="modal" data-target="#SelfDeclaration" id="BtnDeclaration" value="Medical" class="btn btn-success">Save</button>
+                    }
+                    &nbsp;&nbsp;&nbsp;
+                    <a class="btn btn-info" href="@Url.Action("AddAviatorMedical","AA7",new { id = string.Empty })" target="_top">
+                        Back
+                    </a>
+
+                </div>
+
+
+                <div style="float:right;margin-top:-15px; font-size:12px;color:red;">
+
+                    @if (string.IsNullOrEmpty(Model.DateTimeOfUpdate))
+                    {
+                        <label></label>
+                    }
+                    else
+                    {
+
+                        <label> Last updated by @Model.LastUpdatedBy  @Model.DateTimeOfUpdate</label>
+
+
+                    }
+
+                </div>
+
+
+
+            </div>
+
+        }
+
+        <div class="dropdown-divider"></div>
+
+        <div class="card-body" style="box-shadow: -1px 2px 16px 3px; padding: 0.3rem; border: 1px solid #89CFF0;">
+            <div class="aj" style="padding: 0.5rem;">
+                <a onclick="location.href='@Url.Action("AddAviatorMedical", "AA7", new { UnitId=IHSDC.WebApp.RepositryManager.EncryptionManager.Encryption("0") })'">
+                    <span class="btn btn-primary"> All</span>
+                </a>
+                <a onclick="location.href='@Url.Action("AddAviatorMedical", "AA7", new { UnitId=IHSDC.WebApp.RepositryManager.EncryptionManager.Encryption("1") })'">
+                    <span class="btn btn-info"> Unit Data</span>
+                </a>
+                @if (Model.IsHistory.ToString() != "0")
+                {
+                    <a style="text-align:center;margin-left:500px;">
+                        <span style="text-align: center; font-size: 25px; font-family: Arial; color: blueviolet;"><b>History of Medical : @Model.ILAviatorMedicalCRUD[0].AviatorName</b></span>
+                    </a>
+                }
+            </div>
+
+
+
+            <div class="table-responsive">
+                <table class="table table-striped" id="dataTable" width="100%" cellspacing="0">
+                    <thead class="bg-info text-white">
+                        <tr>
+                            <th class="center">S/No</th>
+                            <th class="center">Pers No</th>
+                            <th class="center">Rank & Name</th>
+                            <th class="center">Unit</th>
+                            <th class="center">Type of Medical </th>
+                            <th class="center">Fm Date</th>
+                            <th class="center">To Date	</th>
+                            @*<th class="center">Place of Medical </th>
+                                <th class="center">Medical Cat</th>
+                                <th class="center">Cope Code</th>
+                                <th class="center">Medical Cat Date	</th>
+                                <th class="center">Duration In Weeks</th>*@
+                            <th class="center">ReCat Due Date</th>
+                            <th class="center">Medical Status</th>
+                            <th class="center">Remarks</th>
+                            <th class="center" width="100px"> Action </th>
+                            <th> History</th>
+                            <th> View </th>
+                        </tr>
+                    </thead>
+                    <tbody id="tbody">
+                        @if (ViewBag.count > 0)
+                        {
+                            foreach (var item in Model.ILAviatorMedicalCRUD)
+                            {
+                                <tr>
+                                    <td>
+                                        @{ sno++; }
+                                        @sno
+                                    </td>
+                                    <td>@Html.DisplayFor(modelItem => item.ArmyNumber)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.AviatorName)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.UnitName)</td>
+                                    <td>
+                                        @*@Html.DisplayFor(modelItem => item.TypeMedical)*@
+
+                                        @if (!string.IsNullOrEmpty(item.TypeMedical))
+                                        {
+                                            if (item.TypeMedical != "0" && item.TypeMedical != "None")
+                                            {
+                                                @Html.DisplayFor(modelItem => item.TypeMedical)
+                                            }
+                                        }
+
+                                    </td>
+                                    <td>@Html.DisplayFor(modelItem => item.MedicalStartDate)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.MedicalEndDate)</td>
+                                    @*<td>@Html.DisplayFor(modelItem => item.PlaceMedical)</td>
+        <td>@Html.DisplayFor(modelItem => item.MedicalCat)</td>
+        <td>@Html.DisplayFor(modelItem => item.CopeCode)</td>
+        <td>@Html.DisplayFor(modelItem => item.MedicalCatDate)</td>
+        <td>@Html.DisplayFor(modelItem => item.DurationInWeeks)</td>*@
+                                    <td>@Html.DisplayFor(modelItem => item.ReCatDueDate)</td>
+                                    <td>
+                                        @*@Html.DisplayFor(modelItem => item.StatusMedical)*@
+                                        @if (!string.IsNullOrEmpty(item.StatusMedical))
+                                        {
+                                            if (item.StatusMedical != "0" && item.StatusMedical != "None")
+                                            {
+                                                @Html.DisplayFor(modelItem => item.StatusMedical)
+                                            }
+                                        }
+                                    </td>
+                                    <td>@Html.DisplayFor(modelItem => item.Remarks)</td>
+
+
+
+
+
+
+
+
+
+                                    @if (item.IsPermission == 1)
+                                    {
+                                        <td>
+                                            <a onclick="location.href='@Url.Action("AddAviatorMedical", "AA7", new { id = IHSDC.WebApp.RepositryManager.EncryptionManager.Encryption(item.AviatorMedical_ID.ToString()),ViewId= IHSDC.WebApp.RepositryManager.EncryptionManager.Encryption(item.Aviator_ID.ToString()),IsHist=IHSDC.WebApp.RepositryManager.EncryptionManager.Encryption(item.IsHistory.ToString()) })'">
+                                                <img src="~/images/Editnew.png" width="20" height="20" border="0">
+                                            </a>
+
+                                            @*<span>|</span>
+                <a id="btndel" data-id='@IHSDC.WebApp.RepositryManager.EncryptionManager.Encryption(item.AviatorMedical_ID.ToString())' onclick="DeleteConfirmation(this,'/AA7/DeleteAviatorMedical')">
+                    <img src="~/images/Delete.png" width="20" height="20" border="0" />
+                </a>*@
+                                        </td>
+                                        <td>
+                                            <a onclick="location.href='@Url.Action("AddAviatorMedical", "AA7", new { id = IHSDC.WebApp.RepositryManager.EncryptionManager.Encryption(item.Aviator_ID.ToString()),TypeRpt=IHSDC.WebApp.RepositryManager.EncryptionManager.Encryption("1") })'">
+                                                <i class="fa fa-history" style="font-size:18px" aria-hidden="true"></i>
+
+                                            </a>
+                                        </td>
+                                        <td>
+                                            <a onclick="location.href='@Url.Action("ViewAviatorDetails", "AA7", new { id = IHSDC.WebApp.RepositryManager.EncryptionManager.Encryption(item.Aviator_ID.ToString()) })'">
+                                                <i class="fa fa-eye" style="font-size:22px" aria-hidden="true"></i>
+                                            </a>
+
+                                        </td>
+                                    }
+                                    else if (item.IsPermission == 5)
+                                    {
+                                        <td>
+                                            <a onclick="location.href='@Url.Action("AddAviatorMedical", "AA7", new { id = IHSDC.WebApp.RepositryManager.EncryptionManager.Encryption(item.AviatorMedical_ID.ToString()) })'">
+                                                <img src="~/images/Editnew.png" width="20" height="20" border="0">
+                                            </a>
+                                        </td>
+                                        <td>
+                                            <a onclick="location.href='@Url.Action("AddAviatorMedical", "AA7", new { id = IHSDC.WebApp.RepositryManager.EncryptionManager.Encryption(item.Aviator_ID.ToString()),TypeRpt=IHSDC.WebApp.RepositryManager.EncryptionManager.Encryption("1") })'">
+                                                <i class="fa fa-history" style="font-size:18px" aria-hidden="true"></i>
+
+                                            </a>
+                                        </td>
+                                        <td>
+                                            <a onclick="location.href='@Url.Action("ViewAviatorDetails", "AA7", new { id = IHSDC.WebApp.RepositryManager.EncryptionManager.Encryption(item.Aviator_ID.ToString()) })'">
+                                                <i class="fa fa-eye" style="font-size:22px" aria-hidden="true"></i>
+                                            </a>
+
+                                        </td>
+
+                                    }
+                                    else if (item.IsPermission == 3 || item.IsPermission == 2)
+                                    {
+                                        <td>
+                                            <span></span>
+                                        </td>
+                                        <td>
+                                            <span></span>
+                                        </td>
+                                        <td>
+                                            <a onclick="location.href='@Url.Action("ViewAviatorDetails", "AA7", new { id = IHSDC.WebApp.RepositryManager.EncryptionManager.Encryption(item.Aviator_ID.ToString()) })'">
+                                                <i class="fa fa-eye" style="font-size:22px" aria-hidden="true"></i>
+                                            </a>
+
+                                        </td>
+                                    }
+
+
+
+                                </tr>
+                            }
+                        }
+                        else
+                        {
+                            <tr><td colspan="12" style="font-weight:900;color:red;text-align:center"> No Record Found!!!</td></tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+}
+
+
+<script src="~/Scripts/jquery-3.3.1.js"></script>
+<script src="~/Content/CustomJS/DeleteConfirmation.js"></script>
+<script src="~/Content/CustomJS/AviatorJS.js"></script>
+<script src="~/Content/CustomJS/AddUpdateFilter.js"></script>
+<script src="~/Content/css/sweetalert.min.js"></script>
+<link href="~/Content/css/sweetalert.css" rel="stylesheet" />
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryui")
+    @Styles.Render("~/Content/cssjqryUi")
+
+
+
+    <script>
+
+        $(document).ready(function () {
+
+            if ($("#MedicalCat").html() == 2) {
+                $("#OtherMedicalRemarksId").show();
+                $("#OtherMedicalRemarks").attr("required", true);
+            } else {
+                $("#OtherMedicalRemarksId").hide();
+                $("#OtherMedicalRemarks").attr("required", false);
+            }
+
+        });
+        $(document).ready(function () {
+
+            $("#MedicalCatId").on("change", function () {
+                var selectedValue = $(this).val();
+                if (selectedValue == 2) {
+                    $("#OtherMedicalRemarksId").show();
+                    $("#OtherMedicalRemarks").attr("required", true);
+                } else {
+                    $("#OtherMedicalRemarksId").hide();
+                    $("#OtherMedicalRemarks").attr("required", false);
+                }
+            });
+
+
+        });
+
+
+        $(document).ready(function () {
+
+            if ($("#CopeCode").html() == 2) {
+                $("#OtherCopeRemarksId").show();
+                $("#OtherCopeRemarks").attr("required", true);
+            } else {
+                $("#OtherCopeRemarksId").hide();
+                $("#OtherCopeRemarks").attr("required", false);
+            }
+
+        });
+        $(document).ready(function () {
+
+            $("#CopeCodeId").on("change", function () {
+                var selectedValue = $(this).val();
+                if (selectedValue == 2) {
+                    $("#OtherCopeRemarksId").show();
+                    $("#OtherCopeRemarks").attr("required", true);
+                } else {
+                    $("#OtherCopeRemarksId").hide();
+                    $("#OtherCopeRemarks").attr("required", false);
+                }
+            });
+
+
+        });
+
+
+    </script>
+
+    <script type="text/javascript">
+       var message = '@message';
+    var messageStatus = '@messageStatus';
+    var messagemidStatus = '@messagemidStatus ';
+    if (message)
+        sweetAlert(message, messagemidStatus, messageStatus);
+        var today = new Date();
+		//$('#MedicalStartDate').datepicker({
+		//	uiLibrary: 'bootstrap4',
+		//	dateFormat: "dd/M/yy",
+  //          autoclose: true,
+  //          maxDate: today
+		//});
+		//$('#MedicalEndDate').datepicker({
+		//	uiLibrary: 'bootstrap4',
+		//	dateFormat: "dd/M/yy",
+  //          autoclose: true,
+  //          maxDate: today
+		//});
+
+		//$('#MedicalCatDate').datepicker({
+		//	uiLibrary: 'bootstrap4',
+		//	dateFormat: "dd/M/yy",
+		//	autoclose: true
+		//});
+
+		//$('#ReCatDueDate').datepicker({
+		//	uiLibrary: 'bootstrap4',
+		//	dateFormat: "dd/M/yy",
+  //          autoclose: true
+
+  //      });
+
+
+
+
+        //function check(obj, compareField, comparemsg) {
+        //   // debugger;
+        //    var a = $(obj).parent().children()[0]
+        //    var text = $(a).text();
+        //    var DateofIssueCatCard = $(obj).val();
+        //    var DateOfWings = $('#' + compareField + '').val();
+        //    if (DateOfWings > DateofIssueCatCard) {
+        //        sweetAlert(' ' + text + ' can not be less then ' + comparemsg + ' !', 'Please Re-Enter ' + text + '', 'warning');
+        //        $(obj).val('');
+        //        $(obj).focus();
+        //    }
+        //}
+
+            //$("#BtnDeclaration").click(function () {
+            //    if ($("#MedicalStartDate").val() != $("#spnStartDate").html() && $("#spnStartDate").html() != "") {
+            //        $("#btnval").html("Add");
+            //        $("#btnval").val("Add");
+            //    }
+            //    else {
+            //        $("#btnval").html("Update");
+            //        $("#btnval").val("Update");
+            //    }
+            //});
+
+    </script>
+}

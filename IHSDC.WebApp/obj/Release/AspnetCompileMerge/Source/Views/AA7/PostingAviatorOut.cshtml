@@ -1,0 +1,316 @@
+﻿@model IHSDC.WebApp.Models.PostingAviator
+@using IHSDC.WebApp.Connection
+
+@{
+    var message = TempData["Message"] ?? string.Empty;
+    var messageStatus = TempData["messageStatus"] ?? string.Empty;
+    var messagemidStatus = TempData["messagemidStatus"] ?? string.Empty;
+    int sno = 0;
+    ViewBag.Title = "Posting Out";
+    Layout = "~/Views/Shared/_NewAA7LayoutMenu.cshtml";
+
+}
+
+
+
+@using (Html.BeginForm("PostingAviatorOut", "AA7", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+
+
+    <div class="card-body">
+        <div class="modal fade" id="SelfDeclaration">
+            <div class="modal-dialog" style="margin-top:350px">
+                <div class="modal-content">
+                    <h4 style="text-align:center">Declaration</h4>
+                    <p style="margin-left:10px;margin-right:10px;font-size:14px;font-family:Arial">I <b><u>@SessionManager.UserName</u></b> solemnly declare the information mentioned herein is true and correct to the best of my beliefs.</p>
+                    <div class="modal-footer">
+                        <input type="submit" class="btn btn-success" name="btnval" value="@ViewBag.Button" />
+                        <a id="btnCancel" style="color:white;" class="btn btn-danger" data-dismiss="modal">Cancel</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        @if (SessionManager.IsPermission == 1 || SessionManager.IsPermission == 3 || SessionManager.IsPermission == 5)
+        {
+            <div class="rcorners">
+                <div class="row">
+
+                    <div class="col-2">
+                        <p class="mb-0"> Aviator Name</p>
+                        @*@Html.DropDownListFor(m => m.Aviator_ID, (new IHSDC.WebApp.Models.MasterModels()).LoadPostingAviatorName(), "--Select Aviator  Name --", new { @data_show_subtext = "true", @class = "select form-control", @data_live_search = "true", @required = true })*@
+
+                        @Html.TextBoxFor(m => m.AviatorName, new { @class = "form-control", @onkeyup = "ValInData(this)", @required = true, style = "font-weight: bold;color: black; font-size: 14px;", @readonly = true })
+
+
+                    </div>
+                    <div class="col-2">
+                        <p class="mb-0"> Posting Auth</p>
+                        @Html.TextBoxFor(m => m.PostingAuth, new { @class = "form-control", @onkeyup = "ValInData(this)", @required = true, @onkeypress = "return postingAuthValidation(event)" })
+                    </div>
+                    <div class="col-2">
+                        <p class="mb-0"> Posting To Unit</p>
+                        @Html.DropDownListFor(m => m.PostingToUnit, (new IHSDC.WebApp.Models.MasterModels()).LoadUnitPostingName(), "--Select Unit --", new { @data_show_subtext = "true", @class = "select form-control", @data_live_search = "true", @required = true, id = "postingToUnit", onchange = "SelectedTextValue(this)" })
+                    </div>
+
+                    <div class="col-2" id="txtRecordHandler" style="display:none">
+                        <p class="mb-0"> Record Handler</p>
+                        @Html.TextBoxFor(m => m.RecordHandler, new { id = "txtRecord", @class = "form-control", @onkeyup = "ValInData(this)" })
+                    </div>
+
+
+                    <div class="col-2" id="ddlRecordHandler" style="display:none">
+                        <p class="mb-0"> Record Handler</p>
+                        @Html.DropDownListFor(m => m.RecordHandler, (new IHSDC.WebApp.Models.MasterModels()).UnitName(), "--Select Record Handler--", new { id = "ddlRecord", @data_show_subtext = "true", @class = "select form-control", @data_live_search = "true" })
+                    </div>
+
+                    <div class="col-2">
+                        <p class="mb-0"> SORS Date</p>
+                        @Html.TextBoxFor(m => m.SORS, new { @class = "form-control datepicker3", @onkeyup = "ValInData(this)", @placeholder = "dd/mm/yyyy", @required = true, @onchange = "isDate(this)" })
+                    </div>
+
+                    <div class="col-2">
+                        <p class="mb-0"> SOS Date</p>
+                        @Html.TextBoxFor(m => m.SOS, new { @class = "form-control datepicker3", @onkeyup = "ValInData(this)", @placeholder = "dd/mm/yyyy", @required = true, @onchange = "isDate(this),check(this,'SORS','SORS Date')" })
+
+                    </div>
+
+                    <div class="col-2">
+                        <p class="mb-0"> Posting Type</p>
+                        @Html.DropDownListFor(m => m.PostingType, (new IHSDC.WebApp.Models.MasterModels()).LoadPostingType(), "--Select Posting Type --", new { @data_show_subtext = "true", @class = "select form-control", @data_live_search = "true", @required = true })
+                        @*@Html.TextBoxFor(m => m.PostingType, new { @class = "form-control", @required = true })*@
+                    </div>
+
+
+                </div>
+
+
+                <div class="d-flex justify-content-center" style="margin-top:10px;padding-left:5px;">
+
+                    @*<input type="submit" class="btn btn-success" name="btnval" value="@ViewBag.Button" />*@
+                    <input type="button" data-toggle="modal" data-target="#SelfDeclaration" id="BtnDeclaration" class="btn btn-success" name="btnval" value="Save" />
+                    &nbsp;&nbsp;&nbsp;
+                    <a class="btn btn-info" href="@Url.Action("PostingAviatorIn","AA7")" target="_top">
+                        Back
+                    </a>
+
+                </div>
+
+            </div>
+
+        }
+
+
+    </div>
+
+    @Html.HiddenFor(m => m.AviatorPosting_ID)
+    @Html.HiddenFor(m => m.Aviator_ID)
+}
+
+
+
+<div class="dropdown-divider"></div>
+<div class="card-body" style="box-shadow: -1px 2px 16px 3px; padding: 0.3rem; border: 1px solid #89CFF0;">
+    <div class="aj" style="padding: 0.5rem;">
+        @*<a onclick="location.href='@Url.Action("PostingAviatorOut", "AA7", new { UnitId=IHSDC.WebApp.RepositryManager.EncryptionManager.Encryption("0") })'">
+                <span class="btn btn-success" style="margin-left:20px;"> All</span>
+            </a>
+            <a onclick="location.href='@Url.Action("PostingAviatorOut", "AA7", new { UnitId=IHSDC.WebApp.RepositryManager.EncryptionManager.Encryption("1") })'">
+                <span class="btn btn-info"> Unit Data</span>
+            </a>*@
+    </div>
+    <div class="table-responsive">
+        <table class="table table-striped" id="dataTable" width="100%" cellspacing="0">
+            <thead class="bg-info text-white">
+                <tr>
+                    <th class="center">S/No</th>
+                    <th class="center" width="133px">Aviator Name</th>
+                    <th class="center">Posting Auth</th>
+                    <th class="center">Posting Fm Unit</th>
+                    <th class="center">Posting To Unit</th>
+                    <th class="center">SOS</th>
+                    <th class="center">SORS</th>
+                    <th class="center">Posting Type</th>
+
+                    @*<th class="center">Status</th>*@
+                    <th class="center" width="100px"> Action </th>
+                </tr>
+            </thead>
+            <tbody id="tbody">
+                @if (ViewBag.count > 0)
+                {
+                    foreach (var item in Model.ILPostingAviator)
+                    {
+                        <tr>
+                            <td>
+                                @{ sno++; }
+                                @sno
+                            </td>
+                            <td>@Html.DisplayFor(modelItem => item.AviatorName)</td>
+                            <td>
+                                @if (!string.IsNullOrEmpty(item.PostingAuth))
+                                {
+                                    if (item.PostingAuth != "0")
+                                    {
+                                        @Html.DisplayFor(modelItem => item.PostingAuth)
+                                    }
+                                }
+
+                            </td>
+                            <td>@Html.DisplayFor(modelItem => item.PostingFromUnitName)</td>
+                            <td>
+                                @if (!string.IsNullOrEmpty(item.PostingToUnitName))
+                                {
+                                    if (item.PostingToUnitName != "0")
+                                    {
+                                        @Html.DisplayFor(modelItem => item.PostingToUnitName)
+                                    }
+                                }
+
+
+                            </td>
+                            <td>
+
+                                @if (!string.IsNullOrEmpty(item.SOS))
+                                {
+                                    if (item.SOS != "0")
+                                    {
+                                        @Html.DisplayFor(modelItem => item.SOS)
+                                    }
+                                }
+
+                            </td>
+                            <td>
+
+                                @if (!string.IsNullOrEmpty(item.SORS))
+                                {
+                                    if (item.SORS != "0")
+                                    {
+                                        @Html.DisplayFor(modelItem => item.SORS)
+                                    }
+                                }
+                            </td>
+                            <td>
+                                @if (!string.IsNullOrEmpty(item.PostingType))
+                                {
+                                    if (item.PostingType != "0")
+                                    {
+                                        @Html.DisplayFor(modelItem => item.PostingType)
+                                    }
+                                }
+
+                            </td>
+
+
+                            <td>
+
+                                @if (item.SOS == "0" && item.SORS == "0")
+                                {
+
+                                    <a id="editdata" onclick="location.href='@Url.Action("PostingAviatorOut", "AA7", new { id = IHSDC.WebApp.RepositryManager.EncryptionManager.Encryption(item.AviatorPosting_ID.ToString()) })'">
+                                        <img src="~/images/Editnew.png" width="20" height="20" border="0">
+                                    </a>
+                                }
+
+                            </td>
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <tr><td colspan="12" style="font-weight:900;color:red;text-align:center"> No Record Found!!!</td></tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+<script src="~/Scripts/jquery-3.3.1.js"></script>
+<script src="~/Content/CustomJS/DeleteConfirmation.js"></script>
+<script src="~/Content/CustomJS/AviatorJS.js"></script>
+<script src="~/Content/css/sweetalert.min.js"></script>
+<link href="~/Content/css/sweetalert.css" rel="stylesheet" />
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryui")
+    @Styles.Render("~/Content/cssjqryUi")
+
+    <script>
+        $(document).ready(function () {
+            $('#postingToUnit').change(function () {
+                var selectedValue = $(this).val();
+                //$('#RecordHandler').val(selectedValue);
+                //$('#RecordHandler').prop('disabled', true);
+                if (selectedValue == -1) {
+                    $("#txtRecordHandler").hide();
+                    $("#ddlRecordHandler").show();
+                    $("#ddlRecord").attr("required", true);
+                    $("#txtRecord").attr("required", false);
+                }
+                else {
+                    $("#ddlRecordHandler").hide();
+                    $("#txtRecordHandler").show();
+                    $("#txtRecord").attr("required", true);
+                    $("#ddlRecord").attr("required", false);
+                }
+            });
+        });
+
+        function SelectedTextValue(ele) {
+            if (ele.selectedIndex > 0) {
+                var selectedText = ele.options[ele.selectedIndex].innerHTML;
+                var selectedValue = ele.value;
+                document.getElementById("txtRecord").value = selectedText;
+            }
+            else {
+                document.getElementById("txtRecord").value = "";
+            }
+        }
+
+    </script>
+
+    <script type="text/javascript">
+
+      var message = '@message';
+    var messageStatus = '@messageStatus';
+    var messagemidStatus = '@messagemidStatus';
+    if (message)
+			sweetAlert(message, messagemidStatus, messageStatus);
+
+        function check(obj, compareField, comparemsg) {
+           // debugger;
+            var a = $(obj).parent().children()[0]
+            var text = $(a).text();
+            var DateofIssueCatCard = $(obj).val();
+            var DateOfWings = $('#' + compareField + '').val();
+            if (DateOfWings > DateofIssueCatCard) {
+                sweetAlert(' ' + text + ' can not be less then ' + comparemsg + ' !', 'Please Re-Enter ' + text + '', 'warning');
+                $(obj).val('');
+                $(obj).focus();
+            }
+        }
+
+
+
+        function postingAuthValidation(event) {
+
+            if ((event.which < 48 || event.which > 57) && event.which != 46) {
+                if (event.which == 8 || event.which == 0 || event.which == 196 || event.which == 95 || event.which == 47 || event.which == 45 || event.which == 92) {
+                    return true;
+
+                }
+                else if (((event.charCode > 64 && event.charCode < 91) || (event.charCode > 96 && event.charCode < 123) || event.charCode == 32)) {
+                    return true;
+
+                }
+                else {
+                    return false;
+                }
+
+            }
+        }
+
+
+    </script>
+}
+

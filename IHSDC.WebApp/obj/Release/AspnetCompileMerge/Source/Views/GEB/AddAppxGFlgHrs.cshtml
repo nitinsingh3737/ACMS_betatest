@@ -1,0 +1,105 @@
+﻿@model IHSDC.WebApp.Models.AppxGFlgHrs
+@{
+
+    var message = TempData["Message"] ?? string.Empty;
+    var messageStatus = TempData["messageStatus"] ?? string.Empty;
+    var messagemidStatus = TempData["messagemidStatus"] ?? string.Empty;
+    //var ActionName = "/Master/DeleteComd";
+
+    ViewBag.Title = "Add Appx G Flg Hrs  For GEB Module";
+    Layout = "~/Views/Shared/_NewAA7Layout.cshtml"; 
+}
+
+@using (Html.BeginForm("AddAppxGFlgHrs", "GEB", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <div class="row">
+        <div class="col">
+            <a class="btn btn-info float-right" href="javascript:history.back()" target="_top">
+                Back
+            </a>
+        </div>
+    </div>
+    <br />
+    @Html.HiddenFor(m => m.AppxGId)
+
+    <div class="card-body">
+        <div class="row">
+
+            <div class="col">
+                <label><b> Aircraft Type:</b></label>
+                @Html.DropDownListFor(m => m.AircraftType, (new IHSDC.WebApp.Models.MasterModels()).LoadHeptrRPAName(1), "--Select Aircraft Name --", new { @data_show_subtext = "true", @class = "select form-control", @data_live_search = "true", @required = true })
+
+            </div>
+            <div class="col">
+                <label><b> Day Captain Hr:</b></label>
+                @Html.TextBoxFor(m => m.DayCaptainHr, "{0:####.##}", new { @class = "form-control", @onkeyup = "ValInData(this)", onkeypress = "return blockSpecialChar(event)", @onchange = "CheckMinuteHrs(this)", @required = true })
+            </div>
+            <div class="col">
+                <label><b> Night Captain Hr:</b></label>
+                @Html.TextBoxFor(m => m.NightCaptainHr, "{0:####.##}", new { @class = "form-control", @onkeyup = "ValInData(this)", onkeypress = "return blockSpecialChar(event)", @onchange = "CheckMinuteHrs(this)", @required = true })
+            </div>
+        </div>
+        <div class="dropdown-divider"></div>
+        <div class="col-12" style="margin-left:35%">
+            <div class="form-group">
+                <div class="col-sm-6" style="margin-left:10%">
+                    <button  id="btnval" type="submit" value="@ViewBag.ButtonName" name="btnval" class="btn btn-success">@ViewBag.ButtonName</button>
+                  
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+
+<script src="~/Scripts/jquery-3.3.1.js"></script>
+<script src="~/Content/CustomJS/AviatorJS.js"></script>
+<script src="~/Content/CustomJS/AddUpdateFilter.js"></script>
+<script src="~/Content/CustomJS/DeleteConfirmation.js"></script>
+<script src="~/Content/css/sweetalert.min.js"></script>
+<link href="~/Content/css/sweetalert.css" rel="stylesheet" />
+
+
+<script type="text/javascript">
+
+   var message = '@message';
+    var messageStatus = '@messageStatus';
+    var messagemidStatus = '@messagemidStatus ';
+    if (message)
+        sweetAlert(message, messagemidStatus, messageStatus);
+    $(document).ready(function () {
+        CheckFlyingForG();
+
+    });
+    $("#btnval").click(function () {
+
+        CheckFlyingForG();
+    })
+    function CheckFlyingForG()
+        {
+        var DayCaptainHr = $("#DayCaptainHr").val();
+        var NightCaptainHr = $("#NightCaptainHr").val();
+
+        if (DayCaptainHr == '0.00' || DayCaptainHr == '0') {
+            $("#DayCaptainHr").val('');
+            $("#DayCaptainHr").prop("required", true);
+
+        }
+        if ( NightCaptainHr == '0') {
+            $("#NightCaptainHr").val('');
+           // $("#NightCaptainHr").prop("required", true);
+
+        }
+
+    }
+
+   
+</script>
+
+
+
+
+
+
+
+

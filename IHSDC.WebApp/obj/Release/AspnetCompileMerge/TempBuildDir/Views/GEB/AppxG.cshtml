@@ -1,0 +1,293 @@
+﻿@model IHSDC.WebApp.Models.FinalAppxG
+@using IHSDC.WebApp.Connection
+@using IHSDC.WebApp.Helper
+@{ ViewBag.Title = "Appx G";
+    Layout = "~/Views/Shared/_NewAA7Layout.cshtml"; int sno = 0;
+    var message = TempData["Message"] ?? string.Empty;
+    var messageStatus = TempData["messageStatus"] ?? string.Empty;
+    var messagemidStatus = TempData["messagemidStatus"] ?? string.Empty; }
+
+
+
+<div class="card-body" style="box-shadow: -1px 2px 16px 3px; padding: 0.5rem;">
+
+    <div class="row">
+        <div class="col">
+            <a class="btn btn-info  float-left" href="javascript:history.back()" target="_top">Back</a>
+        </div>
+        <a class="btn btn-info"style=" margin-right: 23px; color: white; height: 2rem; margin-top: 1rem;" onclick="location.href='@Url.Action("AppxGReport", "GEBExam", new {fid=IHSDC.WebApp.RepositryManager.EncryptionManager.Encryption(Model.AppxG.FinalAppxId.ToString())})'">
+            Print Appx G
+        </a>
+    </div>
+
+    <div style="text-align:center;font-size: 25px">
+        <label><b>  @Html.DisplayFor(m => m.AppxG.AviatorName)</b> </label>
+    </div>
+    <br />
+
+    <div style="text-align:center"> <h5><b><u>DETAILS OF FLYING EXPERIENCE</u> </b></h5></div>
+
+    <div class="row">
+        <div class="col-2">
+        </div>
+        <div class="col-8">
+
+
+            <div class="table-responsive">
+                <table class="table table-striped align-top" cellspacing="0" id="fit">
+                    <thead class="bg-info text-white">
+                        <tr>
+                            <th class="center">S/No</th>
+                            <th class="center">AircraftType</th>
+                            <th class="center">DayCaptainHr</th>
+                            <th class="center">NightCaptainHr</th>
+                            <th class="center">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tbody">
+                        @if (Model.ILAppxGFlgHrs.Count > 0)
+                        {
+                            foreach (var item in Model.ILAppxGFlgHrs)
+                            {
+                                <tr>
+                                    <td>
+                                        @{ sno++; }
+                                        @sno
+                                    </td>
+                                    <td>@Html.DisplayFor(modelItem => item.AircraftTypeName)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.DayCaptainHr)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.NightCaptainHr)</td>
+                                    <td style="text-align:center">
+                                        <a onclick="location.href='@Url.Action("AddAppxGFlgHrs", "GEB", new { id = IHSDC.WebApp.RepositryManager.EncryptionManager.Encryption(item.AppxG_FlyingDetailId.ToString()), fid = IHSDC.WebApp.RepositryManager.EncryptionManager.Encryption(item.AppxGId.ToString()), })'">
+                                            <img src="~/Content/images/Editnew.png" width="30" height="30" border="0">
+                                        </a>
+
+                                        <a id="btndel" data-id='@IHSDC.WebApp.RepositryManager.EncryptionManager.Encryption(item.AppxG_FlyingDetailId.ToString())' onclick="DeleteConfirmation(this,'/GEB/DeleteAppxGFlgHrs')">
+                                            <img src="~/Content/images/Delete.png" width="30" height="30" border="0" />
+                                        </a>
+                                    </td>
+                                </tr>
+
+                            }
+                        }
+                        else
+                        {
+                            <tr><td colspan="6" style="font-weight:600;color:red;text-align:center"> No Record Found!!!</td></tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        @if (Model.AppxG.IsPermission == 1)
+        {
+            <div class="col-2">
+                <a class="btn btn-outline-info" onclick="location.href='@Url.Action("AddAppxGFlgHrs", "GEB", new { fid = IHSDC.WebApp.RepositryManager.EncryptionManager.Encryption(Model.AppxG.FinalAppxId.ToString()) })'">
+                    Add Flying Hrs
+                </a>
+            </div>
+        }
+
+    </div>
+
+
+
+
+    @using (Html.BeginForm("AppxG", "GEB", FormMethod.Post, new { enctype = "multipart/form-data" }))
+
+    {
+        @Html.HiddenFor(h => h.AppxG.FinalAppxId)
+        <div id="lowzoom">
+            <div style="text-align:center"> <h5><b><u> PREVIOUS EXPERIENCE AS CHECK AVIATOR (IF APPLICABLE)</u> </b></h5></div>
+            <div class="row">
+                <div class="col-2">
+                </div>
+                <div class="col-2">
+                    <label><b> Endorsement Date</b></label>
+
+                    @Html.TextBoxFor(m => m.AppxG.CheckAviatorEndorsementExp, new { @class = "form-control datepicker3", @onchange = "isDate(this)", @placeholder = "dd/mmm/yyyy" })
+                </div>
+                <div class="col-2">
+                    <label><b>AirCraft Type</b></label>
+
+                    @Html.DropDownListFor(m => m.AppxG.CheckAviatorEndorsementOnAirCraftType, (new IHSDC.WebApp.Models.MasterModels()).LoadHeptrRPAName(1), "--Select Aircraft Name --", new { @data_show_subtext = "true", @class = "select form-control", @data_live_search = "true" })
+
+                </div>
+                <div class="col-2">
+                    <label><b>Unit</b></label>
+
+                    @Html.DropDownListFor(m => m.AppxG.CheckAviatorEndorsementExpUnit, (new IHSDC.WebApp.Models.MasterModels()).LoadUnitName(), "--Select Unit Name --", new { @data_show_subtext = "true", @class = "select form-control", @data_live_search = "true" })
+                </div>
+                <div class="col-1">
+                    <label><b>Day Exp</b></label>
+                    @Html.TextBoxFor(m => m.AppxG.TotalInstrDayExp, "{0:####.##}", new { @class = "form-control", @onkeyup = "ValInData(this)", onkeypress = "return blockSpecialChar(event)", @onchange = "CheckMinuteHrs(this)", @required = true })
+                </div>
+                <div class="col-1">
+                    <label><b>Night Exp</b></label>
+                    @Html.TextBoxFor(m => m.AppxG.TotalInstrNightExp, "{0:####.##}", new { @class = "form-control", @onkeyup = "ValInData(this)", onkeypress = "return blockSpecialChar(event)", @onchange = "CheckMinuteHrs(this)", @required = true })
+                </div>
+            </div>
+
+
+
+            <div style="text-align:center"> <h5><b><u> PART - II DETAILS OF OP INSTRUCTOR SYLLABUS 9A / <br /> OP SUPERVISER SYLLABUS 9B</u> </b></h5></div>
+            <div class="row">
+                <div class="col-2">
+                </div>
+                <div class="col-2">
+                    <label><b> Completed On</b></label>
+                    @Html.TextBoxFor(m => m.AppxG.Syllabus9ACompletedOn, new { @class = "form-control datepicker3", @onchange = "isDate(this)", @placeholder = "dd/mmm/yyyy", @required = true })
+
+                </div>
+                <div class="col-2">
+                    <label><b>Completed By IC No</b></label>
+                    @Html.TextBoxFor(m => m.AppxG.CompletedByICNo, new { @class = "form-control", @onchange = "Case(this)", @required = true, @maxlength = "10" })
+                </div>
+                <div class="col-2">
+                    <label><b> Completed By Rank</b></label>
+
+                    @Html.DropDownListFor(m => m.AppxG.CompletedByRank, (new IHSDC.WebApp.Models.MasterModels()).LoadRanks(), "--Select Rank --", new { @data_show_subtext = "true", @class = "select form-control", @data_live_search = "true", @required = true })
+
+
+                </div>
+                <div class="col-2">
+                    <label><b> Completed By Name</b></label>
+                    @Html.TextBoxFor(m => m.AppxG.CompletedByName, new { @class = "form-control", @onchange = "Case(this)", @required = true })
+                </div>
+            </div>
+        </div>
+
+
+        if (SessionManager.RoleId == enum1.AvnDte)
+        {
+            <div style="text-align:center"> <h5><b><u> PART - III : RECOMMENDATIONS BY THE UNIT COMMANDER</u> </b></h5></div>
+            <div class="row">
+                <div class="col-3">
+                </div>
+                <div class="col-2">
+                    <label><b> Total Qualified Instr</b></label>
+                    @Html.TextBoxFor(m => m.AppxG.NoQFIInTheUnit, new { @class = "form-control", @required = true, @type = "number" })
+
+                </div>
+                <div class="col-2">
+                    <label><b> Recommendation </b></label>
+                    @*@Html.TextBoxFor(m => m.AppxG.RecomeForCheckAviatorUnit, new { @class = "form-control", @required = true, @onchange = "Case(this)" })*@
+
+                    @Html.DropDownListFor(m => m.AppxG.RecomeForCheckAviatorUnit, (new IHSDC.WebApp.Models.MasterModels()).LoadCA(), "--Select--", new { @data_show_subtext = "true", @class = "select form-control", @data_live_search = "true", @required = true })
+                </div>
+
+                <div class="col-2">
+                    <label><b>On Type</b></label>
+                    @*@Html.TextBoxFor(m => m.AppxG.RecomeForCheckAviatorOnType, new { @class = "form-control", @required = true, @onchange = "Case(this)" })*@
+
+                    @Html.DropDownListFor(m => m.AppxG.RecomeForCheckAviatorOnType, (new IHSDC.WebApp.Models.MasterModels()).LoadHeptrRPAName(1), "--Select Aircraft Name --", new { @data_show_subtext = "true", @class = "select form-control", @data_live_search = "true", @required = true })
+
+                </div>
+            </div>
+
+            <div style="text-align:center"> <h5><b><u> PART - V : APPROVAL BY DTE GEN ARMY AVN</u> </b></h5></div>
+
+            <div class="row">
+                <div class="col-3"></div>
+                <div class="col-4">
+                    <label><b> Approved/Not Approved </b></label>
+
+                    @Html.DropDownListFor(m => m.AppxG.IsApprovedByGSO, (new IHSDC.WebApp.Models.MasterModels()).LoadApprovedAvndte(), "--Select--", new { @data_show_subtext = "true", @class = "select form-control", @data_live_search = "true", @required = true })
+                </div>
+                @*<div class="col-2" style="margin-top:2%">
+                        <input type="submit" class="btn btn-success" value="Update" />
+
+                    </div>*@
+            </div>
+        }
+        <div class="row">
+            <div class="col-5">
+
+            </div>
+            <div class="col-2" style="margin-top:2%">
+                <input type="submit" class="btn btn-success" value="Update" />
+            </div>
+            <div class="col-5">
+
+            </div>
+        </div>
+    }
+
+
+</div>
+
+
+<script src="~/Scripts/jquery-3.3.1.js"></script>
+<script src="~/Content/CustomJS/DeleteConfirmation.js"></script>
+<script src="~/Content/CustomJS/AviatorJS.js"></script>
+<script src="~/Content/CustomJS/AddUpdateFilter.js"></script>
+<script src="~/Content/css/sweetalert.min.js"></script>
+<link href="~/Content/css/sweetalert.css" rel="stylesheet" />
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryui")
+    @Styles.Render("~/Content/cssjqryUi")
+
+    <script type="text/javascript">
+       var message = '@message';
+    var messageStatus = '@messageStatus';
+    var messagemidStatus = '@messagemidStatus ';
+    if (message)
+            sweetAlert(message, messagemidStatus, messageStatus);
+
+
+
+        $(document).ready(function () {
+
+            //$("#AppxG_TotalInstrDayExp").val("");
+            //$("#AppxG_TotalInstrNightExp").val("");
+            var AppxG_ISRecommendByBrigAvn = $("#AppxG_ISRecommendByBrigAvn").val();
+
+            if (AppxG_ISRecommendByBrigAvn == '') {
+                $("#AppxG_ISRecommendByBrigAvn").val("");
+            }
+
+
+            var AppxG_IsApprovedByGSO = $("#AppxG_IsApprovedByGSO").val();
+            if (AppxG_IsApprovedByGSO=='') {
+                $("#AppxG_IsApprovedByGSO").val("");
+            }
+        });
+
+        var today = new Date();
+
+  //      $('#AppxG_CheckAviatorEndorsementExp').datepicker({
+		//	uiLibrary: 'bootstrap4',
+		//	dateFormat: "dd/M/yy",
+  //          autoclose: true,
+  //          maxDate: today
+		//});
+  //      $('#AppxG_Syllabus9ACompletedOn').datepicker({
+		//	uiLibrary: 'bootstrap4',
+		//	dateFormat: "dd/M/yy",
+  //              autoclose: true,
+  //          maxDate: today
+  //      });
+
+
+    </script>
+}
+
+
+
+
+
+
+<script>
+
+           var role = '@SessionManager.Role';
+           if (role == 'FlightCommander' || role == 'SquadronCommander' || role == 'BrigAvn' || role == 'GSO1AA7')
+        {
+                $(document).ready(function () {
+                    $("#lowzoom *").prop("disabled", true);
+                });
+           }
+</script>
+
+
+
+

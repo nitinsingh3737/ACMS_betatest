@@ -1,0 +1,96 @@
+﻿@model IHSDC.WebApp.Models.LetterForwardedGEB
+@using IHSDC.WebApp.Connection;
+@{
+    ViewBag.Title = "For GEB Module";
+    Layout = "~/Views/Shared/_NewAA7Layout.cshtml"; int sno = 0;
+}
+
+
+<div style="position:absolute; right:10px;top:10px">
+
+    <a class="btn btn-info float-right" href="@Url.Action("GEBLetterBrigAvn","GEB", new {fid = Session["fid"] })" target="_top">
+
+        Back
+    </a>
+
+</div>
+
+<div class="card-body">
+
+    <br />
+    <div class="table-responsive">
+        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+            <thead>
+                <tr>
+
+                    <th width="36px" class="center">S/No</th>
+                    <th class="center">Unit</th>
+                    <th class="center">From Date</th>
+                    <th class="center">To Date</th>
+                    <th class="center">GEB Type</th>
+                    <th width="200px" class="center">Actions</th>
+
+                </tr>
+            </thead>
+            <tbody id="tbody">
+                @foreach (var item in Model.ILLetterForwardedGEB)
+                {
+                    <tr>
+                        <td>
+                            @{ sno++; }
+                            @sno
+                        </td>
+                        <td><b>@Html.DisplayFor(modelItem => item.UnitName)</b></td>
+                        <td><b>@Html.DisplayFor(modelItem => item.FromDate)</b></td>
+                        <td><b>@Html.DisplayFor(modelItem => item.ToDate)</b></td>
+                        <td>
+                            @if (item.IsNotification == false && item.IsSubmit == true)
+                            {
+                                <label><b>Forwored User</b></label>
+                            }
+                            @if (item.IsNotification == true && item.IsSubmit == false)
+                            {
+                                <label><b>Notify User</b></label>
+                            }
+                        </td>
+                        <td>
+                            @if (item.CountOfGEBList > 0)
+                            {
+                                if (item.IsNotification == true && item.IsSubmit == false)
+                                {
+                                    if (item.SubmitByFltCdr != null)
+                                    {
+
+                                        <a style="text-decoration: underline;color: skyblue;" onclick="location.href='@Url.Action("GEBDetailsForGSO", "GEB", new { id = IHSDC.WebApp.RepositryManager.EncryptionManager.Encryption(item.GEBLetterId.ToString()), uid = IHSDC.WebApp.RepositryManager.EncryptionManager.Encryption(item.UnitName.ToString()), type = "AppxC" })'">
+                                            Appx C
+                                        </a>
+                                    }
+                                }
+
+
+
+                                if (item.IsNotification == false && item.IsSubmit == true)
+                                {
+                                    <a style="text-decoration: underline;color: skyblue;" onclick="location.href='@Url.Action("GEBDetailsForGSO", "GEB", new { id = IHSDC.WebApp.RepositryManager.EncryptionManager.Encryption(item.GEBLetterId.ToString()), uid = IHSDC.WebApp.RepositryManager.EncryptionManager.Encryption(item.UnitName.ToString()), type = "AppxD" })'">
+                                        Appx D
+                                    </a>
+                                    <span>|</span>
+                                    <a style="text-decoration: underline;color: skyblue;" onclick="location.href='@Url.Action("GEBDetailsForGSO", "GEB", new { id = IHSDC.WebApp.RepositryManager.EncryptionManager.Encryption(item.GEBLetterId.ToString()), uid = IHSDC.WebApp.RepositryManager.EncryptionManager.Encryption(item.UnitName.ToString()), type = "AppxC" })'">
+                                        Appx C
+                                    </a>
+                                }
+                            }
+                            else
+                            {
+                                <b>Yet GEB List not submitted</b>
+                            }
+
+
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+

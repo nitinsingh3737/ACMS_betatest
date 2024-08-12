@@ -1,0 +1,427 @@
+﻿@model IHSDC.WebApp.Models.LetterForwardedGEB
+@using IHSDC.WebApp.Connection
+@{
+    ViewBag.Title = "Edit GEB Details";
+    Layout = "~/Views/Shared/_NewAA7Layout.cshtml";
+}
+
+
+    
+
+
+
+<div style="position:absolute; right:10px;top:10px">
+   
+    <a class="btn btn-info float-right" href="@Url.Action("UserGEBList","GEB")" target="_top">
+        Back
+    </a>
+</div>
+<div style="position:absolute; top:10px;left:20%;right:20%">
+ 
+    <div style="text-align:center;font-size: 25px">
+        <label><b>  @Html.DisplayFor(m => m.AviatorName)</b> </label>
+    </div>
+
+</div>
+
+
+<div class="card-body">
+
+    @using (Html.BeginForm("UpdateGEBDetails", "GEB", FormMethod.Post, new { enctype = "multipart/form-data" }))
+
+
+    {
+        @Html.HiddenFor(h => h.Aviator_ID)
+        @Html.HiddenFor(h => h.FinalAppxId)
+
+        @Html.HiddenFor(h => h.IsNotification,new { @id= "IsNotification" })
+        @Html.HiddenFor(h => h.IsSubmit, new { @id = "IsSubmit" })
+
+        @*@Html.HiddenFor(m => m.SplQul)*@
+
+        <div>
+            <div class="row">
+
+                <div class="col-6" style="    padding-left: 15%;"><div style="font-size: 25px;    font-weight: 500;   text-decoration: underline;color: black;  text-align:center">
+    <label><b><u>CATEGORY / INSTRUMENT RATING HELD</u></b></label>
+</div></div>
+                <div class="col-6" style="    padding-left: 10%;">
+                    <div style="font-size: 25px;  font-weight: 500;   text-decoration: underline;color: black;  text-align:center">
+                        <label><b><u>CONTINUITY TRAINING</u></b></label>
+                    </div>
+                </div>
+                
+
+               
+            </div>
+
+            <div class="row">
+
+                <div style="width:150px; padding-right:10px">
+                    <label><b> Rank</b></label>
+                    @Html.DropDownListFor(m => m.Rank, (new IHSDC.WebApp.Models.MasterModels()).LoadRanks(), "--Select Rank --", new { @data_show_subtext = "true", @class = "select form-control", @data_live_search = "true", @required = true })
+                </div>
+
+                <div style="width:70px;">
+                </div>
+                <div style="width:180px; padding-right:10px">
+                    <label><b> Cat IR</b></label>
+                    @Html.DropDownListFor(m => m.PresentCatIR, (new IHSDC.WebApp.Models.MasterModels()).LoadCatResult(), "--Select Present Cat --", new { @data_show_subtext = "true", @class = "select form-control", @data_live_search = "true", @required = true })
+
+                </div>
+                <div style="width:170px; padding-right:10px">
+                    <label><b>Date</b></label>
+                    @Html.TextBoxFor(m => m.PresentCatIRDate, new { @class = "form-control datepicker3", @required = true, @onchange = "isDate(this)", @placeholder = "dd/mmm/yyyy" })
+                </div>
+                <div style="width:170px; padding-right:10px">
+                    <label><b> On Type</b></label>
+
+                    @Html.DropDownListFor(m => m.PresentCatIRType, (new IHSDC.WebApp.Models.MasterModels()).LoadAircraftType(), "--Select Aircraft Name --", new { @data_show_subtext = "true", @class = "select form-control", @data_live_search = "true", @required = true })
+
+                </div>
+                <div style="width:170px; padding-right:10px">
+                    <label><b> Other Type(s)(if any) </b></label>
+                    @Html.DropDownListFor(m => m.TypesIfAny, (new IHSDC.WebApp.Models.MasterModels()).LoadAircraftType(), "--Select Aircraft Name --", new { @data_show_subtext = "true", @class = "select form-control", @data_live_search = "true"})
+
+
+                </div>
+                <div style="width:70px;">
+                </div>
+
+                <div class="col">
+                    <label><b> Day (Last 03 Months ) </b></label>
+                    @Html.TextBoxFor(m => m.DayHrsLastThreeMonth, new { @class = "form-control", @required = true, @onchange = "CheckMinute(this)", onkeypress = "return blockSpecialChar(event)"  })
+                </div><div class="col">
+                    <label><b> Night (Last 06 Months ) </b></label>
+                    @Html.TextBoxFor(m => m.NighHrsLastSixMonth, new { @class = "form-control", @required = true, @onchange = "CheckMinute(this)", onkeypress = "return blockSpecialChar(event)" ,})
+                </div>
+            </div>
+
+            <br />
+
+
+            <div class="row">
+                <div style="width:60px">
+                </div>
+                <div style="font-size: 25px;    font-weight: 500;   text-decoration: underline;color: black;  text-align:center">
+                    <label><b><u>SPECIAL QUALIFICATION</u></b></label>
+                </div>
+                <div class="col-2">
+                </div>
+                <div style="font-size: 25px;    font-weight: 500;   text-decoration: underline;color: black;  text-align:center">
+                    <label><b><u>CHECK AVIATORS ENDORSEMENT</u></b></label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-2">
+                    <label><b> QFI Cat</b></label>
+
+                    @Html.DropDownListFor(m => m.QfiCat, (new IHSDC.WebApp.Models.MasterModels()).LoadQFI(), "--Select QFI--", new { @data_show_subtext = "true", @class = "select form-control", @data_live_search = "true" })
+
+                </div>
+
+                <div class="col-2">
+                    <label><b> Date</b></label>
+                    @Html.TextBoxFor(m => m.QfiDate, new { @class = "form-control datepicker3",  @onchange = "isDate(this)", @placeholder = "dd/mmm/yyyy" })
+                </div>
+                <div class="col-1">
+                    <label><b> Total Instr Hrs</b></label>
+                    @Html.TextBoxFor(m => m.TotalInstHrs, new { @class = "form-control", onkeypress = "return blockSpecialChar(event)", @onchange = "CheckMinute(this)" })
+                </div>
+
+             
+                <div class="col-2">
+                    <label><b> Awarded On</b></label>
+                    @Html.TextBoxFor(m => m.CheckAviatorEndorsmentAwardedOn, new { @class = "form-control datepicker3", @onchange = "isDate(this)", @placeholder = "dd/mmm/yyyy" })
+                </div>
+                <div class="col-2">
+                    <label><b>Comd</b></label>
+                    @Html.DropDownListFor(m => m.AwardByComd, (new IHSDC.WebApp.Models.MasterModels()).LoadCommandName(), "--Command --", new { @data_show_subtext = "true", @class = "select form-control", @data_live_search = "true" })
+                </div>
+
+
+                @*//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*@
+                
+                @*//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*@
+            </div>
+
+            <div class="row">
+                <div class="col-2">
+                    <label><b> Appearing For</b></label>
+                    @Html.DropDownListFor(m => m.AppearingFor, (new IHSDC.WebApp.Models.MasterModels()).LoadAppearingFor(), "--Select Appearing For --", new { @data_show_subtext = "true", @class = "select form-control", @data_live_search = "true", @required = true, @onchange = "Changes(this)" })
+                </div>
+
+                <div class="col-2" id="dvAircraftType">
+                    <label><b> Aircraft Type</b></label>
+                    @Html.DropDownListFor(m => m.AircraftType, (new IHSDC.WebApp.Models.MasterModels()).LoadAircraftType(), "--Select Aircraft Name --", new { @data_show_subtext = "true", @class = "select form-control", @data_live_search = "true", @required = true })
+                </div>
+
+                <div class="col-2" id="dvRemarksAppearingddl">
+                    <label><b>Remarks Appearing</b></label>
+
+                    @Html.DropDownListFor(m => m.RemarksAppearing, (new IHSDC.WebApp.Models.MasterModels()).LoadAppearingRemarks(), "--Select Remarks Appearing --", new { @data_show_subtext = "true", @class = "select form-control", @data_live_search = "true", @id = "RemarksAppearingddl" })
+                </div>
+            </div>
+            <br />
+
+
+            <div style="font-size: 25px;    font-weight: 500;   text-decoration: underline;color: black;  text-align:center">
+                <label><b><u>DETAILS OF FLYING EXPERIENCE</u></b></label>
+            </div>
+
+            <div class="row">
+
+                <div style="width:364px">
+                </div>
+                <div>
+                    <div class="row" style="text-align:center;font-size:18px;">
+
+                        <div style="border:solid 1px; width:50px;">
+                            <b>Ser</b>
+                        </div>
+                        <div style="border:solid 1px; width:100px">
+
+                        </div>
+                        <div style="border:solid 1px; width:100px">
+                            <b>On Type</b>
+                        </div>
+                        <div style="border:solid 1px; width:100px">
+                            <b>On Helicopters</b>
+                        </div>
+                        <div style="border:solid 1px; width:100px">
+                            <b>All Types</b>
+                        </div>
+                        <div style="border:solid 1px ; width:100px">
+                            <b>IMC Hours</b>
+                        </div>
+                        <div style="border:solid 1px; width:200px">
+                            <b>Remarks</b>
+                        </div>
+                    </div>
+                    <div class="row">
+
+                        <div style="border:solid 1px ; width:50px">
+                            <b> (a)</b>
+                        </div>
+                        <div style="border:solid 1px; width:100px">
+                            <b>Day</b>
+                        </div>
+                        <div style="border:solid 1px; width:100px">
+                            @Html.TextBoxFor(m => m.TotalCptHrsPresentTypeDay, new { @class = "form-control", @required = true, onkeypress = "return blockSpecialChar(event)", @onchange = "CheckMinute(this)" })
+
+                        </div>
+                        <div style="border:solid 1px; width:100px">
+
+                            @Html.TextBoxFor(m => m.OnHelicoptorDay, new { @class = "form-control", @required = true, onkeypress = "return blockSpecialChar(event)", @onchange = "CheckMinute(this)" })
+                        </div>
+                        <div style="border:solid 1px; width:100px">
+                            @Html.TextBoxFor(m => m.CaptHrsDayOnAllTypes, new { @class = "form-control", @required = true, onkeypress = "return blockSpecialChar(event)", @onchange = "CheckMinute(this)" })
+                        </div>
+                        <div style="border:solid 1px; width:100px">
+                            @Html.TextBoxFor(m => m.IMCDayHrs, new { @class = "form-control", @required = true, onkeypress = "return blockSpecialChar(event)", @onchange = "CheckMinute(this)" })
+                        </div>
+                        <div style="border:solid 1px; width:200px">
+                            @Html.TextBoxFor(m => m.RemarksDay, new { @class = "form-control", @onchange = "Case(this)" })
+                        </div>
+                    </div>
+                    <div class="row">
+
+                        <div style="border:solid 1px ; width:50px">
+                            <b>(a)</b>
+                        </div>
+                        <div style="border:solid 1px; width:100px">
+                            <b>Night</b>
+                        </div>
+                        <div style="border:solid 1px; width:100px">
+                            @Html.TextBoxFor(m => m.TotalCptHrsPresentTypeNight, new { @class = "form-control", @required = true, onkeypress = "return blockSpecialChar(event)", @onchange = "CheckMinute(this)" })
+                        </div>
+                        <div style="border:solid 1px; width:100px">
+                            @Html.TextBoxFor(m => m.OnHelicoptornight, new { @class = "form-control", @required = true, onkeypress = "return blockSpecialChar(event)", @onchange = "CheckMinute(this)" })
+                        </div>
+                        <div style="border:solid 1px; width:100px">
+                            @Html.TextBoxFor(m => m.CaptHrsNightOnAllTypes, new { @class = "form-control", @required = true, onkeypress = "return blockSpecialChar(event)", @onchange = "CheckMinute(this)" })
+                        </div>
+                        <div style="border:solid 1px; width:100px">
+                            @Html.TextBoxFor(m => m.IMCNightHrs, new { @class = "form-control", @required = true, onkeypress = "return blockSpecialChar(event)", @onchange = "CheckMinute(this)" })
+                        </div>
+                        <div style="border:solid 1px; width:200px">
+                            @Html.TextBoxFor(m => m.RemarksNight, new { @class = "form-control", @onchange = "Case(this)" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br />
+        <div>
+            @if (SessionManager.Role == "SquadronCommander" || SessionManager.Role == "FlightCommander" && SessionManager.UnitType == "INDEPENDENT")
+            {
+                <div style="font-size: 25px;    font-weight: 500;   text-decoration: underline;
+    color: black;  text-align:center">
+                    <label><b><u>PART - II RECOMMENDATION BY UNIT COMMANDER</u></b></label>
+
+                </div>
+                <div class="row">
+                    <div class="col-5">
+                    </div>
+                    <div class="col-2">
+
+                        @Html.DropDownListFor(m => m.RecomForCat, (new IHSDC.WebApp.Models.MasterModels()).LoadAppearingFor(), "--Select CatIR --", new { @data_show_subtext = "true", @class = "select form-control", @data_live_search = "true", @required = true })
+
+                    </div>
+                    <div class="col-5">
+                    </div>
+                </div>
+            }
+            <br />
+            <div class="row">
+                <div class="col-4"></div>
+                    <div class="col-2" style="margin-left: 12%;">
+                        <button type="submit" id="btnupdate" value="@ViewBag.ButtonName" name="btnval" class="btn btn-info">@ViewBag.ButtonName</button>
+                     
+                    </div>
+                    <div class="col-5">
+                    </div>
+                </div>
+            </div>
+    }
+</div>
+   
+
+    <script src="~/NewContent/vendor/jquery/jquery.min.js"></script>
+    <script src="~/Content/CustomJS/AviatorJS.js"></script>
+    <script src="~/Content/css/sweetalert.min.js"></script>
+    <link href="~/Content/css/sweetalert.css" rel="stylesheet" />
+
+    @section Scripts {
+        @Scripts.Render("~/bundles/jqueryui")
+        @Styles.Render("~/Content/cssjqryUi")
+        <script type="text/javascript">
+
+
+            function CheckHrs() {
+               
+                var DayHrsLastThreeMonth = $("#DayHrsLastThreeMonth").val();
+                var NighHrsLastSixMonth = $("#NighHrsLastSixMonth").val();
+                var TotalCptHrsPresentTypeDay = $("#TotalCptHrsPresentTypeDay").val();
+                var OnHelicoptorDay = $("#OnHelicoptorDay").val();
+                var CaptHrsDayOnAllTypes = $("#CaptHrsDayOnAllTypes").val();
+                var TotalCptHrsPresentTypeNight = $("#TotalCptHrsPresentTypeNight").val();
+                var OnHelicoptornight = $("#OnHelicoptornight").val();
+                var CaptHrsNightOnAllTypes = $("#CaptHrsNightOnAllTypes").val();
+                if (DayHrsLastThreeMonth == '0.00') {
+                    $("#DayHrsLastThreeMonth").val('');
+                   $("#DayHrsLastThreeMonth").prop("required", true);
+                }
+                if (NighHrsLastSixMonth == '0.00') {
+                    $("#NighHrsLastSixMonth").val('');
+                    $("#NighHrsLastSixMonth").prop("required", true);
+
+                }
+                if (TotalCptHrsPresentTypeDay == '0.00') {
+                    $("#TotalCptHrsPresentTypeDay").val('');
+                    $("#TotalCptHrsPresentTypeDay").prop("required", true);
+
+                }
+
+                if (OnHelicoptorDay == '0.00') {
+                    $("#OnHelicoptorDay").val('');
+                    $("#OnHelicoptorDay").prop("required", true);
+
+                }
+
+                if (CaptHrsDayOnAllTypes == '0.00') {
+                    $("#CaptHrsDayOnAllTypes").val('');
+                    $("#CaptHrsDayOnAllTypes").prop("required", true);
+
+                }
+
+                if (TotalCptHrsPresentTypeNight == '0.00') {
+                    $("#TotalCptHrsPresentTypeNight").val('');
+                    $("#TotalCptHrsPresentTypeNight").prop("required", true);
+
+                }
+
+                if (OnHelicoptornight == '0.00') {
+                    $("#OnHelicoptornight").val('');
+                    $("#OnHelicoptornight").prop("required", true);
+
+                }
+                if (CaptHrsNightOnAllTypes == '0.00') {
+                    $("#CaptHrsNightOnAllTypes").val('');
+                    $("#CaptHrsNightOnAllTypes").prop("required", true);
+
+                }
+
+
+            }
+
+            $("#btnupdate").click(function () {
+                CheckHrs();
+            })
+            $(document).ready(function () {               
+                CheckHrs();
+                var IsNotification = $("#IsNotification").val();
+
+                if (IsNotification == "True") {
+                    $("#AppearingFor option[value='Not Appeared']").remove();
+                }
+              var   RemarksAppearingddl= $("#RemarksAppearingddl").val();
+                if (RemarksAppearingddl == '') {
+                    $("#dvRemarksAppearingddl").hide();
+                }
+                else {
+                    $("#dvRemarksAppearingddl").show();
+                    ("#RemarksAppearingddl").prop("required", true);
+
+                }
+            })
+            function Changes(obj) {              
+                var va = $(obj).val();
+                if (va == "Not Appeared") {
+                    $("#RemarksAppearingddl").prop("required", true);
+                    $("#AircraftType").prop("required", false);
+                    $('#AircraftType').val('');
+                    $("#dvAircraftType").hide();
+                    $("#dvRemarksAppearingddl").show();                    
+                }
+                else {
+                    $("#RemarksAppearingddl").prop("required", false);
+                    $("#AircraftType").prop("required", true);
+                    $('#RemarksAppearingddl').val('');
+                    $("#dvRemarksAppearingddl").hide();
+                    $("#dvAircraftType").show();
+                }
+            }
+
+            //var today = new Date();
+            //$('#PresentCatIRDate').datepicker({
+            //    uiLibrary: 'bootstrap4',
+            //    dateFormat: "dd/M/yy",
+            //    autoclose: true,
+            //    maxDate: today
+            //});
+            //$('#CheckAviatorEndorsmentAwardedOn').datepicker({
+            //    uiLibrary: 'bootstrap4',
+            //    dateFormat: "dd/M/yy",
+            //    autoclose: true,
+            //    maxDate: today
+            //});
+            //$('#QfiDate').datepicker({
+            //    uiLibrary: 'bootstrap4',
+            //    dateFormat: "dd/M/yy",
+            //    autoclose: true,
+            //    maxDate: today
+            //});
+                    </script>
+    }
+
+       <script>
+           
+        var role = @SessionManager.Role ;
+        if (role == 'FlightCommander' || role == 'SquadronCommander')
+        {
+                $(document).ready(function () {
+                    $("#dis *").prop("disabled", true);
+                });
+           }
+       </script>

@@ -1,0 +1,118 @@
+﻿
+@model IHSDC.WebApp.Models.AppxFFlgHrs
+@{
+    var message = TempData["Message"] ?? string.Empty;
+    var messageStatus = TempData["messageStatus"] ?? string.Empty;
+    var messagemidStatus = TempData["messagemidStatus"] ?? string.Empty;
+    //var ActionName = "/Master/DeleteComd";
+
+    ViewBag.Title = "Add Appx Flg Hrs";
+    Layout = "~/Views/Shared/_NewAA7Layout.cshtml";
+}
+
+@using (Html.BeginForm("AddAppxFFlgHrs", "GEB", FormMethod.Post, new { enctype = "multipart/form-data" }))
+
+{
+    <div class="row">
+        <div class="col">
+            <a class="btn btn-info float-right" href="javascript:history.back()" target="_top">
+                Back
+            </a>
+            
+        </div>
+    </div>
+    <br />
+    @Html.HiddenFor(m => m.AppxFId)
+    @Html.HiddenFor(m => m.AppxF_FlyingDetailId)
+    <div class="card-body">
+        <div class="row">
+            <div class="col">
+                <label><b> Aircraft Type:</b></label>
+                @Html.DropDownListFor(m => m.AircraftType, (new IHSDC.WebApp.Models.MasterModels()).LoadHeptrRPAName(1), "--Select Aircraft Name --", new { @data_show_subtext = "true", @class = "select form-control", @data_live_search = "true", @required = true })
+            </div>
+            <div class="col">
+                <label><b> Day Dual Hr:</b></label>
+                @Html.TextBoxFor(m => m.DayDualHr, "{0:####.##}", new { @class = "form-control", @onkeyup = "ValInData(this)", onkeypress = "return blockSpecialChar(event)", @onchange = "CheckMinuteHrs(this)", @required = true })
+            </div>
+            <div class="col">
+                <label><b> Day Captain Hr:</b></label>
+                @Html.TextBoxFor(m => m.DayCaptainHr, "{0:####.##}", new { @class = "form-control", @onkeyup = "ValInData(this)", onkeypress = "return blockSpecialChar(event)", @onchange = "CheckMinuteHrs(this)", @required = true })
+            </div>
+            <div class="col">
+                <label><b> Night Dual Hr:</b></label>
+                @Html.TextBoxFor(m => m.NightDualHr, "{0:####.##}", new { @class = "form-control", @onkeyup = "ValInData(this)", onkeypress = "return blockSpecialChar(event)", @onchange = "CheckMinuteHrs(this)", @required = true })
+            </div>
+            <div class="col">
+                <label><b> Night Captain Hr:</b></label>
+                @Html.TextBoxFor(m => m.NightCaptainHr, "{0:####.##}", new { @class = "form-control", @onkeyup = "ValInData(this)", onkeypress = "return blockSpecialChar(event)", @onchange = "CheckMinuteHrs(this)", @required = true })
+            </div>
+
+
+        </div>
+        <div class="dropdown-divider"></div>
+        <div class="col-12" style="margin-left:35%">
+            <div class="form-group">
+                <div class="col-sm-6" style="margin-left:10%">
+                    <button type="submit" id="btnval" value="@ViewBag.ButtonName" name="btnval" class="btn btn-success">@ViewBag.ButtonName</button>
+                   
+                </div>
+            </div>
+        </div>
+    </div>
+
+}
+
+
+<script src="~/Scripts/jquery-3.3.1.js"></script>
+<script src="~/Content/CustomJS/AviatorJS.js"></script>
+<script src="~/Content/CustomJS/AddUpdateFilter.js"></script>
+<script src="~/Content/CustomJS/DeleteConfirmation.js"></script>
+<script src="~/Content/css/sweetalert.min.js"></script>
+<link href="~/Content/css/sweetalert.css" rel="stylesheet" />
+
+
+<script type="text/javascript">
+
+   var message = '@message';
+    var messageStatus = '@messageStatus';
+    var messagemidStatus = '@messagemidStatus ';
+    if (message)
+        sweetAlert(message, messagemidStatus, messageStatus);
+
+
+
+    function CheckFlyingHrs() {
+        var DayDualHr = $("#DayDualHr").val();
+        var DayCaptainHr = $("#DayCaptainHr").val();
+        var NightDualHr = $("#NightDualHr").val();
+        var NightCaptainHr = $("#NightCaptainHr").val();
+
+        if (DayDualHr == '0.00' || DayDualHr == '0'  ) {
+            $("#DayDualHr").val('');
+            $("#DayDualHr").prop("required", true);
+        }
+        if (DayCaptainHr == '0.00' || DayCaptainHr == '0') {
+            $("#DayCaptainHr").val('');
+            $("#DayCaptainHr").prop("required", true);
+
+        }
+        if (NightDualHr == '0') {
+            $("#NightDualHr").val('');
+            //$("#NightDualHr").prop("required", true);
+
+        }
+        if (NightCaptainHr == '0' ) {
+            $("#NightCaptainHr").val('');
+           // $("#NightCaptainHr").prop("required", true);
+        }
+
+    }
+    $(document).ready(function () {
+        CheckFlyingHrs();
+
+    });
+    $("#btnval").click(function () {
+        CheckFlyingHrs();
+    });
+</script>
+

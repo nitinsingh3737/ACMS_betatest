@@ -1,0 +1,209 @@
+﻿@model IHSDC.WebApp.Models.GEBLetter
+@using IHSDC.WebApp.Connection
+@{
+    ViewBag.Title = "GEB Module";
+    Layout = "~/Views/Shared/_NewAA7Layout.cshtml"; int sno = 0;
+    var message = TempData["Message"] ?? string.Empty;
+    var messageStatus = TempData["messageStatus"] ?? string.Empty;
+    var messagemidStatus = TempData["messagemidStatus"] ?? string.Empty;
+}
+
+<div style="position:absolute; right:10px;top:10px">
+   
+        <a class="btn btn-info float-right" href="@Url.Action("GEBLetter","GEB")" target="_top">
+            Back
+        </a>
+    
+</div>
+
+<div class="card-body">
+
+
+    <div class="table-responsive">
+        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+            <thead>
+                <tr>
+                    <th width="36px" class="center">S/No</th>
+                    <th class="center">From Date</th>
+                    <th class="center">To Date</th>
+                    <th class="center">Comd Name</th>
+                    <th class="center">Unit Name</th>
+                    <th class="center">GEB Type</th>
+                    <th width="98px" class="center">Actions/Status</th>
+
+                </tr>
+            </thead>
+            <tbody id="tbody">
+                @if (ViewBag.count > 0)
+                {
+                    foreach (var item in Model.ILGEBLetter)
+                    {
+                        <tr>
+                            <td>
+                                @{ sno++; }
+                                @sno
+                            </td>
+                            <td><b>@Html.DisplayFor(modelItem => item.FromDate)</b></td>
+                            <td><b>@Html.DisplayFor(modelItem => item.ToDate)</b></td>
+                            <td><b>@Html.DisplayFor(modelItem => item.BrigAvnName)</b></td>
+                            <td><b>@Html.DisplayFor(modelItem => item.UnitName)</b></td>
+                            <td>
+                                @if (item.IsNotification == false && item.IsSubmit == true)
+                                {
+                                    <label><b>Forwored User</b></label>
+                                }
+                                @if (item.IsNotification == true && item.IsSubmit == false)
+                                {
+                                    <label><b>Notify User</b></label>
+                                }
+                            </td>
+                            <td>
+
+
+
+                                @if (item.SubmitSqnCdr != null)
+                                {
+                                    if (item.TypeOfUnit == "NORMAL")
+                                    {
+
+                                        //Session["fltType"] = item.TypeOfUnit.ToString();
+                                        <a style="text-decoration: underline;color: skyblue;" onclick="location.href='@Url.Action("GEBLetterBrigAvnNormal", "GEB", new { fid = IHSDC.WebApp.RepositryManager.EncryptionManager.Encryption(item.GEBLetterId.ToString()), uid = IHSDC.WebApp.RepositryManager.EncryptionManager.Encryption(item.UserId.ToString()) })'">
+                                            <i class="fa fa-eye" aria-hidden="true"></i>
+                                        </a>
+                                        if (SessionManager.Role == "BrigAvn")
+                                        {
+                                            if (item.SubmitByComd == "Submitted to Comd")
+                                            {
+                                                <label><b>Submitted to GSO1AA7</b></label>
+                                            }
+
+                                            if (item.SubmitByComd == "Completed")
+                                            {
+                                                <label><b>@item.SubmitByComd</b></label>
+                                            }
+                                        }
+                                        if (SessionManager.Role == "GSO1AA7")
+                                        {
+                                            if (item.SubmitByComd == "Submitted to Comd")
+                                            {
+                                                <label><b>Submitted By Brig Avn</b></label>
+                                            }
+
+                                            if (item.SubmitByComd == "Completed")
+                                            {
+                                                <label><b>View/Fill Performence</b></label>
+                                            }
+                                        }
+                                    }
+                                    if (item.TypeOfUnit == "INDEPENDENT")
+                                    {
+                                      
+                                        
+                                        if (item.IsNotification == true && item.IsSubmit == false)
+                                        {
+
+
+                                            <a style="text-decoration: underline;color: skyblue;" onclick="location.href='@Url.Action("GEBDetailsForGSO", "GEB", new { id = IHSDC.WebApp.RepositryManager.EncryptionManager.Encryption(item.GEBLetterId.ToString()), uid = IHSDC.WebApp.RepositryManager.EncryptionManager.Encryption(item.UnitName.ToString()) ,type="AppxC"})'">
+                                                <i class="fa fa-eye" aria-hidden="true"></i>
+
+                                            </a>
+                                        }
+                                        if (item.IsNotification == false && item.IsSubmit == true)
+                                        {
+                                            <a style="text-decoration: underline;color: skyblue;" onclick="location.href='@Url.Action("GEBDetailsForGSO", "GEB", new { id = IHSDC.WebApp.RepositryManager.EncryptionManager.Encryption(item.GEBLetterId.ToString()), uid = IHSDC.WebApp.RepositryManager.EncryptionManager.Encryption(item.UnitName.ToString()),type="AppxD" })'">
+
+                                                Appx D @*<i class="fa fa-eye" aria-hidden="true"></i>
+                                                    </a>
+
+                                                                    <a style="text-decoration: underline;color: skyblue;" onclick="location.href='@Url.Action("GEBDetailsForGSO", "GEB", new { id = IHSDC.WebApp.RepositryManager.EncryptionManager.Encryption(item.GEBLetterId.ToString()), uid = IHSDC.WebApp.RepositryManager.EncryptionManager.Encryption(item.UnitName.ToString()) ,type="AppxC"})'">
+                                                                        Appx C @*<i class="fa fa-eye" aria-hidden="true"></i>*@
+                                            </a>
+                                            <span>|</span>
+                                            <a style="text-decoration: underline;color: skyblue;" onclick="location.href='@Url.Action("GEBDetailsForGSO", "GEB", new { id = IHSDC.WebApp.RepositryManager.EncryptionManager.Encryption(item.GEBLetterId.ToString()), uid = IHSDC.WebApp.RepositryManager.EncryptionManager.Encryption(item.UnitName.ToString()) ,type="AppxC"})'">
+                                                Appx C
+
+                                            </a>
+                                        }
+
+
+
+                                        if (SessionManager.Role == "BrigAvn")
+                                        {
+                                            if (item.SubmitByComd == "Submitted to Comd")
+                                            {
+                                                <label><b>Submitted to GSO1AA7</b></label>
+                                            }
+
+                                            if (item.SubmitByComd == "Completed")
+                                            {
+                                                <label><b>@item.SubmitByComd</b></label>
+                                            }
+                                        }
+                                        if (SessionManager.Role == "GSO1AA7")
+                                        {
+                                            if (item.SubmitByComd == "Submitted to Comd")
+                                            {
+                                                <label><b>Submitted By Brig Avn</b></label>
+                                            }
+
+                                            if (item.SubmitByComd == "Completed")
+                                            {
+                                                <label><b>View/Fill Performence</b></label>
+                                            }
+                                        }
+                                    }
+
+
+                                    @*if (item.SubmitByComd == null)
+                                        {
+                                            <span>|</span>
+
+                                            <a id="btnsubmit" data-id='@IHSDC.WebApp.RepositryManager.EncryptionManager.Encryption(item.UserId.ToString())' onclick="SubmitConfirmation(this,'/GEB/SubmitGEBList','Do you want to Submit GEB List to GSO1 AA7 ','SubmitComd')">
+                                                <img src="~/images/CheckSubmit.png" width="30" height="30" border="0" />
+                                            </a>
+                                        }*@
+
+
+
+                                }
+                                else
+                                {
+                                    <label><b>GEB list is not completed  </b></label>
+                                }
+                            </td>
+
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <tr><td colspan="4" style="font-weight:600;color:red;text-align:center"> No Record Found!!!</td></tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script src="~/Scripts/jquery-3.3.1.js"></script>
+<script src="~/Content/CustomJS/GEBSubmit.js"></script>
+<script src="~/Content/CustomJS/AviatorJS.js"></script>
+<script src="~/Content/css/sweetalert.min.js"></script>
+<link href="~/Content/css/sweetalert.css" rel="stylesheet" />
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryui")
+    @Styles.Render("~/Content/cssjqryUi")
+
+    <script type="text/javascript">
+       var message = '@message';
+    var messageStatus = '@messageStatus';
+    var messagemidStatus = '@messagemidStatus ';
+    if (message)
+        sweetAlert(message, messagemidStatus, messageStatus);
+
+
+    </script>
+}
+
+
+
+

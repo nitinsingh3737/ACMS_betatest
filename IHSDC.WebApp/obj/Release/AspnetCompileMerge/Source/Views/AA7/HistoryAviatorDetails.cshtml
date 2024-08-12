@@ -1,0 +1,149 @@
+﻿@model IHSDC.WebApp.Models.HistoryAviatorDetails
+@{
+    ViewBag.Title = "History Aviator Details";
+    Layout = "~/Views/Shared/_NewAA7Layout.cshtml"; int sno = 0;
+}
+
+
+<div class="row" style="float:right;">
+    <a class="btn btn-info float-right" href="javascript:history.back()" target="_top">Back</a>
+</div>
+
+<div class="row">
+    <img src="~/Images/PDF.png" alt="Flowers in Chania" width="40" height="45" id="btnExport" value="Export Pdf">
+    @*<input type="button" class="btn btn-info float-left" id="btnExport" value="Export Pdf" />*@
+
+</div>
+
+<body>
+    <div class="card-body" id="printDetails">
+
+        <div class="table-responsive">
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+
+                <tbody id="tbody">
+                    <tr>
+                        <th colspan="5">
+                            <h5> Aviator Details : &nbsp;&nbsp;&nbsp;   @ViewBag.AviatorName    </h5>
+                        </th>
+                        <td>
+                            <h5>Unit Name: @ViewBag.UnitName</h5>
+                        </td>
+
+                    </tr>
+
+                    @if (ViewBag.ILAviatorCRUDCount > 0)
+                    {
+                        foreach (var item in Model.ILAviatorCRUD)
+                        {
+
+
+                            <tr>
+                                <td>
+                                    <b> Aviator Name</b>
+                                </td>
+                                <td>@Html.DisplayFor(modelItem => item.AviatorName)</td>
+                                <td>
+                                    <b> Arms Service Name</b>
+                                </td>
+                                <td>@Html.DisplayFor(modelItem => item.ArmServiceName)</td>
+
+                                <td>
+                                    <b> Unit Name</b>
+                                </td>
+                                <td>@Html.DisplayFor(modelItem => item.UnitName)</td>
+
+                            </tr>
+                            <tr>
+
+                                <td>
+                                    <b> Date of Birth</b>
+                                </td>
+                                <td>@Html.DisplayFor(modelItem => item.DateOfBirth)</td>
+                                <td>
+                                    <b>  Date Of Seniority</b>
+                                </td>
+                                <td>@Html.DisplayFor(modelItem => item.DateOfSeniority)</td>
+                                <td>
+                                    <b> Date Of Wings</b>
+                                </td>
+                                <td>@Html.DisplayFor(modelItem => item.DateOfWings)</td>
+
+
+                            </tr>
+
+                            <tr>
+                                <td>
+                                    <b> Date Of Commision</b>
+                                </td>
+                                <td>@Html.DisplayFor(modelItem => item.DateOfCommision)</td>
+                                <td>
+                                    @*<b> Cat Card No</b>*@
+                                </td>
+                                <td>@*@Html.DisplayFor(modelItem => item.CatCardNo)*@</td>
+                                <td>
+                                    @*<b>  Date of Issue Cat Card</b>*@
+                                </td>
+                                <td>@*@Html.DisplayFor(modelItem => item.DateofIssueCatCard)*@</td>
+
+
+                            </tr>
+
+                            @*<tr>
+
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>*@
+                        }
+                    }
+                    else
+                    {
+                        <tr><td colspan="12" style="font-weight:900;color:red;text-align:center"> No Record Found!!!</td></tr>
+                    }
+                </tbody>
+
+
+                
+
+
+            </table>
+        </div>
+        <form action="~/Home/Upload" method="post" id="myForm">
+            <input type="hidden" name="data1" id="data1">
+            <input type="hidden" name="filename" id="filename" value="AviatorDetails">           
+        </form>
+    </div>
+</body>
+
+<script src="~/Scripts/jquery-3.3.1.min.js"></script>
+<script src="~/Scripts/pdfmake.min.js"></script>
+<script src="~/Scripts/html2canvas.min.js"></script>
+<script>
+    $("body").on("click", "#btnExport", function () {
+        //debugger;
+            html2canvas($('#printDetails')[0], {
+                onrendered: function (canvas) {
+                    var data = canvas.toDataURL();
+                    var docDefinition = {
+                        content: [{
+                            image: data,
+                            width: 500
+                        }]
+                    };                   
+                    // pdfMake.createPdf(docDefinition).download("Aviator.pdf");
+                    const pdfDocGenerator = pdfMake.createPdf(docDefinition);
+                    pdfDocGenerator.getBase64((data) => {
+                        $('#data1').val(data);
+                        $("#myForm").submit();
+                    });
+                }
+            });
+        });
+
+   
+</script>
+
+
+

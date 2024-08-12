@@ -1,0 +1,414 @@
+D:\0_Working\aa7 old pattern\master\IHSDC.Common\bin\Release\IHSDC.Common.dll.config
+D:\0_Working\aa7 old pattern\master\IHSDC.Common\bin\Release\IHSDC.Common.dll
+D:\0_Working\aa7 old pattern\master\IHSDC.Common\bin\Release\IHSDC.Common.pdb
+D:\0_Working\aa7 old pattern\master\IHSDC.Common\bin\Release\Antlr3.Runtime.dll
+D:\0_Working\aa7 old pattern\master\IHSDC.Common\bin\Release\EntityFramework.dll
+D:\0_Working\aa7 old pattern\master\IHSDC.Common\bin\Release\EntityFramework.SqlServer.dll
+D:\0_Working\aa7 old pattern\master\IHSDC.Common\bin\Release\Microsoft.AspNet.Identity.Core.dll
+D:\0_Working\aa7 old pattern\master\IHSDC.Common\bin\Release\Microsoft.AspNet.Identity.EntityFramework.dll
+D:\0_Working\aa7 old pattern\master\IHSDC.Common\bin\Release\Antlr3.Runtime.pdb
+D:\0_Working\aa7 old pattern\master\IHSDC.Common\bin\Release\EntityFramework.xml
+D:\0_Working\aa7 old pattern\master\IHSDC.Common\bin\Release\EntityFramework.SqlServer.xml
+D:\0_Working\aa7 old pattern\master\IHSDC.Common\bin\Release\Microsoft.AspNet.Identity.Core.xml
+D:\0_Working\aa7 old pattern\master\IHSDC.Common\bin\Release\Microsoft.AspNet.Identity.EntityFramework.xml
+D:\0_Working\aa7 old pattern\master\IHSDC.Common\obj\Release\IHSDC.Common.csproj.AssemblyReference.cache
+D:\0_Working\aa7 old pattern\master\IHSDC.Common\obj\Release\IHSDC.Common.csproj.CoreCompileInputs.cache
+D:\0_Working\aa7 old pattern\master\IHSDC.Common\obj\Release\IHSDC.Common.csproj.CopyComplete
+D:\0_Working\aa7 old pattern\master\IHSDC.Common\obj\Release\IHSDC.Common.dll
+D:\0_Working\aa7 old pattern\master\IHSDC.Common\obj\Release\IHSDC.Common.pdb
+D:\0_Working\aa7_run\master\IHSDC.Common\bin\Release\IHSDC.Common.dll.config
+D:\0_Working\aa7_run\master\IHSDC.Common\bin\Release\IHSDC.Common.dll
+D:\0_Working\aa7_run\master\IHSDC.Common\bin\Release\IHSDC.Common.pdb
+D:\0_Working\aa7_run\master\IHSDC.Common\bin\Release\Antlr3.Runtime.dll
+D:\0_Working\aa7_run\master\IHSDC.Common\bin\Release\EntityFramework.dll
+D:\0_Working\aa7_run\master\IHSDC.Common\bin\Release\EntityFramework.SqlServer.dll
+D:\0_Working\aa7_run\master\IHSDC.Common\bin\Release\Microsoft.AspNet.Identity.Core.dll
+D:\0_Working\aa7_run\master\IHSDC.Common\bin\Release\Microsoft.AspNet.Identity.EntityFramework.dll
+D:\0_Working\aa7_run\master\IHSDC.Common\bin\Release\Antlr3.Runtime.pdb
+D:\0_Working\aa7_run\master\IHSDC.Common\bin\Release\EntityFramework.xml
+D:\0_Working\aa7_run\master\IHSDC.Common\bin\Release\EntityFramework.SqlServer.xml
+D:\0_Working\aa7_run\master\IHSDC.Common\bin\Release\Microsoft.AspNet.Identity.Core.xml
+D:\0_Working\aa7_run\master\IHSDC.Common\bin\Release\Microsoft.AspNet.Identity.EntityFramework.xml
+D:\0_Working\aa7_run\master\IHSDC.Common\obj\Release\IHSDC.Common.csproj.AssemblyReference.cache
+D:\0_Working\aa7_run\master\IHSDC.Common\obj\Release\IHSDC.Common.csproj.CoreCompileInputs.cache
+D:\0_Working\aa7_run\master\IHSDC.Common\obj\Release\IHSDC.Common.csproj.CopyComplete
+D:\0_Working\aa7_run\master\IHSDC.Common\obj\Release\IHSDC.Common.dll
+D:\0_Working\aa7_run\master\IHSDC.Common\obj\Release\IHSDC.Common.pdb
+A:\0_Working\aa7_run\master\IHSDC.Common\bin\Release\IHSDC.Common.dll.config
+A:\0_Working\aa7_run\master\IHSDC.Common\bin\Release\IHSDC.Common.dll
+A:\0_Working\aa7_run\master\IHSDC.Common\bin\Release\IHSDC.Common.pdb
+A:\0_Working\aa7_run\master\IHSDC.Common\bin\Release\Antlr3.Runtime.dll
+A:\0_Working\aa7_run\master\IHSDC.Common\bin\Release\EntityFramework.dll
+A:\0_Working\aa7_run\master\IHSDC.Common\bin\Release\EntityFramework.SqlServer.dll
+A:\0_Working\aa7_run\master\IHSDC.Common\bin\Release\Microsoft.AspNet.Identity.Core.dll
+A:\0_Working\aa7_run\master\IHSDC.Common\bin\Release\Microsoft.AspNet.Identity.EntityFramework.dll
+A:\0_Working\aa7_run\master\IHSDC.Common\bin\Release\Antlr3.Runtime.pdb
+A:\0_Working\aa7_run\master\IHSDC.Common\bin\Release\EntityFramework.xml
+A:\0_Working\aa7_run\master\IHSDC.Common\bin\Release\EntityFramework.SqlServer.xml
+A:\0_Working\aa7_run\master\IHSDC.Common\bin\Release\Microsoft.AspNet.Identity.Core.xml
+A:\0_Working\aa7_run\master\IHSDC.Common\bin\Release\Microsoft.AspNet.Identity.EntityFramework.xml
+A:\0_Working\aa7_run\master\IHSDC.Common\obj\Release\IHSDC.Common.csproj.AssemblyReference.cache
+A:\0_Working\aa7_run\master\IHSDC.Common\obj\Release\IHSDC.Common.csproj.CoreCompileInputs.cache
+A:\0_Working\aa7_run\master\IHSDC.Common\obj\Release\IHSDC.Common.csproj.CopyComplete
+A:\0_Working\aa7_run\master\IHSDC.Common\obj\Release\IHSDC.Common.dll
+A:\0_Working\aa7_run\master\IHSDC.Common\obj\Release\IHSDC.Common.pdb
+D:\0_Working\AA7_New\IHSDC.Common\bin\Release\IHSDC.Common.dll.config
+D:\0_Working\AA7_New\IHSDC.Common\bin\Release\IHSDC.Common.dll
+D:\0_Working\AA7_New\IHSDC.Common\bin\Release\IHSDC.Common.pdb
+D:\0_Working\AA7_New\IHSDC.Common\bin\Release\Antlr3.Runtime.dll
+D:\0_Working\AA7_New\IHSDC.Common\bin\Release\EntityFramework.dll
+D:\0_Working\AA7_New\IHSDC.Common\bin\Release\EntityFramework.SqlServer.dll
+D:\0_Working\AA7_New\IHSDC.Common\bin\Release\Microsoft.AspNet.Identity.Core.dll
+D:\0_Working\AA7_New\IHSDC.Common\bin\Release\Microsoft.AspNet.Identity.EntityFramework.dll
+D:\0_Working\AA7_New\IHSDC.Common\bin\Release\Antlr3.Runtime.pdb
+D:\0_Working\AA7_New\IHSDC.Common\bin\Release\EntityFramework.xml
+D:\0_Working\AA7_New\IHSDC.Common\bin\Release\EntityFramework.SqlServer.xml
+D:\0_Working\AA7_New\IHSDC.Common\bin\Release\Microsoft.AspNet.Identity.Core.xml
+D:\0_Working\AA7_New\IHSDC.Common\bin\Release\Microsoft.AspNet.Identity.EntityFramework.xml
+D:\0_Working\AA7_New\IHSDC.Common\obj\Release\IHSDC.Common.csproj.AssemblyReference.cache
+D:\0_Working\AA7_New\IHSDC.Common\obj\Release\IHSDC.Common.csproj.CoreCompileInputs.cache
+D:\0_Working\AA7_New\IHSDC.Common\obj\Release\IHSDC.Common.csproj.CopyComplete
+D:\0_Working\AA7_New\IHSDC.Common\obj\Release\IHSDC.Common.dll
+D:\0_Working\AA7_New\IHSDC.Common\obj\Release\IHSDC.Common.pdb
+D:\AA7_Working\AA7_New\IHSDC.Common\bin\Release\IHSDC.Common.dll.config
+D:\AA7_Working\AA7_New\IHSDC.Common\bin\Release\IHSDC.Common.dll
+D:\AA7_Working\AA7_New\IHSDC.Common\bin\Release\IHSDC.Common.pdb
+D:\AA7_Working\AA7_New\IHSDC.Common\bin\Release\Antlr3.Runtime.dll
+D:\AA7_Working\AA7_New\IHSDC.Common\bin\Release\EntityFramework.dll
+D:\AA7_Working\AA7_New\IHSDC.Common\bin\Release\EntityFramework.SqlServer.dll
+D:\AA7_Working\AA7_New\IHSDC.Common\bin\Release\Microsoft.AspNet.Identity.Core.dll
+D:\AA7_Working\AA7_New\IHSDC.Common\bin\Release\Microsoft.AspNet.Identity.EntityFramework.dll
+D:\AA7_Working\AA7_New\IHSDC.Common\bin\Release\Antlr3.Runtime.pdb
+D:\AA7_Working\AA7_New\IHSDC.Common\bin\Release\EntityFramework.xml
+D:\AA7_Working\AA7_New\IHSDC.Common\bin\Release\EntityFramework.SqlServer.xml
+D:\AA7_Working\AA7_New\IHSDC.Common\bin\Release\Microsoft.AspNet.Identity.Core.xml
+D:\AA7_Working\AA7_New\IHSDC.Common\bin\Release\Microsoft.AspNet.Identity.EntityFramework.xml
+D:\AA7_Working\AA7_New\IHSDC.Common\obj\Release\IHSDC.Common.csproj.AssemblyReference.cache
+D:\AA7_Working\AA7_New\IHSDC.Common\obj\Release\IHSDC.Common.csproj.CoreCompileInputs.cache
+D:\AA7_Working\AA7_New\IHSDC.Common\obj\Release\IHSDC.Common.csproj.CopyComplete
+D:\AA7_Working\AA7_New\IHSDC.Common\obj\Release\IHSDC.Common.dll
+D:\AA7_Working\AA7_New\IHSDC.Common\obj\Release\IHSDC.Common.pdb
+C:\Users\Administrator\Downloads\AA7_New 04 jul 23\IHSDC.Common\bin\Release\IHSDC.Common.dll.config
+C:\Users\Administrator\Downloads\AA7_New 04 jul 23\IHSDC.Common\bin\Release\IHSDC.Common.dll
+C:\Users\Administrator\Downloads\AA7_New 04 jul 23\IHSDC.Common\bin\Release\IHSDC.Common.pdb
+C:\Users\Administrator\Downloads\AA7_New 04 jul 23\IHSDC.Common\bin\Release\Antlr3.Runtime.dll
+C:\Users\Administrator\Downloads\AA7_New 04 jul 23\IHSDC.Common\bin\Release\EntityFramework.dll
+C:\Users\Administrator\Downloads\AA7_New 04 jul 23\IHSDC.Common\bin\Release\EntityFramework.SqlServer.dll
+C:\Users\Administrator\Downloads\AA7_New 04 jul 23\IHSDC.Common\bin\Release\Microsoft.AspNet.Identity.Core.dll
+C:\Users\Administrator\Downloads\AA7_New 04 jul 23\IHSDC.Common\bin\Release\Microsoft.AspNet.Identity.EntityFramework.dll
+C:\Users\Administrator\Downloads\AA7_New 04 jul 23\IHSDC.Common\bin\Release\Antlr3.Runtime.pdb
+C:\Users\Administrator\Downloads\AA7_New 04 jul 23\IHSDC.Common\bin\Release\EntityFramework.xml
+C:\Users\Administrator\Downloads\AA7_New 04 jul 23\IHSDC.Common\bin\Release\EntityFramework.SqlServer.xml
+C:\Users\Administrator\Downloads\AA7_New 04 jul 23\IHSDC.Common\bin\Release\Microsoft.AspNet.Identity.Core.xml
+C:\Users\Administrator\Downloads\AA7_New 04 jul 23\IHSDC.Common\bin\Release\Microsoft.AspNet.Identity.EntityFramework.xml
+C:\Users\Administrator\Downloads\AA7_New 04 jul 23\IHSDC.Common\obj\Release\IHSDC.Common.csproj.AssemblyReference.cache
+C:\Users\Administrator\Downloads\AA7_New 04 jul 23\IHSDC.Common\obj\Release\IHSDC.Common.csproj.CoreCompileInputs.cache
+C:\Users\Administrator\Downloads\AA7_New 04 jul 23\IHSDC.Common\obj\Release\IHSDC.Common.csproj.CopyComplete
+C:\Users\Administrator\Downloads\AA7_New 04 jul 23\IHSDC.Common\obj\Release\IHSDC.Common.dll
+C:\Users\Administrator\Downloads\AA7_New 04 jul 23\IHSDC.Common\obj\Release\IHSDC.Common.pdb
+C:\Users\Administrator\Desktop\AA7 Latest 25 Jul 23\AA7_New\IHSDC.Common\bin\Release\IHSDC.Common.dll.config
+C:\Users\Administrator\Desktop\AA7 Latest 25 Jul 23\AA7_New\IHSDC.Common\bin\Release\IHSDC.Common.dll
+C:\Users\Administrator\Desktop\AA7 Latest 25 Jul 23\AA7_New\IHSDC.Common\bin\Release\IHSDC.Common.pdb
+C:\Users\Administrator\Desktop\AA7 Latest 25 Jul 23\AA7_New\IHSDC.Common\bin\Release\Antlr3.Runtime.dll
+C:\Users\Administrator\Desktop\AA7 Latest 25 Jul 23\AA7_New\IHSDC.Common\bin\Release\EntityFramework.dll
+C:\Users\Administrator\Desktop\AA7 Latest 25 Jul 23\AA7_New\IHSDC.Common\bin\Release\EntityFramework.SqlServer.dll
+C:\Users\Administrator\Desktop\AA7 Latest 25 Jul 23\AA7_New\IHSDC.Common\bin\Release\Microsoft.AspNet.Identity.Core.dll
+C:\Users\Administrator\Desktop\AA7 Latest 25 Jul 23\AA7_New\IHSDC.Common\bin\Release\Microsoft.AspNet.Identity.EntityFramework.dll
+C:\Users\Administrator\Desktop\AA7 Latest 25 Jul 23\AA7_New\IHSDC.Common\bin\Release\Antlr3.Runtime.pdb
+C:\Users\Administrator\Desktop\AA7 Latest 25 Jul 23\AA7_New\IHSDC.Common\bin\Release\EntityFramework.xml
+C:\Users\Administrator\Desktop\AA7 Latest 25 Jul 23\AA7_New\IHSDC.Common\bin\Release\EntityFramework.SqlServer.xml
+C:\Users\Administrator\Desktop\AA7 Latest 25 Jul 23\AA7_New\IHSDC.Common\bin\Release\Microsoft.AspNet.Identity.Core.xml
+C:\Users\Administrator\Desktop\AA7 Latest 25 Jul 23\AA7_New\IHSDC.Common\bin\Release\Microsoft.AspNet.Identity.EntityFramework.xml
+C:\Users\Administrator\Desktop\AA7 Latest 25 Jul 23\AA7_New\IHSDC.Common\obj\Release\IHSDC.Common.csproj.AssemblyReference.cache
+C:\Users\Administrator\Desktop\AA7 Latest 25 Jul 23\AA7_New\IHSDC.Common\obj\Release\IHSDC.Common.csproj.CoreCompileInputs.cache
+C:\Users\Administrator\Desktop\AA7 Latest 25 Jul 23\AA7_New\IHSDC.Common\obj\Release\IHSDC.Common.csproj.CopyComplete
+C:\Users\Administrator\Desktop\AA7 Latest 25 Jul 23\AA7_New\IHSDC.Common\obj\Release\IHSDC.Common.dll
+C:\Users\Administrator\Desktop\AA7 Latest 25 Jul 23\AA7_New\IHSDC.Common\obj\Release\IHSDC.Common.pdb
+C:\Users\Administrator\Desktop\AA7_SourceCode\Ver 1.2\AA7_New\IHSDC.Common\bin\Release\IHSDC.Common.dll.config
+C:\Users\Administrator\Desktop\AA7_SourceCode\Ver 1.2\AA7_New\IHSDC.Common\bin\Release\IHSDC.Common.dll
+C:\Users\Administrator\Desktop\AA7_SourceCode\Ver 1.2\AA7_New\IHSDC.Common\bin\Release\IHSDC.Common.pdb
+C:\Users\Administrator\Desktop\AA7_SourceCode\Ver 1.2\AA7_New\IHSDC.Common\bin\Release\Antlr3.Runtime.dll
+C:\Users\Administrator\Desktop\AA7_SourceCode\Ver 1.2\AA7_New\IHSDC.Common\bin\Release\EntityFramework.dll
+C:\Users\Administrator\Desktop\AA7_SourceCode\Ver 1.2\AA7_New\IHSDC.Common\bin\Release\EntityFramework.SqlServer.dll
+C:\Users\Administrator\Desktop\AA7_SourceCode\Ver 1.2\AA7_New\IHSDC.Common\bin\Release\Microsoft.AspNet.Identity.Core.dll
+C:\Users\Administrator\Desktop\AA7_SourceCode\Ver 1.2\AA7_New\IHSDC.Common\bin\Release\Microsoft.AspNet.Identity.EntityFramework.dll
+C:\Users\Administrator\Desktop\AA7_SourceCode\Ver 1.2\AA7_New\IHSDC.Common\bin\Release\Antlr3.Runtime.pdb
+C:\Users\Administrator\Desktop\AA7_SourceCode\Ver 1.2\AA7_New\IHSDC.Common\bin\Release\EntityFramework.xml
+C:\Users\Administrator\Desktop\AA7_SourceCode\Ver 1.2\AA7_New\IHSDC.Common\bin\Release\EntityFramework.SqlServer.xml
+C:\Users\Administrator\Desktop\AA7_SourceCode\Ver 1.2\AA7_New\IHSDC.Common\bin\Release\Microsoft.AspNet.Identity.Core.xml
+C:\Users\Administrator\Desktop\AA7_SourceCode\Ver 1.2\AA7_New\IHSDC.Common\bin\Release\Microsoft.AspNet.Identity.EntityFramework.xml
+C:\Users\Administrator\Desktop\AA7_SourceCode\Ver 1.2\AA7_New\IHSDC.Common\obj\Release\IHSDC.Common.csproj.AssemblyReference.cache
+C:\Users\Administrator\Desktop\AA7_SourceCode\Ver 1.2\AA7_New\IHSDC.Common\obj\Release\IHSDC.Common.csproj.CoreCompileInputs.cache
+C:\Users\Administrator\Desktop\AA7_SourceCode\Ver 1.2\AA7_New\IHSDC.Common\obj\Release\IHSDC.Common.csproj.CopyComplete
+C:\Users\Administrator\Desktop\AA7_SourceCode\Ver 1.2\AA7_New\IHSDC.Common\obj\Release\IHSDC.Common.dll
+C:\Users\Administrator\Desktop\AA7_SourceCode\Ver 1.2\AA7_New\IHSDC.Common\obj\Release\IHSDC.Common.pdb
+C:\Users\Administrator\Desktop\ACC\IHSDC.Common\bin\Release\IHSDC.Common.dll.config
+C:\Users\Administrator\Desktop\ACC\IHSDC.Common\bin\Release\IHSDC.Common.dll
+C:\Users\Administrator\Desktop\ACC\IHSDC.Common\bin\Release\IHSDC.Common.pdb
+C:\Users\Administrator\Desktop\ACC\IHSDC.Common\bin\Release\Antlr3.Runtime.dll
+C:\Users\Administrator\Desktop\ACC\IHSDC.Common\bin\Release\EntityFramework.dll
+C:\Users\Administrator\Desktop\ACC\IHSDC.Common\bin\Release\EntityFramework.SqlServer.dll
+C:\Users\Administrator\Desktop\ACC\IHSDC.Common\bin\Release\Microsoft.AspNet.Identity.Core.dll
+C:\Users\Administrator\Desktop\ACC\IHSDC.Common\bin\Release\Microsoft.AspNet.Identity.EntityFramework.dll
+C:\Users\Administrator\Desktop\ACC\IHSDC.Common\bin\Release\Antlr3.Runtime.pdb
+C:\Users\Administrator\Desktop\ACC\IHSDC.Common\bin\Release\EntityFramework.xml
+C:\Users\Administrator\Desktop\ACC\IHSDC.Common\bin\Release\EntityFramework.SqlServer.xml
+C:\Users\Administrator\Desktop\ACC\IHSDC.Common\bin\Release\Microsoft.AspNet.Identity.Core.xml
+C:\Users\Administrator\Desktop\ACC\IHSDC.Common\bin\Release\Microsoft.AspNet.Identity.EntityFramework.xml
+C:\Users\Administrator\Desktop\ACC\IHSDC.Common\obj\Release\IHSDC.Common.csproj.AssemblyReference.cache
+C:\Users\Administrator\Desktop\ACC\IHSDC.Common\obj\Release\IHSDC.Common.csproj.CoreCompileInputs.cache
+C:\Users\Administrator\Desktop\ACC\IHSDC.Common\obj\Release\IHSDC.Common.csproj.CopyComplete
+C:\Users\Administrator\Desktop\ACC\IHSDC.Common\obj\Release\IHSDC.Common.dll
+C:\Users\Administrator\Desktop\ACC\IHSDC.Common\obj\Release\IHSDC.Common.pdb
+D:\ACC\IHSDC.Common\bin\Release\IHSDC.Common.dll.config
+D:\ACC\IHSDC.Common\bin\Release\IHSDC.Common.dll
+D:\ACC\IHSDC.Common\bin\Release\IHSDC.Common.pdb
+D:\ACC\IHSDC.Common\bin\Release\Antlr3.Runtime.dll
+D:\ACC\IHSDC.Common\bin\Release\EntityFramework.dll
+D:\ACC\IHSDC.Common\bin\Release\EntityFramework.SqlServer.dll
+D:\ACC\IHSDC.Common\bin\Release\Microsoft.AspNet.Identity.Core.dll
+D:\ACC\IHSDC.Common\bin\Release\Microsoft.AspNet.Identity.EntityFramework.dll
+D:\ACC\IHSDC.Common\bin\Release\Antlr3.Runtime.pdb
+D:\ACC\IHSDC.Common\bin\Release\EntityFramework.xml
+D:\ACC\IHSDC.Common\bin\Release\EntityFramework.SqlServer.xml
+D:\ACC\IHSDC.Common\bin\Release\Microsoft.AspNet.Identity.Core.xml
+D:\ACC\IHSDC.Common\bin\Release\Microsoft.AspNet.Identity.EntityFramework.xml
+D:\ACC\IHSDC.Common\obj\Release\IHSDC.Common.csproj.AssemblyReference.cache
+D:\ACC\IHSDC.Common\obj\Release\IHSDC.Common.csproj.CoreCompileInputs.cache
+D:\ACC\IHSDC.Common\obj\Release\IHSDC.Common.csproj.CopyComplete
+D:\ACC\IHSDC.Common\obj\Release\IHSDC.Common.dll
+D:\ACC\IHSDC.Common\obj\Release\IHSDC.Common.pdb
+C:\Users\SDG1\Desktop\ACMS_Update_18_Dec\ACC\IHSDC.Common\bin\Release\IHSDC.Common.dll.config
+C:\Users\SDG1\Desktop\ACMS_Update_18_Dec\ACC\IHSDC.Common\bin\Release\IHSDC.Common.dll
+C:\Users\SDG1\Desktop\ACMS_Update_18_Dec\ACC\IHSDC.Common\bin\Release\IHSDC.Common.pdb
+C:\Users\SDG1\Desktop\ACMS_Update_18_Dec\ACC\IHSDC.Common\bin\Release\Antlr3.Runtime.dll
+C:\Users\SDG1\Desktop\ACMS_Update_18_Dec\ACC\IHSDC.Common\bin\Release\EntityFramework.dll
+C:\Users\SDG1\Desktop\ACMS_Update_18_Dec\ACC\IHSDC.Common\bin\Release\EntityFramework.SqlServer.dll
+C:\Users\SDG1\Desktop\ACMS_Update_18_Dec\ACC\IHSDC.Common\bin\Release\Microsoft.AspNet.Identity.Core.dll
+C:\Users\SDG1\Desktop\ACMS_Update_18_Dec\ACC\IHSDC.Common\bin\Release\Microsoft.AspNet.Identity.EntityFramework.dll
+C:\Users\SDG1\Desktop\ACMS_Update_18_Dec\ACC\IHSDC.Common\bin\Release\Antlr3.Runtime.pdb
+C:\Users\SDG1\Desktop\ACMS_Update_18_Dec\ACC\IHSDC.Common\bin\Release\EntityFramework.xml
+C:\Users\SDG1\Desktop\ACMS_Update_18_Dec\ACC\IHSDC.Common\bin\Release\EntityFramework.SqlServer.xml
+C:\Users\SDG1\Desktop\ACMS_Update_18_Dec\ACC\IHSDC.Common\bin\Release\Microsoft.AspNet.Identity.Core.xml
+C:\Users\SDG1\Desktop\ACMS_Update_18_Dec\ACC\IHSDC.Common\bin\Release\Microsoft.AspNet.Identity.EntityFramework.xml
+C:\Users\SDG1\Desktop\ACMS_Update_18_Dec\ACC\IHSDC.Common\obj\Release\IHSDC.Common.csproj.AssemblyReference.cache
+C:\Users\SDG1\Desktop\ACMS_Update_18_Dec\ACC\IHSDC.Common\obj\Release\IHSDC.Common.csproj.CoreCompileInputs.cache
+C:\Users\SDG1\Desktop\ACMS_Update_18_Dec\ACC\IHSDC.Common\obj\Release\IHSDC.Common.csproj.CopyComplete
+C:\Users\SDG1\Desktop\ACMS_Update_18_Dec\ACC\IHSDC.Common\obj\Release\IHSDC.Common.dll
+C:\Users\SDG1\Desktop\ACMS_Update_18_Dec\ACC\IHSDC.Common\obj\Release\IHSDC.Common.pdb
+C:\Users\Administrator\Desktop\ACMS_Ver5_28_Dec_2023_1402hrs\ACMS Updated Ver5_28_Dec_2023_1109hrs\ACC\IHSDC.Common\bin\Release\IHSDC.Common.dll.config
+C:\Users\Administrator\Desktop\ACMS_Ver5_28_Dec_2023_1402hrs\ACMS Updated Ver5_28_Dec_2023_1109hrs\ACC\IHSDC.Common\bin\Release\IHSDC.Common.dll
+C:\Users\Administrator\Desktop\ACMS_Ver5_28_Dec_2023_1402hrs\ACMS Updated Ver5_28_Dec_2023_1109hrs\ACC\IHSDC.Common\bin\Release\IHSDC.Common.pdb
+C:\Users\Administrator\Desktop\ACMS_Ver5_28_Dec_2023_1402hrs\ACMS Updated Ver5_28_Dec_2023_1109hrs\ACC\IHSDC.Common\bin\Release\Antlr3.Runtime.dll
+C:\Users\Administrator\Desktop\ACMS_Ver5_28_Dec_2023_1402hrs\ACMS Updated Ver5_28_Dec_2023_1109hrs\ACC\IHSDC.Common\bin\Release\EntityFramework.dll
+C:\Users\Administrator\Desktop\ACMS_Ver5_28_Dec_2023_1402hrs\ACMS Updated Ver5_28_Dec_2023_1109hrs\ACC\IHSDC.Common\bin\Release\EntityFramework.SqlServer.dll
+C:\Users\Administrator\Desktop\ACMS_Ver5_28_Dec_2023_1402hrs\ACMS Updated Ver5_28_Dec_2023_1109hrs\ACC\IHSDC.Common\bin\Release\Microsoft.AspNet.Identity.Core.dll
+C:\Users\Administrator\Desktop\ACMS_Ver5_28_Dec_2023_1402hrs\ACMS Updated Ver5_28_Dec_2023_1109hrs\ACC\IHSDC.Common\bin\Release\Microsoft.AspNet.Identity.EntityFramework.dll
+C:\Users\Administrator\Desktop\ACMS_Ver5_28_Dec_2023_1402hrs\ACMS Updated Ver5_28_Dec_2023_1109hrs\ACC\IHSDC.Common\bin\Release\Antlr3.Runtime.pdb
+C:\Users\Administrator\Desktop\ACMS_Ver5_28_Dec_2023_1402hrs\ACMS Updated Ver5_28_Dec_2023_1109hrs\ACC\IHSDC.Common\bin\Release\EntityFramework.xml
+C:\Users\Administrator\Desktop\ACMS_Ver5_28_Dec_2023_1402hrs\ACMS Updated Ver5_28_Dec_2023_1109hrs\ACC\IHSDC.Common\bin\Release\EntityFramework.SqlServer.xml
+C:\Users\Administrator\Desktop\ACMS_Ver5_28_Dec_2023_1402hrs\ACMS Updated Ver5_28_Dec_2023_1109hrs\ACC\IHSDC.Common\bin\Release\Microsoft.AspNet.Identity.Core.xml
+C:\Users\Administrator\Desktop\ACMS_Ver5_28_Dec_2023_1402hrs\ACMS Updated Ver5_28_Dec_2023_1109hrs\ACC\IHSDC.Common\bin\Release\Microsoft.AspNet.Identity.EntityFramework.xml
+C:\Users\Administrator\Desktop\ACMS_Ver5_28_Dec_2023_1402hrs\ACMS Updated Ver5_28_Dec_2023_1109hrs\ACC\IHSDC.Common\obj\Release\IHSDC.Common.csproj.AssemblyReference.cache
+C:\Users\Administrator\Desktop\ACMS_Ver5_28_Dec_2023_1402hrs\ACMS Updated Ver5_28_Dec_2023_1109hrs\ACC\IHSDC.Common\obj\Release\IHSDC.Common.csproj.CoreCompileInputs.cache
+C:\Users\Administrator\Desktop\ACMS_Ver5_28_Dec_2023_1402hrs\ACMS Updated Ver5_28_Dec_2023_1109hrs\ACC\IHSDC.Common\obj\Release\IHSDC.Common.csproj.CopyComplete
+C:\Users\Administrator\Desktop\ACMS_Ver5_28_Dec_2023_1402hrs\ACMS Updated Ver5_28_Dec_2023_1109hrs\ACC\IHSDC.Common\obj\Release\IHSDC.Common.dll
+C:\Users\Administrator\Desktop\ACMS_Ver5_28_Dec_2023_1402hrs\ACMS Updated Ver5_28_Dec_2023_1109hrs\ACC\IHSDC.Common\obj\Release\IHSDC.Common.pdb
+D:\0_Working\ACC\IHSDC.Common\bin\Release\IHSDC.Common.dll.config
+D:\0_Working\ACC\IHSDC.Common\bin\Release\IHSDC.Common.dll
+D:\0_Working\ACC\IHSDC.Common\bin\Release\IHSDC.Common.pdb
+D:\0_Working\ACC\IHSDC.Common\bin\Release\Antlr3.Runtime.dll
+D:\0_Working\ACC\IHSDC.Common\bin\Release\EntityFramework.dll
+D:\0_Working\ACC\IHSDC.Common\bin\Release\EntityFramework.SqlServer.dll
+D:\0_Working\ACC\IHSDC.Common\bin\Release\Microsoft.AspNet.Identity.Core.dll
+D:\0_Working\ACC\IHSDC.Common\bin\Release\Microsoft.AspNet.Identity.EntityFramework.dll
+D:\0_Working\ACC\IHSDC.Common\bin\Release\Antlr3.Runtime.pdb
+D:\0_Working\ACC\IHSDC.Common\bin\Release\EntityFramework.xml
+D:\0_Working\ACC\IHSDC.Common\bin\Release\EntityFramework.SqlServer.xml
+D:\0_Working\ACC\IHSDC.Common\bin\Release\Microsoft.AspNet.Identity.Core.xml
+D:\0_Working\ACC\IHSDC.Common\bin\Release\Microsoft.AspNet.Identity.EntityFramework.xml
+D:\0_Working\ACC\IHSDC.Common\obj\Release\IHSDC.Common.csproj.AssemblyReference.cache
+D:\0_Working\ACC\IHSDC.Common\obj\Release\IHSDC.Common.csproj.CoreCompileInputs.cache
+D:\0_Working\ACC\IHSDC.Common\obj\Release\IHSDC.Common.csproj.CopyComplete
+D:\0_Working\ACC\IHSDC.Common\obj\Release\IHSDC.Common.dll
+D:\0_Working\ACC\IHSDC.Common\obj\Release\IHSDC.Common.pdb
+M:\Working\ACC\IHSDC.Common\bin\Release\IHSDC.Common.dll.config
+M:\Working\ACC\IHSDC.Common\bin\Release\IHSDC.Common.dll
+M:\Working\ACC\IHSDC.Common\bin\Release\IHSDC.Common.pdb
+M:\Working\ACC\IHSDC.Common\bin\Release\Antlr3.Runtime.dll
+M:\Working\ACC\IHSDC.Common\bin\Release\EntityFramework.dll
+M:\Working\ACC\IHSDC.Common\bin\Release\EntityFramework.SqlServer.dll
+M:\Working\ACC\IHSDC.Common\bin\Release\Microsoft.AspNet.Identity.Core.dll
+M:\Working\ACC\IHSDC.Common\bin\Release\Microsoft.AspNet.Identity.EntityFramework.dll
+M:\Working\ACC\IHSDC.Common\bin\Release\Antlr3.Runtime.pdb
+M:\Working\ACC\IHSDC.Common\bin\Release\EntityFramework.xml
+M:\Working\ACC\IHSDC.Common\bin\Release\EntityFramework.SqlServer.xml
+M:\Working\ACC\IHSDC.Common\bin\Release\Microsoft.AspNet.Identity.Core.xml
+M:\Working\ACC\IHSDC.Common\bin\Release\Microsoft.AspNet.Identity.EntityFramework.xml
+M:\Working\ACC\IHSDC.Common\obj\Release\IHSDC.Common.csproj.AssemblyReference.cache
+M:\Working\ACC\IHSDC.Common\obj\Release\IHSDC.Common.csproj.CoreCompileInputs.cache
+M:\Working\ACC\IHSDC.Common\obj\Release\IHSDC.Common.csproj.CopyComplete
+M:\Working\ACC\IHSDC.Common\obj\Release\IHSDC.Common.dll
+M:\Working\ACC\IHSDC.Common\obj\Release\IHSDC.Common.pdb
+D:\0_Working\0_ACMS\ACC\IHSDC.Common\bin\Release\IHSDC.Common.dll.config
+D:\0_Working\0_ACMS\ACC\IHSDC.Common\bin\Release\IHSDC.Common.dll
+D:\0_Working\0_ACMS\ACC\IHSDC.Common\bin\Release\IHSDC.Common.pdb
+D:\0_Working\0_ACMS\ACC\IHSDC.Common\bin\Release\Antlr3.Runtime.dll
+D:\0_Working\0_ACMS\ACC\IHSDC.Common\bin\Release\EntityFramework.dll
+D:\0_Working\0_ACMS\ACC\IHSDC.Common\bin\Release\EntityFramework.SqlServer.dll
+D:\0_Working\0_ACMS\ACC\IHSDC.Common\bin\Release\Microsoft.AspNet.Identity.Core.dll
+D:\0_Working\0_ACMS\ACC\IHSDC.Common\bin\Release\Microsoft.AspNet.Identity.EntityFramework.dll
+D:\0_Working\0_ACMS\ACC\IHSDC.Common\bin\Release\Antlr3.Runtime.pdb
+D:\0_Working\0_ACMS\ACC\IHSDC.Common\bin\Release\EntityFramework.xml
+D:\0_Working\0_ACMS\ACC\IHSDC.Common\bin\Release\EntityFramework.SqlServer.xml
+D:\0_Working\0_ACMS\ACC\IHSDC.Common\bin\Release\Microsoft.AspNet.Identity.Core.xml
+D:\0_Working\0_ACMS\ACC\IHSDC.Common\bin\Release\Microsoft.AspNet.Identity.EntityFramework.xml
+D:\0_Working\0_ACMS\ACC\IHSDC.Common\obj\Release\IHSDC.Common.csproj.AssemblyReference.cache
+D:\0_Working\0_ACMS\ACC\IHSDC.Common\obj\Release\IHSDC.Common.csproj.CoreCompileInputs.cache
+D:\0_Working\0_ACMS\ACC\IHSDC.Common\obj\Release\IHSDC.Common.csproj.CopyComplete
+D:\0_Working\0_ACMS\ACC\IHSDC.Common\obj\Release\IHSDC.Common.dll
+D:\0_Working\0_ACMS\ACC\IHSDC.Common\obj\Release\IHSDC.Common.pdb
+C:\Users\Administrator\Desktop\backup\0_All Versions_ACMS\ACMS_Ver7\ACMS_fm_SEMG_14_Feb_24\ACC_Ver_7_13_Feb_1722hrs\ACC\IHSDC.Common\bin\Release\IHSDC.Common.dll.config
+C:\Users\Administrator\Desktop\backup\0_All Versions_ACMS\ACMS_Ver7\ACMS_fm_SEMG_14_Feb_24\ACC_Ver_7_13_Feb_1722hrs\ACC\IHSDC.Common\bin\Release\IHSDC.Common.dll
+C:\Users\Administrator\Desktop\backup\0_All Versions_ACMS\ACMS_Ver7\ACMS_fm_SEMG_14_Feb_24\ACC_Ver_7_13_Feb_1722hrs\ACC\IHSDC.Common\bin\Release\IHSDC.Common.pdb
+C:\Users\Administrator\Desktop\backup\0_All Versions_ACMS\ACMS_Ver7\ACMS_fm_SEMG_14_Feb_24\ACC_Ver_7_13_Feb_1722hrs\ACC\IHSDC.Common\bin\Release\Antlr3.Runtime.dll
+C:\Users\Administrator\Desktop\backup\0_All Versions_ACMS\ACMS_Ver7\ACMS_fm_SEMG_14_Feb_24\ACC_Ver_7_13_Feb_1722hrs\ACC\IHSDC.Common\bin\Release\EntityFramework.dll
+C:\Users\Administrator\Desktop\backup\0_All Versions_ACMS\ACMS_Ver7\ACMS_fm_SEMG_14_Feb_24\ACC_Ver_7_13_Feb_1722hrs\ACC\IHSDC.Common\bin\Release\EntityFramework.SqlServer.dll
+C:\Users\Administrator\Desktop\backup\0_All Versions_ACMS\ACMS_Ver7\ACMS_fm_SEMG_14_Feb_24\ACC_Ver_7_13_Feb_1722hrs\ACC\IHSDC.Common\bin\Release\Microsoft.AspNet.Identity.Core.dll
+C:\Users\Administrator\Desktop\backup\0_All Versions_ACMS\ACMS_Ver7\ACMS_fm_SEMG_14_Feb_24\ACC_Ver_7_13_Feb_1722hrs\ACC\IHSDC.Common\bin\Release\Microsoft.AspNet.Identity.EntityFramework.dll
+C:\Users\Administrator\Desktop\backup\0_All Versions_ACMS\ACMS_Ver7\ACMS_fm_SEMG_14_Feb_24\ACC_Ver_7_13_Feb_1722hrs\ACC\IHSDC.Common\bin\Release\Antlr3.Runtime.pdb
+C:\Users\Administrator\Desktop\backup\0_All Versions_ACMS\ACMS_Ver7\ACMS_fm_SEMG_14_Feb_24\ACC_Ver_7_13_Feb_1722hrs\ACC\IHSDC.Common\bin\Release\EntityFramework.xml
+C:\Users\Administrator\Desktop\backup\0_All Versions_ACMS\ACMS_Ver7\ACMS_fm_SEMG_14_Feb_24\ACC_Ver_7_13_Feb_1722hrs\ACC\IHSDC.Common\bin\Release\EntityFramework.SqlServer.xml
+C:\Users\Administrator\Desktop\backup\0_All Versions_ACMS\ACMS_Ver7\ACMS_fm_SEMG_14_Feb_24\ACC_Ver_7_13_Feb_1722hrs\ACC\IHSDC.Common\bin\Release\Microsoft.AspNet.Identity.Core.xml
+C:\Users\Administrator\Desktop\backup\0_All Versions_ACMS\ACMS_Ver7\ACMS_fm_SEMG_14_Feb_24\ACC_Ver_7_13_Feb_1722hrs\ACC\IHSDC.Common\bin\Release\Microsoft.AspNet.Identity.EntityFramework.xml
+C:\Users\Administrator\Desktop\backup\0_All Versions_ACMS\ACMS_Ver7\ACMS_fm_SEMG_14_Feb_24\ACC_Ver_7_13_Feb_1722hrs\ACC\IHSDC.Common\obj\Release\IHSDC.Common.csproj.AssemblyReference.cache
+C:\Users\Administrator\Desktop\backup\0_All Versions_ACMS\ACMS_Ver7\ACMS_fm_SEMG_14_Feb_24\ACC_Ver_7_13_Feb_1722hrs\ACC\IHSDC.Common\obj\Release\IHSDC.Common.csproj.CoreCompileInputs.cache
+C:\Users\Administrator\Desktop\backup\0_All Versions_ACMS\ACMS_Ver7\ACMS_fm_SEMG_14_Feb_24\ACC_Ver_7_13_Feb_1722hrs\ACC\IHSDC.Common\obj\Release\IHSDC.Common.csproj.CopyComplete
+C:\Users\Administrator\Desktop\backup\0_All Versions_ACMS\ACMS_Ver7\ACMS_fm_SEMG_14_Feb_24\ACC_Ver_7_13_Feb_1722hrs\ACC\IHSDC.Common\obj\Release\IHSDC.Common.dll
+C:\Users\Administrator\Desktop\backup\0_All Versions_ACMS\ACMS_Ver7\ACMS_fm_SEMG_14_Feb_24\ACC_Ver_7_13_Feb_1722hrs\ACC\IHSDC.Common\obj\Release\IHSDC.Common.pdb
+D:\0_Working\0_ACMS\ACC_Ver_7_13_Feb_1722hrs\ACC\IHSDC.Common\bin\Release\IHSDC.Common.dll.config
+D:\0_Working\0_ACMS\ACC_Ver_7_13_Feb_1722hrs\ACC\IHSDC.Common\bin\Release\IHSDC.Common.dll
+D:\0_Working\0_ACMS\ACC_Ver_7_13_Feb_1722hrs\ACC\IHSDC.Common\bin\Release\IHSDC.Common.pdb
+D:\0_Working\0_ACMS\ACC_Ver_7_13_Feb_1722hrs\ACC\IHSDC.Common\bin\Release\Antlr3.Runtime.dll
+D:\0_Working\0_ACMS\ACC_Ver_7_13_Feb_1722hrs\ACC\IHSDC.Common\bin\Release\EntityFramework.dll
+D:\0_Working\0_ACMS\ACC_Ver_7_13_Feb_1722hrs\ACC\IHSDC.Common\bin\Release\EntityFramework.SqlServer.dll
+D:\0_Working\0_ACMS\ACC_Ver_7_13_Feb_1722hrs\ACC\IHSDC.Common\bin\Release\Microsoft.AspNet.Identity.Core.dll
+D:\0_Working\0_ACMS\ACC_Ver_7_13_Feb_1722hrs\ACC\IHSDC.Common\bin\Release\Microsoft.AspNet.Identity.EntityFramework.dll
+D:\0_Working\0_ACMS\ACC_Ver_7_13_Feb_1722hrs\ACC\IHSDC.Common\bin\Release\Antlr3.Runtime.pdb
+D:\0_Working\0_ACMS\ACC_Ver_7_13_Feb_1722hrs\ACC\IHSDC.Common\bin\Release\EntityFramework.xml
+D:\0_Working\0_ACMS\ACC_Ver_7_13_Feb_1722hrs\ACC\IHSDC.Common\bin\Release\EntityFramework.SqlServer.xml
+D:\0_Working\0_ACMS\ACC_Ver_7_13_Feb_1722hrs\ACC\IHSDC.Common\bin\Release\Microsoft.AspNet.Identity.Core.xml
+D:\0_Working\0_ACMS\ACC_Ver_7_13_Feb_1722hrs\ACC\IHSDC.Common\bin\Release\Microsoft.AspNet.Identity.EntityFramework.xml
+D:\0_Working\0_ACMS\ACC_Ver_7_13_Feb_1722hrs\ACC\IHSDC.Common\obj\Release\IHSDC.Common.csproj.AssemblyReference.cache
+D:\0_Working\0_ACMS\ACC_Ver_7_13_Feb_1722hrs\ACC\IHSDC.Common\obj\Release\IHSDC.Common.csproj.CoreCompileInputs.cache
+D:\0_Working\0_ACMS\ACC_Ver_7_13_Feb_1722hrs\ACC\IHSDC.Common\obj\Release\IHSDC.Common.csproj.CopyComplete
+D:\0_Working\0_ACMS\ACC_Ver_7_13_Feb_1722hrs\ACC\IHSDC.Common\obj\Release\IHSDC.Common.dll
+D:\0_Working\0_ACMS\ACC_Ver_7_13_Feb_1722hrs\ACC\IHSDC.Common\obj\Release\IHSDC.Common.pdb
+A:\0\0_Working\0_ACMS\ACC\IHSDC.Common\bin\Release\IHSDC.Common.dll.config
+A:\0\0_Working\0_ACMS\ACC\IHSDC.Common\bin\Release\IHSDC.Common.dll
+A:\0\0_Working\0_ACMS\ACC\IHSDC.Common\bin\Release\IHSDC.Common.pdb
+A:\0\0_Working\0_ACMS\ACC\IHSDC.Common\bin\Release\Antlr3.Runtime.dll
+A:\0\0_Working\0_ACMS\ACC\IHSDC.Common\bin\Release\EntityFramework.dll
+A:\0\0_Working\0_ACMS\ACC\IHSDC.Common\bin\Release\EntityFramework.SqlServer.dll
+A:\0\0_Working\0_ACMS\ACC\IHSDC.Common\bin\Release\Microsoft.AspNet.Identity.Core.dll
+A:\0\0_Working\0_ACMS\ACC\IHSDC.Common\bin\Release\Microsoft.AspNet.Identity.EntityFramework.dll
+A:\0\0_Working\0_ACMS\ACC\IHSDC.Common\bin\Release\Antlr3.Runtime.pdb
+A:\0\0_Working\0_ACMS\ACC\IHSDC.Common\bin\Release\EntityFramework.xml
+A:\0\0_Working\0_ACMS\ACC\IHSDC.Common\bin\Release\EntityFramework.SqlServer.xml
+A:\0\0_Working\0_ACMS\ACC\IHSDC.Common\bin\Release\Microsoft.AspNet.Identity.Core.xml
+A:\0\0_Working\0_ACMS\ACC\IHSDC.Common\bin\Release\Microsoft.AspNet.Identity.EntityFramework.xml
+A:\0\0_Working\0_ACMS\ACC\IHSDC.Common\obj\Release\IHSDC.Common.csproj.AssemblyReference.cache
+A:\0\0_Working\0_ACMS\ACC\IHSDC.Common\obj\Release\IHSDC.Common.csproj.CoreCompileInputs.cache
+A:\0\0_Working\0_ACMS\ACC\IHSDC.Common\obj\Release\IHSDC.Common.csproj.CopyComplete
+A:\0\0_Working\0_ACMS\ACC\IHSDC.Common\obj\Release\IHSDC.Common.dll
+A:\0\0_Working\0_ACMS\ACC\IHSDC.Common\obj\Release\IHSDC.Common.pdb
+A:\0_Working\0_ACMS\ACC\IHSDC.Common\bin\Release\IHSDC.Common.dll.config
+A:\0_Working\0_ACMS\ACC\IHSDC.Common\bin\Release\IHSDC.Common.dll
+A:\0_Working\0_ACMS\ACC\IHSDC.Common\bin\Release\IHSDC.Common.pdb
+A:\0_Working\0_ACMS\ACC\IHSDC.Common\bin\Release\Antlr3.Runtime.dll
+A:\0_Working\0_ACMS\ACC\IHSDC.Common\bin\Release\EntityFramework.dll
+A:\0_Working\0_ACMS\ACC\IHSDC.Common\bin\Release\EntityFramework.SqlServer.dll
+A:\0_Working\0_ACMS\ACC\IHSDC.Common\bin\Release\Microsoft.AspNet.Identity.Core.dll
+A:\0_Working\0_ACMS\ACC\IHSDC.Common\bin\Release\Microsoft.AspNet.Identity.EntityFramework.dll
+A:\0_Working\0_ACMS\ACC\IHSDC.Common\bin\Release\Antlr3.Runtime.pdb
+A:\0_Working\0_ACMS\ACC\IHSDC.Common\bin\Release\EntityFramework.xml
+A:\0_Working\0_ACMS\ACC\IHSDC.Common\bin\Release\EntityFramework.SqlServer.xml
+A:\0_Working\0_ACMS\ACC\IHSDC.Common\bin\Release\Microsoft.AspNet.Identity.Core.xml
+A:\0_Working\0_ACMS\ACC\IHSDC.Common\bin\Release\Microsoft.AspNet.Identity.EntityFramework.xml
+A:\0_Working\0_ACMS\ACC\IHSDC.Common\obj\Release\IHSDC.Common.csproj.AssemblyReference.cache
+A:\0_Working\0_ACMS\ACC\IHSDC.Common\obj\Release\IHSDC.Common.csproj.CoreCompileInputs.cache
+A:\0_Working\0_ACMS\ACC\IHSDC.Common\obj\Release\IHSDC.Common.dll
+A:\0_Working\0_ACMS\ACC\IHSDC.Common\obj\Release\IHSDC.Common.pdb
+A:\0_Working\0_ACMS\ACC\IHSDC.Common\obj\Release\IHSDC.Co.CC55F1F4.Up2Date
+C:\Users\Administrator\Desktop\ACMS Update 07 May 2024\ACC\IHSDC.Common\bin\Release\IHSDC.Common.dll.config
+C:\Users\Administrator\Desktop\ACMS Update 07 May 2024\ACC\IHSDC.Common\bin\Release\IHSDC.Common.dll
+C:\Users\Administrator\Desktop\ACMS Update 07 May 2024\ACC\IHSDC.Common\bin\Release\IHSDC.Common.pdb
+C:\Users\Administrator\Desktop\ACMS Update 07 May 2024\ACC\IHSDC.Common\bin\Release\Antlr3.Runtime.dll
+C:\Users\Administrator\Desktop\ACMS Update 07 May 2024\ACC\IHSDC.Common\bin\Release\EntityFramework.dll
+C:\Users\Administrator\Desktop\ACMS Update 07 May 2024\ACC\IHSDC.Common\bin\Release\EntityFramework.SqlServer.dll
+C:\Users\Administrator\Desktop\ACMS Update 07 May 2024\ACC\IHSDC.Common\bin\Release\Microsoft.AspNet.Identity.Core.dll
+C:\Users\Administrator\Desktop\ACMS Update 07 May 2024\ACC\IHSDC.Common\bin\Release\Microsoft.AspNet.Identity.EntityFramework.dll
+C:\Users\Administrator\Desktop\ACMS Update 07 May 2024\ACC\IHSDC.Common\bin\Release\Antlr3.Runtime.pdb
+C:\Users\Administrator\Desktop\ACMS Update 07 May 2024\ACC\IHSDC.Common\bin\Release\EntityFramework.xml
+C:\Users\Administrator\Desktop\ACMS Update 07 May 2024\ACC\IHSDC.Common\bin\Release\EntityFramework.SqlServer.xml
+C:\Users\Administrator\Desktop\ACMS Update 07 May 2024\ACC\IHSDC.Common\bin\Release\Microsoft.AspNet.Identity.Core.xml
+C:\Users\Administrator\Desktop\ACMS Update 07 May 2024\ACC\IHSDC.Common\bin\Release\Microsoft.AspNet.Identity.EntityFramework.xml
+C:\Users\Administrator\Desktop\ACMS Update 07 May 2024\ACC\IHSDC.Common\obj\Release\IHSDC.Common.csproj.AssemblyReference.cache
+C:\Users\Administrator\Desktop\ACMS Update 07 May 2024\ACC\IHSDC.Common\obj\Release\IHSDC.Common.csproj.CoreCompileInputs.cache
+C:\Users\Administrator\Desktop\ACMS Update 07 May 2024\ACC\IHSDC.Common\obj\Release\IHSDC.Common.csproj.CopyComplete
+C:\Users\Administrator\Desktop\ACMS Update 07 May 2024\ACC\IHSDC.Common\obj\Release\IHSDC.Common.dll
+C:\Users\Administrator\Desktop\ACMS Update 07 May 2024\ACC\IHSDC.Common\obj\Release\IHSDC.Common.pdb
+C:\Users\Administrator\Desktop\backup\0_All Versions_ACMS\0_ACMS_Ver9\ACMS Update 07 May 2024\ACC\IHSDC.Common\bin\Release\IHSDC.Common.dll.config
+C:\Users\Administrator\Desktop\backup\0_All Versions_ACMS\0_ACMS_Ver9\ACMS Update 07 May 2024\ACC\IHSDC.Common\bin\Release\IHSDC.Common.dll
+C:\Users\Administrator\Desktop\backup\0_All Versions_ACMS\0_ACMS_Ver9\ACMS Update 07 May 2024\ACC\IHSDC.Common\bin\Release\IHSDC.Common.pdb
+C:\Users\Administrator\Desktop\backup\0_All Versions_ACMS\0_ACMS_Ver9\ACMS Update 07 May 2024\ACC\IHSDC.Common\bin\Release\Antlr3.Runtime.dll
+C:\Users\Administrator\Desktop\backup\0_All Versions_ACMS\0_ACMS_Ver9\ACMS Update 07 May 2024\ACC\IHSDC.Common\bin\Release\EntityFramework.dll
+C:\Users\Administrator\Desktop\backup\0_All Versions_ACMS\0_ACMS_Ver9\ACMS Update 07 May 2024\ACC\IHSDC.Common\bin\Release\EntityFramework.SqlServer.dll
+C:\Users\Administrator\Desktop\backup\0_All Versions_ACMS\0_ACMS_Ver9\ACMS Update 07 May 2024\ACC\IHSDC.Common\bin\Release\Microsoft.AspNet.Identity.Core.dll
+C:\Users\Administrator\Desktop\backup\0_All Versions_ACMS\0_ACMS_Ver9\ACMS Update 07 May 2024\ACC\IHSDC.Common\bin\Release\Microsoft.AspNet.Identity.EntityFramework.dll
+C:\Users\Administrator\Desktop\backup\0_All Versions_ACMS\0_ACMS_Ver9\ACMS Update 07 May 2024\ACC\IHSDC.Common\bin\Release\Antlr3.Runtime.pdb
+C:\Users\Administrator\Desktop\backup\0_All Versions_ACMS\0_ACMS_Ver9\ACMS Update 07 May 2024\ACC\IHSDC.Common\bin\Release\EntityFramework.xml
+C:\Users\Administrator\Desktop\backup\0_All Versions_ACMS\0_ACMS_Ver9\ACMS Update 07 May 2024\ACC\IHSDC.Common\bin\Release\EntityFramework.SqlServer.xml
+C:\Users\Administrator\Desktop\backup\0_All Versions_ACMS\0_ACMS_Ver9\ACMS Update 07 May 2024\ACC\IHSDC.Common\bin\Release\Microsoft.AspNet.Identity.Core.xml
+C:\Users\Administrator\Desktop\backup\0_All Versions_ACMS\0_ACMS_Ver9\ACMS Update 07 May 2024\ACC\IHSDC.Common\bin\Release\Microsoft.AspNet.Identity.EntityFramework.xml
+C:\Users\Administrator\Desktop\backup\0_All Versions_ACMS\0_ACMS_Ver9\ACMS Update 07 May 2024\ACC\IHSDC.Common\obj\Release\IHSDC.Common.csproj.AssemblyReference.cache
+C:\Users\Administrator\Desktop\backup\0_All Versions_ACMS\0_ACMS_Ver9\ACMS Update 07 May 2024\ACC\IHSDC.Common\obj\Release\IHSDC.Common.csproj.CoreCompileInputs.cache
+C:\Users\Administrator\Desktop\backup\0_All Versions_ACMS\0_ACMS_Ver9\ACMS Update 07 May 2024\ACC\IHSDC.Common\obj\Release\IHSDC.Common.csproj.CopyComplete
+C:\Users\Administrator\Desktop\backup\0_All Versions_ACMS\0_ACMS_Ver9\ACMS Update 07 May 2024\ACC\IHSDC.Common\obj\Release\IHSDC.Common.dll
+C:\Users\Administrator\Desktop\backup\0_All Versions_ACMS\0_ACMS_Ver9\ACMS Update 07 May 2024\ACC\IHSDC.Common\obj\Release\IHSDC.Common.pdb
+C:\Users\Administrator\Desktop\backup\0_All Versions_ACMS\0_ACMS_Ver10\ACC\IHSDC.Common\bin\Release\IHSDC.Common.dll.config
+C:\Users\Administrator\Desktop\backup\0_All Versions_ACMS\0_ACMS_Ver10\ACC\IHSDC.Common\bin\Release\IHSDC.Common.dll
+C:\Users\Administrator\Desktop\backup\0_All Versions_ACMS\0_ACMS_Ver10\ACC\IHSDC.Common\bin\Release\IHSDC.Common.pdb
+C:\Users\Administrator\Desktop\backup\0_All Versions_ACMS\0_ACMS_Ver10\ACC\IHSDC.Common\bin\Release\Antlr3.Runtime.dll
+C:\Users\Administrator\Desktop\backup\0_All Versions_ACMS\0_ACMS_Ver10\ACC\IHSDC.Common\bin\Release\EntityFramework.dll
+C:\Users\Administrator\Desktop\backup\0_All Versions_ACMS\0_ACMS_Ver10\ACC\IHSDC.Common\bin\Release\EntityFramework.SqlServer.dll
+C:\Users\Administrator\Desktop\backup\0_All Versions_ACMS\0_ACMS_Ver10\ACC\IHSDC.Common\bin\Release\Microsoft.AspNet.Identity.Core.dll
+C:\Users\Administrator\Desktop\backup\0_All Versions_ACMS\0_ACMS_Ver10\ACC\IHSDC.Common\bin\Release\Microsoft.AspNet.Identity.EntityFramework.dll
+C:\Users\Administrator\Desktop\backup\0_All Versions_ACMS\0_ACMS_Ver10\ACC\IHSDC.Common\bin\Release\Antlr3.Runtime.pdb
+C:\Users\Administrator\Desktop\backup\0_All Versions_ACMS\0_ACMS_Ver10\ACC\IHSDC.Common\bin\Release\EntityFramework.xml
+C:\Users\Administrator\Desktop\backup\0_All Versions_ACMS\0_ACMS_Ver10\ACC\IHSDC.Common\bin\Release\EntityFramework.SqlServer.xml
+C:\Users\Administrator\Desktop\backup\0_All Versions_ACMS\0_ACMS_Ver10\ACC\IHSDC.Common\bin\Release\Microsoft.AspNet.Identity.Core.xml
+C:\Users\Administrator\Desktop\backup\0_All Versions_ACMS\0_ACMS_Ver10\ACC\IHSDC.Common\bin\Release\Microsoft.AspNet.Identity.EntityFramework.xml
+C:\Users\Administrator\Desktop\backup\0_All Versions_ACMS\0_ACMS_Ver10\ACC\IHSDC.Common\obj\Release\IHSDC.Common.csproj.AssemblyReference.cache
+C:\Users\Administrator\Desktop\backup\0_All Versions_ACMS\0_ACMS_Ver10\ACC\IHSDC.Common\obj\Release\IHSDC.Common.csproj.CoreCompileInputs.cache
+C:\Users\Administrator\Desktop\backup\0_All Versions_ACMS\0_ACMS_Ver10\ACC\IHSDC.Common\obj\Release\IHSDC.Common.csproj.CopyComplete
+C:\Users\Administrator\Desktop\backup\0_All Versions_ACMS\0_ACMS_Ver10\ACC\IHSDC.Common\obj\Release\IHSDC.Common.dll
+C:\Users\Administrator\Desktop\backup\0_All Versions_ACMS\0_ACMS_Ver10\ACC\IHSDC.Common\obj\Release\IHSDC.Common.pdb
+D:\projects\ACC\IHSDC.Common\bin\Release\IHSDC.Common.dll.config
+D:\projects\ACC\IHSDC.Common\bin\Release\IHSDC.Common.dll
+D:\projects\ACC\IHSDC.Common\bin\Release\IHSDC.Common.pdb
+D:\projects\ACC\IHSDC.Common\bin\Release\Antlr3.Runtime.dll
+D:\projects\ACC\IHSDC.Common\bin\Release\EntityFramework.dll
+D:\projects\ACC\IHSDC.Common\bin\Release\EntityFramework.SqlServer.dll
+D:\projects\ACC\IHSDC.Common\bin\Release\Microsoft.AspNet.Identity.Core.dll
+D:\projects\ACC\IHSDC.Common\bin\Release\Microsoft.AspNet.Identity.EntityFramework.dll
+D:\projects\ACC\IHSDC.Common\bin\Release\Antlr3.Runtime.pdb
+D:\projects\ACC\IHSDC.Common\bin\Release\EntityFramework.xml
+D:\projects\ACC\IHSDC.Common\bin\Release\EntityFramework.SqlServer.xml
+D:\projects\ACC\IHSDC.Common\bin\Release\Microsoft.AspNet.Identity.Core.xml
+D:\projects\ACC\IHSDC.Common\bin\Release\Microsoft.AspNet.Identity.EntityFramework.xml
+D:\projects\ACC\IHSDC.Common\obj\Release\IHSDC.Common.csproj.AssemblyReference.cache
+D:\projects\ACC\IHSDC.Common\obj\Release\IHSDC.Common.csproj.CoreCompileInputs.cache
+D:\projects\ACC\IHSDC.Common\obj\Release\IHSDC.Co.CC55F1F4.Up2Date
+D:\projects\ACC\IHSDC.Common\obj\Release\IHSDC.Common.dll
+D:\projects\ACC\IHSDC.Common\obj\Release\IHSDC.Common.pdb

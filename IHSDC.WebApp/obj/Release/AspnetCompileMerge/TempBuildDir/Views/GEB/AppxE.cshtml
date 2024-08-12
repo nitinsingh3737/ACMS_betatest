@@ -1,0 +1,552 @@
+﻿@model IHSDC.WebApp.Models.LetterForwardedGEB
+@using IHSDC.WebApp.Connection
+@using IHSDC.WebApp.Helper
+@{ ViewBag.Title = "Edit GEB Details";
+    Layout = "~/Views/Shared/_NewAA7Layout.cshtml"; }
+
+
+
+
+<div class="card-body" style=" box-shadow: -1px 2px 16px 3px; width: 61rem; padding: 0.5rem; margin-left: 23rem;);">
+    <div class="row">
+        <div class="col">
+            @if (SessionManager.RoleId == enum1.AvnDte)
+            {
+                <a class="btn btn-info float-left mb-1" href="@Url.Action("GEBAviatorListforGSO", "GEB" ,new { id = IHSDC.WebApp.RepositryManager.EncryptionManager.Encryption(Model.GEBLetterId.ToString()) })" target="_top">
+                    Back
+                </a>
+            }
+            else
+            {
+                <div class="col">
+                    <a class="btn btn-info float-left" href="javascript:history.back()" target="_top">Back</a>
+                </div>
+            }
+
+        </div>
+        <a class="btn btn-info btn-sm" style=" margin-right: 23px; color: white; height: 2rem; margin-top: 1rem;" onclick="location.href='@Url.Action("AppxEReport", "GEBExam", new {fid=IHSDC.WebApp.RepositryManager.EncryptionManager.Encryption(Model.FinalAppxId.ToString())})'">
+            Print Appx E
+        </a>
+    </div>
+
+    <div class="" style="margin-left: -33rem; margin-right: -49rem;">
+        @using (Html.BeginForm("UpdateAppxE", "GEB", FormMethod.Post, new { enctype = "multipart/form-data" }))
+
+
+        {
+            @Html.HiddenFor(h => h.Aviator_ID)
+            @Html.HiddenFor(h => h.FinalAppxId) @*@Html.HiddenFor(m => m.SplQul)*@
+            if (Model.IsPermission != 1)
+            {
+                @Html.HiddenFor(h => h.RankId)
+                @Html.HiddenFor(h => h.CatIRId)
+                @Html.HiddenFor(h => h.PresentCatIRDate)
+                @Html.HiddenFor(h => h.PresentCatIRTypeID)
+                @Html.HiddenFor(h => h.TypesIfAnyID)
+                @Html.HiddenFor(h => h.SpecialQual_ID)
+                @Html.HiddenFor(h => h.QfiDate)
+                @Html.HiddenFor(h => h.CheckAviatorEndorsmentAwardedOn)
+                @Html.HiddenFor(h => h.AwardByComd)
+                @Html.HiddenFor(h => h.AppearingFor)
+                @Html.HiddenFor(h => h.AircraftType)
+            }
+            <div style="text-align: center; margin-right: 18rem; font-size: 25px ">
+                <label><b> @Html.DisplayFor(m => m.ANumber) @Html.DisplayFor(m => m.RankName) @Html.DisplayFor(m => m.AviatorName)</b> </label>
+            </div>
+            <br />
+            <br />
+        
+
+
+                <div class="col">
+
+                    <div style="font-size: 18px; margin-right: 23rem; font-weight: 500; text-decoration: underline; color: black; text-align: center">
+                        <label><b><u>CATEGORY / INSTRUMENT RATING HELD</u></b></label>
+                    </div>
+                    <div class="row">
+                        <div class="col-1" style="margin-left:520px">
+                            <label><b> Rank</b></label>
+                            @if (Model.IsPermission == 1)
+                            {
+                                @Html.DropDownListFor(m => m.RankId, (new IHSDC.WebApp.Models.MasterModels()).LoadRanks(), "--Select Rank --", new { @data_show_subtext = "true", @class = "select form-control", @data_live_search = "true", @required = true })
+                            }
+                            else
+                            {
+                                @Html.DropDownListFor(m => m.RankId, (new IHSDC.WebApp.Models.MasterModels()).LoadRanks(), "--Select Rank --", new { @data_show_subtext = "true", @class = "select form-control", @data_live_search = "true", @required = true, @disabled = "disabled" })
+                            }
+                        </div>
+
+                        <div class="col-1">
+                            <label><b> Cat IR</b></label>
+                            @if (Model.IsPermission == 1)
+                            {
+                                @Html.DropDownListFor(m => m.CatIRId, (new IHSDC.WebApp.Models.MasterModels()).LoadCatIR(), "--Select Present Cat --", new { @data_show_subtext = "true", @class = "select form-control", @data_live_search = "true", @required = true })
+                            }
+                            else
+                            {
+                                @Html.DropDownListFor(m => m.CatIRId, (new IHSDC.WebApp.Models.MasterModels()).LoadCatIR(), "--Select Present Cat --", new { @data_show_subtext = "true", @class = "select form-control", @data_live_search = "true", @required = true, @disabled = "disabled" })
+                            }
+                        </div>
+                        <div class="col-1">
+                            <label><b>Date</b></label>
+                            @if (Model.IsPermission == 1)
+                            {
+                                @Html.TextBoxFor(m => m.PresentCatIRDate, new { @class = "form-control datepicker3", @required = true, @onchange = "isDate(this)", @placeholder = "dd/mmm/yyyy" })
+                            }
+                            else
+                            {
+                                @Html.TextBoxFor(m => m.PresentCatIRDate, new { @class = "form-control datepicker3", @required = true, @onchange = "isDate(this)", @placeholder = "dd/mmm/yyyy", @disabled = "disabled" })
+                            }
+
+                        </div>
+                        <div class="col-1">
+                            <label><b> On Type</b></label>
+                            @if (Model.IsPermission == 1)
+                            {
+                                @Html.DropDownListFor(m => m.PresentCatIRTypeID, (new IHSDC.WebApp.Models.MasterModels()).LoadHeptrRPAName(1), "--Select Aircraft --", new { @data_show_subtext = "true", @class = "select form-control", @data_live_search = "true", @required = true })
+                            }
+                            else
+                            {
+                                @Html.DropDownListFor(m => m.PresentCatIRTypeID, (new IHSDC.WebApp.Models.MasterModels()).LoadHeptrRPAName(1), "--Select Aircraft --", new { @data_show_subtext = "true", @class = "select form-control", @data_live_search = "true", @required = true, @disabled = "disabled" })
+                            }
+                        </div>
+                        <div class="col-1">
+                            <label><b>Other Type(s)(if any) </b></label>
+                            <span id="TypesIfAnyID2" class="d-none">@ViewBag.TypesIfAnyID</span>
+                            @if (Model.IsPermission == 1)
+                            {
+                                @Html.DropDownListFor(m => m.TypesIfAnyID, (new IHSDC.WebApp.Models.MasterModels()).LoadHeptrRPAName(1), "--Select Aircraft --", new { @onChange = "check(this,'AircraftType_ID','Aircraft Type')", @data_show_subtext = "true", @class = "select form-control", @data_live_search = "true" })
+                            }
+                            else
+                            {
+                                @Html.DropDownListFor(m => m.TypesIfAnyID, (new IHSDC.WebApp.Models.MasterModels()).LoadHeptrRPAName(1), "--Select Aircraft --", new { @onChange = "check(this,'AircraftType_ID','Aircraft Type')", @data_show_subtext = "true", @class = "select form-control", @data_live_search = "true", @disabled = "disabled" })
+                            }
+
+                        </div>
+                    </div>
+                </div>
+                <br />
+                <div class="col">
+                    <div style="font-size: 18px; margin-left: -23rem; font-weight: 500; text-decoration: underline; color: black; text-align: center">
+                        <label><b><u>CONTINUITY TRAINING</u></b></label>
+                    </div>
+                    <div class="row" style="margin-left:520px">
+                        <div class="col-2">
+                            <label><b> Day (Last 03 Months ) </b></label>
+                            @if (Model.IsPermission == 1)
+                            {
+                                @Html.TextBoxFor(m => m.DayHrsLastThreeMonth, "{0:####.##}", new { @class = "form-control", @onkeyup = "ValInData(this)", onkeypress = "return blockSpecialChar(event)", @onchange = "CheckMinuteHrs(this)", @required = true })
+                            }
+                            else
+                            {
+                                @Html.TextBoxFor(m => m.DayHrsLastThreeMonth, "{0:####.##}", new { @class = "form-control", @onkeyup = "ValInData(this)", onkeypress = "return blockSpecialChar(event)", @onchange = "CheckMinuteHrs(this)", @readonly = "readonly" })
+                            }
+                        </div>
+                        <div class="col-2">
+                            <label><b> Night (Last 06 Months ) </b></label>
+                            @if (Model.IsPermission == 1)
+                            {
+                                @Html.TextBoxFor(m => m.NighHrsLastSixMonth, "{0:####.##}", new { @class = "form-control", @onkeyup = "ValInData(this)", onkeypress = "return blockSpecialChar(event)", @onchange = "CheckMinuteHrs(this)", @required = true })
+                            }
+                            else
+                            {
+                                @Html.TextBoxFor(m => m.NighHrsLastSixMonth, "{0:####.##}", new { @class = "form-control", @onkeyup = "ValInData(this)", onkeypress = "return blockSpecialChar(event)", @onchange = "CheckMinuteHrs(this)", @readonly = "readonly" })
+                            }
+                        </div>
+                        <div class="col-2">
+                            <label><b> SIF Hrs </b></label>
+                            @if (Model.IsPermission == 1)
+                            {
+                                @Html.TextBoxFor(m => m.SIFHrs, "{0:####.##}", new { @class = "form-control", @onkeyup = "ValInData(this)", onkeypress = "return blockSpecialChar(event)", @onchange = "CheckMinuteHrs(this)", @required = true })
+                            }
+                            else
+                            {
+                                @Html.TextBoxFor(m => m.SIFHrs, "{0:####.##}", new { @class = "form-control", @onkeyup = "ValInData(this)", onkeypress = "return blockSpecialChar(event)", @onchange = "CheckMinuteHrs(this)", @readonly = "readonly" })
+                            }
+
+                        </div>
+                    </div>
+                </div>
+
+
+                <br />
+
+                <div class="col">
+                    <div style="font-size: 18px; margin-left: -23rem; font-weight: 500; text-decoration: underline; color: black; text-align: center">
+                        <label><b><u>SPECIAL QUALIFICATION</u></b></label>
+                    </div>
+                    <div class="row" style="margin-left:520px">
+                        <div class="col-2">
+                            <label><b> QFI Cat</b></label>
+                            @if (Model.IsPermission == 1)
+                            {
+                                @Html.DropDownListFor(m => m.SpecialQual_ID, (new IHSDC.WebApp.Models.MasterModels()).LoadInstrCAT(), "--Select Instr CAT--", new { @data_show_subtext = "true", @class = "select form-control", @data_live_search = "true" })
+                            }
+                            else
+                            {
+                                @Html.DropDownListFor(m => m.SpecialQual_ID, (new IHSDC.WebApp.Models.MasterModels()).LoadInstrCAT(), "--Select Instr CAT--", new { @data_show_subtext = "true", @class = "select form-control", @data_live_search = "true", @disabled = "disabled" })
+                            }
+                        </div>
+                        <div class="col-2">
+                            <label><b> Date</b></label>
+                            @if (Model.IsPermission == 1)
+                            {
+                                @Html.TextBoxFor(m => m.QfiDate, new { @class = "form-control datepicker3", @onchange = "isDate(this)", @placeholder = "dd/mmm/yyyy" })
+                            }
+                            else
+                            {
+                                @Html.TextBoxFor(m => m.QfiDate, new { @class = "form-control datepicker3", @onchange = "isDate(this)", @placeholder = "dd/mmm/yyyy", @disabled = "disabled" })
+                            }
+                        </div>
+                        <div class="col-2">
+                            <label><b> Total Instr Hrs</b></label>
+                            @if (Model.IsPermission == 1)
+                            {
+                                @Html.TextBoxFor(m => m.TotalInstHrs, "{0:####.##}", new { @class = "form-control", @onkeyup = "ValInData(this)", onkeypress = "return blockSpecialChar(event)", @onchange = "CheckMinuteHrs(this)", @required = true })
+                            }
+                            else
+                            {
+                                @Html.TextBoxFor(m => m.TotalInstHrs, "{0:####.##}", new { @class = "form-control", @onkeyup = "ValInData(this)", onkeypress = "return blockSpecialChar(event)", @onchange = "CheckMinuteHrs(this)", @readonly = "readonly" })
+                            }
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col">
+                    <div style="font-size: 18px; margin-left: -23rem; font-weight: 500; text-decoration: underline; color: black; text-align: center">
+                        <label><b><u>CHECK AVIATORS ENDORSEMENT</u></b></label>
+                    </div>
+                    <div class="row" style="margin-left:520px">
+                        <div class="col-2">
+                            <label><b> Awarded On</b></label>
+                            @if (Model.IsPermission == 1)
+                            {
+                                @Html.TextBoxFor(m => m.CheckAviatorEndorsmentAwardedOn, new { @class = "form-control datepicker3", @onchange = "isDate(this)", @placeholder = "dd/mmm/yyyy" })
+                            }
+                            else
+                            {
+                                @Html.TextBoxFor(m => m.CheckAviatorEndorsmentAwardedOn, new { @class = "form-control datepicker3", @onchange = "isDate(this)", @placeholder = "dd/mmm/yyyy", @disabled = "disabled" })
+                            }
+                        </div>
+                        <div class="col-2">
+                            <label><b>Comd</b></label>
+                            @if (Model.IsPermission == 1)
+                            {
+                                @Html.DropDownListFor(m => m.AwardByComd, (new IHSDC.WebApp.Models.MasterModels()).LoadCommandName(), "--Command --", new { @data_show_subtext = "true", @class = "select form-control", @data_live_search = "true" })
+                            }
+                            else
+                            {
+                                @Html.DropDownListFor(m => m.AwardByComd, (new IHSDC.WebApp.Models.MasterModels()).LoadCommandName(), "--Command --", new { @data_show_subtext = "true", @class = "select form-control", @data_live_search = "true", @disabled = "disabled" })
+                            }
+                        </div>
+                    </div>
+                </div>
+                <br />
+
+                <div class="col">
+                    <div class="row" style="margin-left:520px">
+                        <div class="col-2">
+                            <label><b> Appearing For</b></label>
+                            @if (Model.IsPermission == 1)
+                            {
+                                @Html.DropDownListFor(m => m.AppearingFor, (new IHSDC.WebApp.Models.MasterModels()).LoadCatIR(), "--Select Appearing For --", new { @data_show_subtext = "true", @class = "select form-control", @data_live_search = "true", @required = true, @onchange = "Changes(this)" })
+                            }
+                            else
+                            {
+                                @Html.DropDownListFor(m => m.AppearingFor, (new IHSDC.WebApp.Models.MasterModels()).LoadCatIR(), "--Select Appearing For --", new { @data_show_subtext = "true", @class = "select form-control", @data_live_search = "true", @required = true, @onchange = "Changes(this)", @disabled = "disabled" })
+                            }
+                        </div>
+                        <div class="col-2">
+                            <label><b> Aircraft Type</b></label>
+                            @if (Model.IsPermission == 1)
+                            {
+                                @Html.DropDownListFor(m => m.AircraftType, (new IHSDC.WebApp.Models.MasterModels()).LoadHeptrRPAName(1), "--Select Aircraft Name --", new { @data_show_subtext = "true", @class = "select form-control", @data_live_search = "true", @required = true })
+                            }
+                            else
+                            {
+                                @Html.DropDownListFor(m => m.AircraftType, (new IHSDC.WebApp.Models.MasterModels()).LoadHeptrRPAName(1), "--Select Aircraft Name --", new { @data_show_subtext = "true", @class = "select form-control", @data_live_search = "true", @required = true, @disabled = "disabled" })
+                            }
+                        </div>
+                        <div class="col-2">
+                            <div style="width:300px">
+                                <label><b>Remarks</b></label>
+                                @Html.TextBoxFor(m => m.RemarksAppearing, new { @class = "form-control" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <br />
+                <div class="row">
+                    <div class="col-4">
+                    </div>
+                    <div class="col-4" style="text-align:center">
+                        <div style="font-size: 18px; margin-left: -23rem; font-weight: 500; text-decoration: underline; color: black;">
+                            <label><b><u>DETAILS OF FLYING EXPERIENCE</u></b></label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-3">
+                    </div>
+                    <div class="col-4" style="margin-left:100px">
+                        @*<div style="font-size: 25px;    font-weight: 500;   text-decoration: underline;color: black;  padding-left:50px">
+                    <label><b><u>DETAILS OF FLYING EXPERIENCE</u></b></label>
+                </div>*@
+
+                        <div class="row">
+
+                        
+                      
+
+                                <div class="row" style="text-align:center;font-size:16px;">
+
+                                    <div style="border:solid 1px; width:50px;">
+                                        <b>Ser</b>
+                                    </div>
+                                    <div style="border:solid 1px; width:70px">
+
+                                    </div>
+                                    <div style="border:solid 1px; width:100px">
+                                        <b>On Type</b>
+                                    </div>
+                                    <div style="border:solid 1px; width:100px">
+                                        <b>On Helicopters</b>
+                                    </div>
+                                    <div style="border:solid 1px; width:100px">
+                                        <b>All Types</b>
+                                    </div>
+                                    <div style="border:solid 1px ; width:100px">
+                                        <b>IMC Hours</b>
+                                    </div>
+                                    <div style="border:solid 1px; width:200px">
+                                        <b>Remarks</b>
+                                    </div>
+                                </div>
+                                <div class="row">
+
+                                    <div style="border:solid 1px ; width:50px">
+                                        <b> (a)</b>
+                                    </div>
+                                    <div style="border:solid 1px; width:70px">
+                                        <b> Day</b>
+                                    </div>
+                                    <div style="border:solid 1px; width:100px">
+                                        @if (Model.IsPermission == 1)
+                                        {
+                                            @Html.TextBoxFor(m => m.TotalCptHrsPresentTypeDay, "{0:####.##}", new { @class = "form-control", @onkeyup = "ValInData(this)", onkeypress = "return blockSpecialChar(event)", @onchange = "CheckMinuteHrs(this)", @required = true })
+                                        }
+                                        else
+                                        {
+                                            @Html.TextBoxFor(m => m.TotalCptHrsPresentTypeDay, "{0:####.##}", new { @class = "form-control", @onkeyup = "ValInData(this)", onkeypress = "return blockSpecialChar(event)", @onchange = "CheckMinuteHrs(this)", @readonly = "readonly" })
+                                        }
+                                    </div>
+                                    <div style="border:solid 1px; width:100px">
+                                        @if (Model.IsPermission == 1)
+                                        {
+                                            @Html.TextBoxFor(m => m.OnHelicoptorDay, "{0:####.##}", new { @class = "form-control", @onkeyup = "ValInData(this)", onkeypress = "return blockSpecialChar(event)", @onchange = "CheckMinuteHrs(this)", @required = true })
+                                        }
+                                        else
+                                        {
+                                            @Html.TextBoxFor(m => m.OnHelicoptorDay, "{0:####.##}", new { @class = "form-control", @onkeyup = "ValInData(this)", onkeypress = "return blockSpecialChar(event)", @onchange = "CheckMinuteHrs(this)", @readonly = "readonly" })
+                                        }
+                                    </div>
+                                    <div style="border:solid 1px; width:100px">
+                                        @if (Model.IsPermission == 1)
+                                        {
+                                            @Html.TextBoxFor(m => m.CaptHrsDayOnAllTypes, "{0:####.##}", new { @class = "form-control", @onkeyup = "ValInData(this)", onkeypress = "return blockSpecialChar(event)", @onchange = "CheckMinuteHrs(this)", @required = true })
+                                        }
+                                        else
+                                        {
+                                            @Html.TextBoxFor(m => m.CaptHrsDayOnAllTypes, "{0:####.##}", new { @class = "form-control", @onkeyup = "ValInData(this)", onkeypress = "return blockSpecialChar(event)", @onchange = "CheckMinuteHrs(this)", @readonly = "readonly" })
+                                        }
+                                    </div>
+                                    <div style="border:solid 1px; width:100px">
+                                        @if (Model.IsPermission == 1)
+                                        {
+                                            @Html.TextBoxFor(m => m.IMCDayHrs, "{0:####.##}", new { @class = "form-control", @onkeyup = "ValInData(this)", onkeypress = "return blockSpecialChar(event)", @onchange = "CheckMinuteHrs(this)", @required = true })
+                                        }
+                                        else
+                                        {
+                                            @Html.TextBoxFor(m => m.IMCDayHrs, "{0:####.##}", new { @class = "form-control", @onkeyup = "ValInData(this)", onkeypress = "return blockSpecialChar(event)", @onchange = "CheckMinuteHrs(this)", @readonly = "readonly" })
+                                        }
+                                    </div>
+                                    <div style="border:solid 1px; width:200px">
+                                        @if (Model.IsPermission == 1)
+                                        {
+                                            @Html.TextBoxFor(m => m.RemarksDay, new { @class = "form-control", @onchange = "Case(this)" })
+                                        }
+                                        else
+                                        {
+                                            @Html.TextBoxFor(m => m.RemarksDay, new { @class = "form-control", @onchange = "Case(this)", @readonly = "readonly" })
+                                        }
+                                    </div>
+                                </div>
+                                <div class="row">
+
+                                    <div style="border:solid 1px ; width:50px">
+                                        <b>(b)</b>
+                                    </div>
+                                    <div style="border:solid 1px; width:70px">
+                                        <b> Night</b>
+                                    </div>
+                                    <div style="border:solid 1px; width:100px">
+                                        @if (Model.IsPermission == 1)
+                                        {
+                                            @Html.TextBoxFor(m => m.TotalCptHrsPresentTypeNight, "{0:####.##}", new { @class = "form-control", @onkeyup = "ValInData(this)", onkeypress = "return blockSpecialChar(event)", @onchange = "CheckMinuteHrs(this)", @required = true })
+                                        }
+                                        else
+                                        {
+                                            @Html.TextBoxFor(m => m.TotalCptHrsPresentTypeNight, "{0:####.##}", new { @class = "form-control", @onkeyup = "ValInData(this)", onkeypress = "return blockSpecialChar(event)", @onchange = "CheckMinuteHrs(this)", @readonly = "readonly" })
+                                        }
+                                    </div>
+                                    <div style="border:solid 1px; width:100px">
+                                        @if (Model.IsPermission == 1)
+                                        {
+                                            @Html.TextBoxFor(m => m.OnHelicoptornight, "{0:####.##}", new { @class = "form-control", @onkeyup = "ValInData(this)", onkeypress = "return blockSpecialChar(event)", @onchange = "CheckMinuteHrs(this)", @required = true })
+                                        }
+                                        else
+                                        {
+                                            @Html.TextBoxFor(m => m.OnHelicoptornight, "{0:####.##}", new { @class = "form-control", @onkeyup = "ValInData(this)", onkeypress = "return blockSpecialChar(event)", @onchange = "CheckMinuteHrs(this)", @readonly = "readonly" })
+                                        }
+                                    </div>
+                                    <div style="border:solid 1px; width:100px">
+                                        @if (Model.IsPermission == 1)
+                                        {
+                                            @Html.TextBoxFor(m => m.CaptHrsNightOnAllTypes, "{0:####.##}", new { @class = "form-control", @onkeyup = "ValInData(this)", onkeypress = "return blockSpecialChar(event)", @onchange = "CheckMinuteHrs(this)", @required = true })
+                                        }
+                                        else
+                                        {
+                                            @Html.TextBoxFor(m => m.CaptHrsNightOnAllTypes, "{0:####.##}", new { @class = "form-control", @onkeyup = "ValInData(this)", onkeypress = "return blockSpecialChar(event)", @onchange = "CheckMinuteHrs(this)", @readonly = "readonly" })
+                                        }
+                                    </div>
+                                    <div style="border:solid 1px; width:100px">
+                                        @if (Model.IsPermission == 1)
+                                        {
+                                            @Html.TextBoxFor(m => m.IMCNightHrs, "{0:####.##}", new { @class = "form-control", @onkeyup = "ValInData(this)", onkeypress = "return blockSpecialChar(event)", @onchange = "CheckMinuteHrs(this)", @required = true })
+                                        }
+                                        else
+                                        {
+                                            @Html.TextBoxFor(m => m.IMCNightHrs, "{0:####.##}", new { @class = "form-control", @onkeyup = "ValInData(this)", onkeypress = "return blockSpecialChar(event)", @onchange = "CheckMinuteHrs(this)", @readonly = "readonly" })
+                                        }
+                                    </div>
+                                    <div style="border:solid 1px; width:200px">
+                                        @if (Model.IsPermission == 1)
+                                        {
+                                            @Html.TextBoxFor(m => m.RemarksNight, new { @class = "form-control", @onchange = "Case(this)" })
+                                        }
+                                        else
+                                        {
+                                            @Html.TextBoxFor(m => m.RemarksNight, new { @class = "form-control", @onchange = "Case(this)", @readonly = "readonly" })
+                                        }
+                                    </div>
+                                </div>
+
+           
+
+
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <div style="font-size: 35px; margin-left: -23rem; text-decoration: underline; color: black; text-align: center">
+                            <button type="submit" value="@ViewBag.ButtonName" name="btnval" class="btn btn-info" style="width:100px;height:50px">@ViewBag.ButtonName </button>
+                        </div>
+                    </div>
+                </div>
+            
+            
+        }
+    </div>
+</div>
+
+
+<script src="~/NewContent/vendor/jquery/jquery.min.js"></script>
+<script src="~/Content/CustomJS/AviatorJS.js"></script>
+<script src="~/Content/CustomJS/AddUpdateFilter.js"></script>
+<script src="~/Content/CustomJS/GEBSubmit.js"></script>
+<script src="~/Content/css/sweetalert.min.js"></script>
+<link href="~/Content/css/sweetalert.css" rel="stylesheet" />
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryui")
+    @Styles.Render("~/Content/cssjqryUi")
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+            $("#AppearingFor option[value='Not Appeared']").remove();
+            $("#RemarksAppearingddl").prop("required", false);
+            $("#AircraftType").prop("required", true);
+            $('#RemarksAppearingddl').val('');
+            $("#dvRemarksAppearingddl").hide();
+        })
+
+
+        function Changes(obj) {
+
+            var va = $(obj).val();
+            if (va == "Not Appeared") {
+
+                $("#RemarksAppearingddl").prop("required", true);
+                $("#AircraftType").prop("required", false);
+                $('#AircraftType').val('');
+                $("#dvAircraftType").hide();
+                $("#dvRemarksAppearingddl").show();
+
+            }
+            else {
+                $("#RemarksAppearingddl").prop("required", false);
+                $("#AircraftType").prop("required", true);
+                $('#RemarksAppearingddl').val('');
+                $("#dvRemarksAppearingddl").hide();
+                $("#dvAircraftType").show();
+            }
+
+        }
+
+        //var today = new Date();
+        //$('#PresentCatIRDate').datepicker({
+        //    uiLibrary: 'bootstrap4',
+        //    dateFormat: "dd/M/yy",
+        //    autoclose: true,
+        //    maxDate: today
+        //});
+        //$('#CheckAviatorEndorsmentAwardedOn').datepicker({
+        //    uiLibrary: 'bootstrap4',
+        //    dateFormat: "dd/M/yy",
+        //    autoclose: true,
+        //    maxDate: today
+        //});
+        //$('#QfiDate').datepicker({
+        //    uiLibrary: 'bootstrap4',
+        //    dateFormat: "dd/M/yy",
+        //    autoclose: true,
+        //    maxDate: today
+        //});
+    </script>
+}
+
+@*<script>
+
+           var role = '@SessionManager.Role';
+           if (role == 'FlightCommander' || role == 'SquadronCommander' || role == 'BrigAvn' || role == 'GSO1AA7')
+        {
+                $(document).ready(function () {
+                    $("#lowzoom *").prop("disabled", true);
+                });
+    }
+</script>*@
+
+
+@*<style>
+
+    #lowzoom {
+        -moz-transform: scale(0.75, 0.75);
+        zoom: 0.75;
+        zoom: 75%;
+    }
+</style>*@

@@ -1,0 +1,109 @@
+﻿@model IHSDC.WebApp.Models.GEBLetter
+@using IHSDC.WebApp.Connection
+@{
+    var message = TempData["Message"] ?? string.Empty;
+    var messageStatus = TempData["messageStatus"] ?? string.Empty;
+    var messagemidStatus = TempData["messagemidStatus"] ?? string.Empty;
+    ViewBag.Title = "GEB Module";
+    Layout = "~/Views/Shared/_NewAA7Layout.cshtml"; int sno = 0;
+}
+
+<style>
+
+
+    .btn:hover {
+        background-color: green;
+    }
+</style>
+
+
+
+<div class="card-body" id="lowzoom" style="box-shadow: -1px 2px 16px 3px; padding: 0.5rem;">
+    <div class="row">
+
+        <div class="col">
+            <img src="~/Content/images/GEB1.png" style="height: 100px;  width: 100px;margin-left: 46rem;" />
+            <a class="btn btn-info float-right mb-1" href="@Url.Action("Index","Home")" target="_top">
+                Back
+            </a>
+        </div>
+
+    </div>
+    <div class="table-responsive" style=" margin-left: 1rem; padding-right: 2rem;">
+        <table class="table table-striped align-top" id="dataTable" width="100%" cellspacing="0">
+            <thead class="bg-info text-white">
+                <tr>
+                    <th width="10px" class="center">S/No</th>
+                    <th width="50px" class="center">GEB No</th>
+                    <th class="left" width="100px">From Date</th>
+                    <th class="left" width="100px">To Date</th>
+                    <th class="left" width="300px">Ref No & dt</th>
+                    <th class="left" width="120px">GEB Centre</th>
+                    <th width="200px" class="center">Nominated Aviators in Hierarchy</th>
+                    <th width="200px" class="center">Nominated Aviators in Unit</th>
+
+
+                </tr>
+            </thead>
+            <tbody id="tbody">
+                @if (ViewBag.count > 0)
+                {
+                    foreach (var item in Model.ILGEBLetter)
+                    {
+                        <tr>
+                            <td class="center">
+                                @{ sno++; }
+                                @sno
+                            </td>
+                            <td class="center">@Html.DisplayFor(modelItem => item.GEBLetterId)</td>
+                            <td>@Html.DisplayFor(modelItem => item.FromDate)</td>
+                            <td>@Html.DisplayFor(modelItem => item.ToDate)</td>
+                            <td>@Html.DisplayFor(modelItem => item.GEBRefNoDt)</td>
+                            <td>@Html.DisplayFor(modelItem => item.GEBExamCentre)</td>
+                            <td class="center">
+                                <a class="btn btn-secondary btn-circle btn-sm" style="color: white; background-color: #044C92;width:35Px; height: 23px; font-family: Arial; font-size: 14px; text-align: center" onclick="location.href='@Url.Action("GEBAviatorList", "GEB", new { id = IHSDC.WebApp.RepositryManager.EncryptionManager.Encryption(item.GEBLetterId.ToString()), fid = IHSDC.WebApp.RepositryManager.EncryptionManager.Encryption("Non Unit"),UnitId=IHSDC.WebApp.RepositryManager.EncryptionManager.Encryption("0") })'">
+                                    @Html.DisplayFor(modelItem => item.TotalAviators)
+                                </a>
+                            </td>
+                            <td class="center">
+                                <a class="btn btn-secondary btn-circle btn-sm" style="color: white; background-color: #044C92; width: 35Px; height: 23px; font-family: Arial; font-size: 14px; text-align: center" onclick="location.href='@Url.Action("GEBAviatorList", "GEB", new { id = IHSDC.WebApp.RepositryManager.EncryptionManager.Encryption(item.GEBLetterId.ToString()), fid = "0" })'">
+                                    @Html.DisplayFor(modelItem => item.Aviators)
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <tr><td colspan="4" style="font-weight:600;color:red;text-align:center"> No Record Found!!!</td></tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<style>
+    .center {
+        text-align: center;
+    }
+</style>
+<script src="~/Scripts/jquery-3.3.1.js"></script>
+<script src="~/Content/CustomJS/GEBSubmit.js"></script>
+<script src="~/Content/CustomJS/AviatorJS.js"></script>
+<script src="~/Content/css/sweetalert.min.js"></script>
+<link href="~/Content/css/sweetalert.css" rel="stylesheet" />
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryui")
+    @Styles.Render("~/Content/cssjqryUi")
+
+    <script type="text/javascript">
+       var message = '@message';
+    var messageStatus = '@messageStatus';
+    var messagemidStatus = '@messagemidStatus ';
+    if (message)
+        sweetAlert(message, messagemidStatus, messageStatus);
+
+
+    </script>
+}
+

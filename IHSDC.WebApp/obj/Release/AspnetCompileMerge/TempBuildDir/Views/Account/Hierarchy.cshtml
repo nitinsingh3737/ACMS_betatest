@@ -1,0 +1,151 @@
+﻿@model IEnumerable<IHSDC.Common.Models.ApplicationUser>
+
+@{
+    ViewBag.Title = "View Users";
+    int sno = 0;
+}
+
+
+
+<div class="card-body" style="box-shadow: -1px 2px 16px 3px; padding: 0.5rem;">
+    <p>
+        @Html.ActionLink("Add Users", "Add", "Account", new object { }, new { @class = "btn btn-primary" })
+    </p>
+
+    <div class="row">
+
+        <div class="table-responsive" style=" margin-left: 1rem; padding-right: 2rem;">
+            @if (Model.Count() > 1)
+
+            {
+                <table class="table table-striped" id="dataTable" width="100%" cellspacing="0">
+                    <thead class="bg-info text-white">
+                        <tr>
+                            <th class="center">S/No</th>
+                            <th class="center">Username</th>
+
+                            <th class="center">Pers Details & Contact No</th>
+                            @*<th class="center">Unit</th>*@
+                            @*<th class="center">BdeCat</th>
+                                <th class="center">Corps</th>
+                                <th class="center">Comd</th>*@
+
+                            @*<th class="center">Data Entry Fwd Auth</th>
+                                <th class="center">GEB Fwd Auth</th>*@
+                            <th class="center">Status</th>
+                            <th>Edit</th>
+                            @*<th>Del</th>*@
+                        </tr>
+                    </thead>
+
+                    <tbody id="tbody">
+
+
+                        @foreach (var item in Model)
+                        {
+                            if (item.UserName != User.Identity.Name)
+                            {
+                                <tr>
+                                    <td>
+                                        @{ sno++; }
+                                        @sno
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.UserName)
+
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Rank) @Html.DisplayFor(modelItem => item.FullName) &#44;
+                                        @*@Html.DisplayFor(modelItem => item.Appointment)&#44;*@
+                                        @Html.DisplayFor(modelItem => item.Email) &#38;
+                                        @Html.DisplayFor(modelItem => item.PhoneNumber)
+
+                                    </td>
+
+
+
+                                    <!--<td>
+                                        @Html.DisplayFor(modelItem => item.Unit_ID)-->
+                                    @*@IHSDC.WebApp.Controllers.MasterController.GetUnitNamebyId(item.Unit_ID)*@
+
+                                    @*@Html.DisplayFor(modelItem => item.Unit_ID)*@
+                                    <!--</td>-->
+                                    <!--<td>-->
+                                    @*@Html.DisplayFor(modelItem => item.BdeCat)*@
+
+                                    <!--</td>
+
+                                    <td>
+
+                                    </td>-->
+                                    @*<td>
+                                            @Html.DisplayFor(modelItem => item.DEFwdAuth)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.GEBFwdAuth)
+                                        </td>*@
+                                    <td>
+
+                                        @if (item.Active.ToString() == "1")
+                                        {
+                                            @*@Html.DisplayFor(modelItem => item.Active, new { htmlAttributes = new { @class = "active-item" } })*@
+                                            <span class="green"></span>
+                                        }
+                                        else
+                                        {
+                                            @*@Html.DisplayFor(modelItem => item.Active, new { htmlAttributes = new { @class = "inactive-item" } })*@
+                                            <span class="red"></span>
+                                        }
+
+                                    </td>
+                                    <td>
+                                        @*@Html.ActionLink("Edit", "Edit", new { id = item.Id })*@
+
+                                        <a onclick="location.href='@Url.Action("Edit", "Account", new { id = item.Id })'">
+                                            <img src="~/Content/images/Editnew.png" width="20" height="20" border="0">
+                                        </a>
+                                    </td>
+                                    @*<td>
+                                        @if (User.Identity.Name == IHSDC.Common.Configurations.Application.AdminUsername)
+                                        {
+                                           
+                                            <a onclick="location.href='@Url.Action("Delete", "Account", new { id = item.Id })'">
+                                                <img src="~/Content/images/Delete.png" width="20" height="20" border="0" />
+                                            </a>
+                                        }
+                                    </td>*@
+                                </tr>
+                            }
+                            else
+                            {
+                                @*<tr><td colspan="4" style="font-weight:600;color:red;text-align:center"> No Record Found!!!</td></tr>*@
+                            }
+
+                        }
+
+
+                    </tbody>
+                </table>
+            }
+
+        </div>
+
+    </div>
+</div>
+<style>
+    .green {
+        height: 20;
+        width: 20;
+        background-color: #008000;
+        border-radius: 50%;
+        display: inline-block;
+    }
+
+    .red {
+        height: 20px;
+        width: 20px;
+        background-color: #ff0000;
+        border-radius: 50%;
+        display: inline-block;
+    }
+</style>

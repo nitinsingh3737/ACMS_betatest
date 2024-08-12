@@ -1,0 +1,95 @@
+﻿@model IHSDC.WebApp.Models.AppxFIntsrExp
+@{
+
+    var message = TempData["Message"] ?? string.Empty;
+    var messageStatus = TempData["messageStatus"] ?? string.Empty;
+    var messagemidStatus = TempData["messagemidStatus"] ?? string.Empty;
+    //var ActionName = "/Master/DeleteComd";
+
+    ViewBag.Title = "Add AppxF Instr Exp  For GEB Module ";
+    Layout = "~/Views/Shared/_NewAA7Layout.cshtml"; int sno = 0;
+}
+
+@using (Html.BeginForm("AppxFInstrExp", "GEB", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <div class="row">
+        <div class="col">
+           <a class="btn btn-info float-right" href="javascript:history.back()" target="_top">
+               Back
+           </a>
+        </div>
+    </div>
+    <br />
+    @Html.HiddenFor(m => m.AppxFId)
+    <div class="card-body">
+        <div class="row">
+
+            <div class="col">
+                <label><b> Aircraft Type:</b></label>
+                @Html.DropDownListFor(m => m.AircraftType, (new IHSDC.WebApp.Models.MasterModels()).LoadHeptrRPAName(1), "--Select Aircraft Name --", new { @data_show_subtext = "true", @class = "select form-control", @data_live_search = "true", @required = true })
+            </div>
+            <div class="col">
+                <label><b> Date Of Award:</b></label>
+                @Html.TextBoxFor(m => m.DateOfAward, new { @class = "form-control datepicker3", @onkeyup = "ValInData(this)", @required = true, @onchange = "isDate(this)", @placeholder = "dd/mmm/yyyy" })
+            </div>
+            <div class="col">
+                <label><b> Instr Cat Held</b></label>
+                @*@Html.TextBoxFor(m => m.CatHeld, new { @class = "form-control", @required = true })*@
+                @Html.DropDownListFor(m => m.CatHeld, (new IHSDC.WebApp.Models.MasterModels()).LoadInstrCAT(), "--Select Qualifcation Name --", new { @data_show_subtext = "true", @class = "select form-control", @data_live_search = "true", @required = true })
+
+            </div>
+            <div class="col">
+                <label><b> Instr Day Hrs</b></label>
+                @Html.TextBoxFor(m => m.InstrDayHrs, "{0:####.##}", new { @class = "form-control", @onkeyup = "ValInData(this)", onkeypress = "return blockSpecialChar(event)", @onchange = "CheckMinuteHrs(this)", @required = true })
+            </div>
+            <div class="col">
+                <label><b> Instr Night Hrs</b></label>
+                @Html.TextBoxFor(m => m.InstrNightHrs, "{0:####.##}", new { @class = "form-control", @onkeyup = "ValInData(this)", onkeypress = "return blockSpecialChar(event)", @onchange = "CheckMinuteHrs(this)", @required = true })
+            </div>
+        </div>
+        <div class="dropdown-divider"></div>
+        <div class="col-12" style="margin-left:35%">
+            <div class="form-group">
+                <div class="col-sm-6" style="margin-left:10%">
+                    <button type="submit" value="@ViewBag.ButtonName" name="btnval" class="btn btn-success">@ViewBag.ButtonName</button>
+                    </div>
+            </div>
+        </div>
+    </div>
+}
+
+
+
+<script src="~/NewContent/vendor/jquery/jquery.min.js"></script>
+<script src="~/Content/CustomJS/DeleteConfirmation.js"></script>
+<script src="~/Content/CustomJS/AddUpdateFilter.js"></script>
+<script src="~/Content/CustomJS/AviatorJS.js"></script>
+<script src="~/Content/css/sweetalert.min.js"></script>
+<link href="~/Content/css/sweetalert.css" rel="stylesheet" />
+
+
+<script type="text/javascript">
+
+   var message = '@message';
+    var messageStatus = '@messageStatus';
+    var messagemidStatus = '@messagemidStatus ';
+    if (message)
+        sweetAlert(message, messagemidStatus, messageStatus);
+</script>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryui")
+    @Styles.Render("~/Content/cssjqryUi")
+    <script type="text/javascript">
+      
+        //var today = new Date();
+        //$('#DateOfAward').datepicker({
+        //    uiLibrary: 'bootstrap4',
+        //    dateFormat: "dd/M/yy",
+        //    autoclose: true,
+        //    maxDate: today
+        //});
+             
+    </script>
+}
+

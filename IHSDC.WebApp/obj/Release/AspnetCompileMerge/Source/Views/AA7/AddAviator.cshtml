@@ -1,0 +1,763 @@
+﻿@model IHSDC.WebApp.Models.AviatorCRUD
+@using IHSDC.WebApp.Helper
+@using IHSDC.WebApp.Connection
+@{
+    var message = TempData["Message"] ?? string.Empty;
+    var messageStatus = TempData["messageStatus"] ?? string.Empty;
+    var messagemidStatus = TempData["messagemidStatus"] ?? string.Empty;
+    ViewBag.Title = "Add Aviator";
+    Layout = "~/Views/Shared/_NewAA7LayoutMenu.cshtml"; int sno = 0;
+
+}
+
+@* add aviator view page *@
+
+@*<br />*@
+
+@*<div class="card-body">*@
+
+
+
+@using (Html.BeginForm("AddAviator", "AA7", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+
+
+    <div class="card-body">
+
+        @if (ViewBag.RankCount != 0)
+        {
+            <div class="modal fade" id="RankHistory">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h2 style="text-align:center">Rank History</h2>
+                        </div>
+                        <div style="text-align:center;font-size: 14px;">
+                            <label><b>Aviator Name : </b>@Html.DisplayFor(m => m.AviatorName)</label><br />
+                            <label><b>Unit : </b>@Html.DisplayFor(m => m.UnitName)</label>
+                        </div>
+                        <div class="modal-body">
+                            <div class="table-responsive">
+                                <table class="table table-striped align-top" id="dataTable" width="100%" cellspacing="0">
+                                    <thead class="bg-info text-white">
+                                        <tr>
+                                            <th class="center">S/No</th>
+                                            <th class="center">Rank</th>
+                                            <th class="center">Date</th>
+                                            <th class="center">Updated by</th>
+                                            <th class="center">Updated on</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="tbody">
+                                        @if (Model.IRankHistory.Count > 0)
+                                        {
+                                            foreach (var item in Model.IRankHistory)
+                                            {
+                                                <tr>
+                                                    <td>@Html.DisplayFor(modelItem => item.SRNo)</td>
+                                                    <td>@Html.DisplayFor(modelItem => item.RankName)</td>
+                                                    <td>@Html.DisplayFor(modelItem => item.RankDate)</td>
+                                                    <td>@Html.DisplayFor(modelItem => item.LastUpdateBy)</td>
+                                                    <td>@Html.DisplayFor(modelItem => item.LastUpdateDate)</td>
+                                                </tr>
+                                            }
+                                        }
+                                        else
+                                        {
+                                            <tr><td colspan="6" style="font-weight:600;color:red;text-align:center"> No Record Found!!!</td></tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <div class="btn-group">
+                                <a id="btnCancel" class="btn btn-danger" href="@Url.Action("AddAviator", "AA7" ,new { id = IHSDC.WebApp.RepositryManager.EncryptionManager.Encryption(Model.ILAviatorCRUD[0].Aviator_ID.ToString()),UnitId=IHSDC.WebApp.RepositryManager.EncryptionManager.Encryption("") })">Close</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+        @if (ViewBag.ApptCount != 0)
+        {
+            <div class="modal fade" id="ApptHistory">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h2 style="text-align:center">Appt History</h2>
+                        </div>
+                        <div style="text-align:center;font-size: 14px;">
+                            <label><b>Aviator Name : </b>@Html.DisplayFor(m => m.AviatorName)</label><br />
+                            <label><b>Unit : </b>@Html.DisplayFor(m => m.UnitName)</label>
+                        </div>
+                        <div class="modal-body">
+                            <div class="table-responsive">
+                                <table class="table table-striped align-top" id="dataTable" width="100%" cellspacing="0">
+                                    <thead class="bg-info text-white">
+                                        <tr>
+                                            <th class="center">S/No</th>
+                                            <th class="center">Appt</th>
+                                            <th class="center">Date</th>
+                                            <th class="center">Updated by</th>
+                                            <th class="center">Updated on</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="tbody">
+                                        @if (Model.IApptHistory.Count > 0)
+                                        {
+                                            foreach (var item in Model.IApptHistory)
+                                            {
+                                                <tr>
+                                                    <td>@Html.DisplayFor(modelItem => item.SRNo)</td>
+                                                    <td>@Html.DisplayFor(modelItem => item.Appt)</td>
+                                                    <td>@Html.DisplayFor(modelItem => item.ApptDate)</td>
+                                                    <td>@Html.DisplayFor(modelItem => item.LastUpdateBy)</td>
+                                                    <td>@Html.DisplayFor(modelItem => item.LastUpdateDate)</td>
+                                                </tr>
+                                            }
+                                        }
+                                        else
+                                        {
+                                            <tr><td colspan="6" style="font-weight:600;color:red;text-align:center"> No Record Found!!!</td></tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <div class="btn-group">
+                                <a id="btnApptCancel" class="btn btn-danger" href="@Url.Action("AddAviator", "AA7" ,new { id = IHSDC.WebApp.RepositryManager.EncryptionManager.Encryption(Model.ILAviatorCRUD[0].Aviator_ID.ToString()),UnitId=IHSDC.WebApp.RepositryManager.EncryptionManager.Encryption("") })">Close</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+
+        <div class="modal fade" id="SelfDeclaration">
+            <div class="modal-dialog" style="margin-top:350px">
+                <div class="modal-content">
+                    <h4 style="text-align:center">Declaration</h4>
+                    <p style="margin-left:10px;margin-right:10px;font-size:14px;font-family:Arial">I <b><u>@SessionManager.UserName</u></b> solemnly declare the information mentioned herein is true and correct to the best of my beliefs.</p>
+                    <div class="modal-footer">
+                        <button type="submit" value="@ViewBag.ButtonName" name="btnval" class="btn btn-success">@ViewBag.ButtonName</button>
+                        <a id="btnCancel" style="color:white;" class="btn btn-danger" data-dismiss="modal">Cancel</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        @*@if (Convert.ToString(SessionManager.Role) == enum1.Unit || Convert.ToString(SessionManager.Role) == enum1.GSO1AA7 || Convert.ToString(SessionManager.Role) == enum1.SquadronCommander || Convert.ToString(SessionManager.Role) == enum1.BrigCdr
+                || Convert.ToString(SessionManager.Role) == enum1.UnitE && ViewBag.ButtonName == "Update")
+            {*@
+        @if (SessionManager.IsPermission == 1 || SessionManager.IsPermission == 3 || SessionManager.IsPermission == 5)
+        {
+            <div class="rcorners">
+
+
+                <div class="row">
+                    <div class="col-2">
+                        <p class="mb-0">Prefix</p>
+                        @Html.DropDownListFor(m => m.PrefixLetter, (new IHSDC.WebApp.Models.MasterModels()).LoadANumber(), "--Select Prefix --", new { @data_show_subtext = "true", @class = "select form-control", @data_live_search = "true", @required = true })
+                    </div>
+
+                    <div class="col-2">
+                        <p class="mb-0">Army Number</p>
+                        @Html.TextBoxFor(m => m.ANumber, new { @class = "form-control", @required = true, @onkeypress = "return blockSpecialChar(event)", @onchange = "SetSuffixLetter(this)", @maxlength = "6", @onkeyup = "ValInData(this)" })
+                    </div>
+                    <div class="col-2">
+                        <p class="mb-0">Suffix Letter </p>
+
+                        @Html.TextBoxFor(m => m.SuffixLetter, new { @class = "form-control", @readonly = true, @onkeyup = "ValInData(this)" })
+
+                    </div>
+                    <div class="col-2">
+                        <p class="mb-0">
+                            Aviator Rank
+                            @if (ViewBag.ButtonName == "Update")
+                            {
+                                <span>&nbsp;&nbsp;</span> <button type="button" data-toggle="modal" data-target="#RankHistory" id="BtnRankHistory" style="border:none;background-color:transparent"><i class="fa fa-history" style="font-size:18px" aria-hidden="true"></i></button>
+                            }
+                        </p>
+                        @Html.DropDownListFor(m => m.RankId, (new IHSDC.WebApp.Models.MasterModels()).LoadRanks(), "--Select Aviator Rank --", new { @data_show_subtext = "true", @class = "select form-control", @data_live_search = "true", @required = true })
+
+                    </div>
+
+
+                    <div class="col-2">
+                        <p class="mb-0">First Name</p>
+                        @Html.TextBoxFor(m => m.FirstName, new
+                   {
+                       @class = "form-control",
+                       @required = true,
+                       @onkeyup = "ValInData(this)"
+                   })
+                    </div>
+                    <div class="col-2">
+                        <p class="mb-0">Middle Name</p>
+                        @Html.TextBoxFor(m => m.MiddleName, new { @class = "form-control", @onkeyup = "ValInData(this)" })
+                    </div>
+                    <div class="col-2">
+                        <p class="mb-0">Last Name</p>
+                        @Html.TextBoxFor(m => m.LastName, new { @class = "form-control", @onkeyup = "ValInData(this)" })
+                    </div>
+                    <div class="col-2">
+                        <p class="mb-0"> Arm / Service </p>
+                        @Html.DropDownListFor(m => m.ArmService_ID, (new IHSDC.WebApp.Models.MasterModels()).LoadArmServiceName(), "--Select Arm / Service --", new { @data_show_subtext = "true", @class = "select form-control", @data_live_search = "true", @required = true })
+                    </div>
+
+                    <div class="col-2">
+                        <p class="mb-0">Gender</p>
+                        @Html.DropDownListFor(m => m.GenderId, (new IHSDC.WebApp.Models.MasterModels()).LoadGender(), "--Select Gender --", new { @data_show_subtext = "true", @class = "select form-control", @data_live_search = "true", @required = true })
+                    </div>
+                    <div class="col-2">
+                        <p class="mb-0">
+                            Appt
+                            @if (ViewBag.ButtonName == "Update")
+                            {
+                                <span>&nbsp;&nbsp;</span> <button type="button" data-toggle="modal" data-target="#ApptHistory" id="BtnApptHistory" style="border:none;background-color:transparent"><i class="fa fa-history" style="font-size:18px" aria-hidden="true"></i></button>
+                            }
+                        </p>
+                        @Html.DropDownListFor(m => m.ApptId, (new IHSDC.WebApp.Models.MasterModels()).LoadAppt(), "--Select Appt --", new { @data_show_subtext = "true", @class = "select form-control", @data_live_search = "true", @required = true })
+                    </div>
+
+
+                    @*<div class="col-2">
+                            <p class="mb-0">Civ Edn</p>
+                            @Html.DropDownListFor(m => m.CivEdnId, (new IHSDC.WebApp.Models.MasterModels()).LoadCivEdn(), "--Select Civ Edn --", new { @data_show_subtext = "true", @class = "select form-control", @data_live_search = "true", @required = true })
+                        </div>*@
+
+
+                    <div class="col-2">
+                        <p class="mb-0">Civ Edn</p>
+                        @*@Html.DropDownListFor(m => m.CivEdnId, (new IHSDC.WebApp.Models.MasterModels()).LoadCivEdn(), "--Select Civ Edn --", new { @data_show_subtext = "true", @class = "select form-control", @data_live_search = "true", @required = true })*@
+
+                        @Html.TextBoxFor(m => m.CivEdnId, new { @required = true, style = "display:none;" })
+
+                        <select id="ddlCivEdnId" multiple="multiple" required=required name="CivEdn">
+                            @if (Model.ILCivEdnCRUD != null)
+                            {
+                                foreach (var item in Model.ILCivEdnCRUD)
+                                {
+                                    if (item.CivEdn != null)
+                                    {
+                                        if (item.Msg == "Selected")
+                                        {
+                                            <option value="@item.CivEdnId" selected="selected">
+                                                @item.CivEdn
+                                            </option>
+                                        }
+                                        else
+                                        {
+                                            <option value="@item.CivEdnId">
+                                                @item.CivEdn
+                                            </option>
+                                        }
+                                    }
+                                }
+                            }
+                        </select>
+                    </div>
+
+
+                    <div class="col-2">
+                        <p class="mb-0">Date of Birth</p>
+                        @Html.TextBoxFor(m => m.DateOfBirth, new { @class = "form-control datepicker3", @required = true, @onkeyup = "ValInData(this)", @onchange = "isDate(this), checkDate(this)", @placeholder = "dd/mm/yyyy", })
+                    </div>
+
+                    <div class="col-2">
+                        <p class="mb-0">Date of Commision</p>
+                        @Html.TextBoxFor(m => m.DateOfCommision, new { @TYPE = "text", @class = "form-control datepicker3", @onkeyup = "ValInData(this)", @required = true, @onchange = "isDate(this),Commision()", @placeholder = "dd/mm/yyyy" })
+
+
+                    </div>
+                    <div class="col-2">
+                        <p class="mb-0">Date of Promotion </p>
+                        @Html.TextBoxFor(m => m.DateOfRank, new { @class = "form-control datepicker3", @required = true, @onkeyup = "ValInData(this)", @onchange = "isDate(this),Rank()", @placeholder = "dd/mm/yyyy" })
+                    </div>
+
+                    <div class="col-2">
+                        <p class="mb-0">Date of Seniority</p>
+                        @Html.TextBoxFor(m => m.DateOfSeniority, new { @class = "form-control datepicker3", @onkeyup = "ValInData(this)", @required = true, @onchange = "isDate(this),Seniority()", @placeholder = "dd/mm/yyyy" })
+                    </div>
+
+
+                    <div class="col-2">
+                        <p class="mb-0">Date of Wings</p>
+                        @Html.TextBoxFor(m => m.DateOfWings, new { @TYPE = "text", @class = "form-control datepicker3", @onkeyup = "ValInData(this)", @required = true, @onchange = "isDate(this),Wings()", @placeholder = "dd/mm/yyyy" })
+                    </div>
+
+                    <div class="col-2">
+                        <p class="mb-0">Flying Status</p>
+                        <span id="FlyingStatus" class="d-none">@ViewBag.FlyingStatus</span>
+                        @Html.DropDownListFor(m => m.FlyingStatusId, (new IHSDC.WebApp.Models.MasterModels()).LoadFlyingStatus(), "--Select Flying Status --", new { id = "FlyingStatusId", @data_show_subtext = "true", @class = "select form-control", @data_live_search = "true", @required = true })
+                    </div>
+
+                    <div class="col-2" id="ReasonUnFitId">
+                        <p class="mb-0">Reason Un-Fit</p>
+                        @Html.TextBoxFor(m => m.ReasonUnFit, new { id = "ReasonUnFit", @class = "form-control", @onkeyup = "ValInData(this)", })
+                    </div>
+
+
+
+                </div>
+
+
+                @*<div class="row">
+
+                    <div class="col-2" style="margin-top:10px;">*@
+
+                <div class="d-flex justify-content-center" style="margin-top:10px;padding-left:5px;">
+
+                    @*<button type="submit" value="@ViewBag.ButtonName" name="btnval" data-toggle="modal" data-target="#SelfDeclaration" class="btn btn-success">@ViewBag.ButtonName</button>*@
+                    <button type="button" data-toggle="modal" data-target="#SelfDeclaration" id="BtnDeclaration" value="@ViewBag.ButtonName" class="btn btn-success">Save</button>
+                    &nbsp;&nbsp;&nbsp;
+                    <a class="btn btn-info" href="@Url.Action("AddAviator","AA7")" target="_top">
+                        Back
+                    </a>
+
+                </div>
+
+
+
+                @*</div>*@
+
+                <div style="float:right;margin-top:-15px; font-size:12px;color:red;">
+
+                    @if (string.IsNullOrEmpty(Model.DateTimeOfUpdate))
+                    {
+                        <label></label>
+                    }
+                    else
+                    {
+
+                        <label> Last updated by @Model.LastUpdatedBy  @Model.DateTimeOfUpdate</label>
+
+
+                    }
+
+                </div>
+
+
+            </div>
+
+        }
+
+        <div class="dropdown-divider"></div>
+
+        <div class="card-body" style="box-shadow: -1px 2px 16px 3px; padding: 0.3rem; border: 1px solid #89CFF0;">
+            <div class="aj" style="padding: 0.5rem;">
+                <a onclick="location.href='@Url.Action("AddAviator", "AA7", new { UnitId=IHSDC.WebApp.RepositryManager.EncryptionManager.Encryption("0") })'">
+                    <span class="btn btn-success" style="margin-left:20px;"> All</span>
+                </a>
+                <a onclick="location.href='@Url.Action("AddAviator", "AA7", new { UnitId=IHSDC.WebApp.RepositryManager.EncryptionManager.Encryption("1") })'">
+                    <span class="btn btn-info"> Unit Data</span>
+                </a>
+            </div>
+
+
+
+
+
+
+            @*//view ended*@
+
+            @*<hr style="border: solid 1px #ababab" />*@
+
+
+            <div class="table-responsive">
+
+                <table class="table table-striped align-top" id="dataTable" width="100%" cellspacing="0">
+
+                    <thead class="bg-info text-white">
+
+                        <tr>
+                            <th> S/No</th>
+                            <th>Pers No</th>
+                            <th>Rank & Name</th>
+                            <th>Unit</th>
+                            <th>Gender</th>
+                            <th>Appt</th>
+                            <th>Arm/Service</th>
+                            @*<th class="center">Aircraft Type</th>*@
+                            @*<th class="center">Unit Name</th>
+                                <th class="center">SQN</th>*@
+                            @*<th class="center">Date of Birth</th>*@
+                            <th>DOC</th>
+                            <th>DOS</th>
+                            <th>Date of Wings</th>
+                            @*<th class="center">Civ Edn</th>*@
+                            @*<th>Cat Card No</th>
+
+                                <th>Date of Issue Cat Card</th>*@
+
+
+                            @*@if (Convert.ToString(SessionManager.Role) == enum1.Unit || Convert.ToString(SessionManager.Role) == enum1.SquadronCommander
+                                    || Convert.ToString(SessionManager.Role) == enum1.BrigCdr || Convert.ToString(SessionManager.Role) == enum1.UnitE
+                                    || Convert.ToString(SessionManager.Role) == enum1.GSO1AA7)
+                                {*@
+                            <th> Action</th>
+
+
+                            @*}*@
+                            <th class="center">
+                                View
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody id="tbody">
+                        @if (ViewBag.Count > 0)
+                        {
+                            foreach (var item in Model.ILAviatorCRUD)
+                            {
+
+                                <tr>
+                                    @*@if (Convert.ToString(SessionManager.Unit_ID) == item.Unit_ID.ToString() || Convert.ToString(SessionManager.Unit_ID) == item.Sqn.ToString())
+        {*@
+
+
+
+                                    <td>
+
+                                        @{ sno++; }
+                                        @sno
+                                    </td>
+                                    <td>@Html.DisplayFor(modelItem => item.ArmyNumber)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.AviatorName)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.UnitName)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.Gender)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.Appt)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.ArmServiceName)</td>
+                                    @*<td>@Html.DisplayFor(modelItem => item.AircraftName)</td>*@
+                                    @*<td>@Html.DisplayFor(modelItem => item.UnitName)</td>
+        <td>@Html.DisplayFor(modelItem => item.Sqn)</td>*@
+                                    @*<td>@Html.DisplayFor(modelItem => item.DateOfBirth)</td>*@
+                                    <td>@Html.DisplayFor(modelItem => item.DateOfCommision)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.DateOfSeniority)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.DateOfWings)</td>
+                                    @*<td>@Html.DisplayFor(modelItem => item.CivEdn)</td>*@
+                                    @*<td>@Html.DisplayFor(modelItem => item.CatCardNo)</td>
+
+
+        <td>@Html.DisplayFor(modelItem => item.DateofIssueCatCard)</td>*@
+
+
+                                    @if (item.IsPermission == 1)
+                                    {
+                                        <td>
+                                            <a onclick="location.href='@Url.Action("AddAviator", "AA7", new { id = IHSDC.WebApp.RepositryManager.EncryptionManager.Encryption(item.Aviator_ID.ToString()) })'">
+                                                <img src="~/images/Editnew.png" width="20" height="20" border="0">
+                                            </a>
+
+                                            @*<span>|</span>
+                <a id="btndel" data-id='@IHSDC.WebApp.RepositryManager.EncryptionManager.Encryption(item.Aviator_ID.ToString())' onclick="DeleteConfirmation(this,'/AA7/DeleteAviator')">
+                    <img src="~/images/Delete.png" width="20" height="20" border="0" />
+                </a>*@
+                                        </td>
+                                        <td>
+                                            <a onclick="location.href='@Url.Action("ViewAviatorDetails", "AA7", new { id = IHSDC.WebApp.RepositryManager.EncryptionManager.Encryption(item.Aviator_ID.ToString()) })'">
+                                                <i class="fa fa-eye" style="font-size:22px" aria-hidden="true"></i>
+                                            </a>
+                                        </td>
+                                    }
+                                    else if (item.IsPermission == 5)
+                                    {
+
+
+                                        <td>
+                                            <a onclick="location.href='@Url.Action("AddAviator", "AA7", new { id = IHSDC.WebApp.RepositryManager.EncryptionManager.Encryption(item.Aviator_ID.ToString()) })'">
+                                                <img src="~/images/Editnew.png" width="20" height="20" border="0">
+                                            </a>
+                                        </td>
+
+                                        <td>
+                                            <a onclick="location.href='@Url.Action("ViewAviatorDetails", "AA7", new { id = IHSDC.WebApp.RepositryManager.EncryptionManager.Encryption(item.Aviator_ID.ToString()) })'">
+                                                <i class="fa fa-eye" style="font-size:22px" aria-hidden="true"></i>
+                                            </a>
+                                        </td>
+
+                                    }
+                                    else if (item.IsPermission == 3 || item.IsPermission == 2)
+                                    {
+                                        <td>
+                                            <span></span>
+                                        </td>
+                                        <td>
+                                            <a onclick="location.href='@Url.Action("ViewAviatorDetails", "AA7", new { id = IHSDC.WebApp.RepositryManager.EncryptionManager.Encryption(item.Aviator_ID.ToString()) })'">
+                                                <i class="fa fa-eye" style="font-size:20px" aria-hidden="true"></i>
+                                            </a>
+
+                                        </td>
+                                    }
+
+
+
+
+
+
+
+
+                                    @*}*@
+
+
+
+                                </tr>
+
+
+                            }
+                        }
+                        else
+                        {
+                            <tr><td colspan="12" style="font-weight:900;color:red;text-align:center"> No Record Found!!!</td></tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+}
+
+
+<script src="~/Scripts/jquery-3.3.1.js"></script>
+<script src="~/Content/CustomJS/DeleteConfirmation.js"></script>
+<script src="~/Content/CustomJS/AviatorJS.js"></script>
+<script src="~/Content/css/sweetalert.min.js"></script>
+<link href="~/Content/css/sweetalert.css" rel="stylesheet" />
+<script src="~/Scripts/bootstrap-multiselect.js"></script>
+<link href="~/Content/css/bootstrap-multiselect.css" rel="stylesheet" />
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryui")
+    @Styles.Render("~/Content/cssjqryUi")
+
+    <head runat="server">
+        <script src="~/Scripts/bootstrap-multiselect.js"></script>
+        <link href="~/Content/css/bootstrap-multiselect.css" rel="stylesheet" />
+        <script type="text/javascript">
+            $(function () {
+                $('#ddlCivEdnId').multiselect({
+                    includeSelectAllOption: true,
+                    selectAllValue: 'multiselect-all',
+                    enableFiltering: true,
+                    enableCaseInsensitiveFiltering: true,
+                    maxHeight: '300',
+                    buttonWidth: '268',
+                });
+            });
+
+            $("#ddlCivEdnId").change(function () {
+                var selected = $("#ddlCivEdnId option:selected");
+                var CivEdn = "";
+                var arrSelected = [];
+                selected.each(function () {
+                    arrSelected.push($(this).val());
+                    CivEdn += $(this).val() + ",";
+                });
+                CivEdn = CivEdn.slice(0, -1);
+                $('#CivEdnId').val(CivEdn);
+            });
+
+        </script>
+    </head>
+    <script>
+
+        //function checkCheckbox() {
+        //    var Chk1 = document.getElementById("chkDeclaration");
+
+        //    if (Chk1.checked == false) {
+        //        sweetAlert('Please declare before saving', 'Please Check', 'warning');
+        //    }
+        //}
+
+        $(document).ready(function () {
+
+            if ($("#FlyingStatus").html() == 2) {
+                $("#ReasonUnFitId").show();
+                $("#ReasonUnFit").attr("required", true);
+            } else {
+                $("#ReasonUnFitId").hide();
+                $("#ReasonUnFit").attr("required", false);
+            }
+
+        });
+        $(document).ready(function () {
+
+            $("#FlyingStatusId").on("change", function () {
+                var selectedValue = $(this).val();
+                if (selectedValue == 2) {
+                    $("#ReasonUnFitId").show();
+                    $("#ReasonUnFit").attr("required", true);
+                } else {
+                    $("#ReasonUnFitId").hide();
+                    $("#ReasonUnFit").attr("required", false);
+                }
+            });
+
+
+        });
+
+
+    </script>
+
+
+
+    <script type="text/javascript">
+    var message = '@message';
+    var messageStatus = '@messageStatus';
+    var messagemidStatus = '@messagemidStatus ';
+    if (message)
+            sweetAlert(message, messagemidStatus, messageStatus);
+
+        $("#DateOfBirth").change(function () {
+            if (new Date($("#DateOfBirth").val()) > new Date($("#DateOfCommision").val())) {
+                sweetAlert('Date Of Commision Should be greater then Date Of Birth !', 'Please Re-Enter', 'warning');
+
+            }
+        });
+        function Commision() {
+
+
+            if (new Date($("#DateOfBirth").val()) > new Date($("#DateOfCommision").val())) {
+                sweetAlert('Date Of Commision Should be greater then Date Of Birth !', 'Please Re-Enter', 'warning');
+                $("#DateOfCommision").focus();
+                $("#DateOfCommision").val("")
+            }
+        }
+        function Rank() {
+
+            if (new Date($("#DateOfBirth").val()) > new Date($("#DateOfRank").val())) {
+                sweetAlert('Date Of Rank Should be greater then Date Of Birth !', 'Please Re-Enter', 'warning');
+                $("#DateOfRank").focus();
+                $("#DateOfRank").val("")
+            }
+            if (new Date($("#DateOfCommision").val()) > new Date($("#DateOfRank").val())) {
+                sweetAlert('Date Of Commision Should be greater then Date Of Birth !', 'Please Re-Enter', 'warning');
+                $("#DateOfRank").focus();
+                $("#DateOfRank").val("")
+            }
+        }
+        function Seniority() {
+            if (new Date($("#DateOfBirth").val()) > new Date($("#DateOfSeniority").val())) {
+                sweetAlert('Date Of Seniority Should be greater then Date Of Birth !', 'Please Re-Enter', 'warning');
+                $("#DateOfSeniority").focus();
+                $("#DateOfSeniority").val("")
+            }
+        }
+        function Wings() {
+            if (new Date($("#DateOfBirth").val()) > new Date($("#DateOfWings").val())) {
+                sweetAlert('Date Of Wings Should be greater then Date Of Birth !', 'Please Re-Enter', 'warning');
+                $("#DateOfWings").focus();
+                $("#DateOfWings").val("")
+            }
+        }
+        //var today = new Date();
+        //    $('#DateofIssueCatCard').datepicker({
+        //        uiLibrary: 'bootstrap4',
+        //        dateFormat: "dd/M/yy",
+        //        autoclose: true,
+        //        maxDate: today
+        //    });
+        //    $('#DateOfBirth').datepicker({
+        //        uiLibrary: 'bootstrap4',
+        //        dateFormat: "dd/M/yy",
+        //        autoclose: true,
+        //        maxDate: today
+        //    });
+        //    $('#DateOfSeniority').datepicker({
+        //        uiLibrary: 'bootstrap4',
+        //        dateFormat: "dd/M/yy",
+        //        autoclose: true,
+        //        maxDate: today
+        //    });
+        //    $('#DateOfWings').datepicker({
+        //        uiLibrary: 'bootstrap4',
+        //        dateFormat: "dd/M/yy",
+        //        autoclose: true,
+        //        maxDate: today
+        //    });
+        //    $('#DateOfRank').datepicker({
+        //        uiLibrary: 'bootstrap4',
+        //        dateFormat: "dd/M/yy",
+        //        autoclose: true,
+        //        maxDate: today
+        //});
+
+        //$('#DateOfCommision').datepicker({
+        //    uiLibrary: 'bootstrap4',
+        //    dateFormat: "dd/M/yy",
+        //    autoclose: true,
+        //    maxDate: today
+        //});
+
+
+
+
+        //function checkDate(obj) {
+        //    var a = $(obj).parent().children()[0];
+        //    var text = $(a).text();
+        //    Date.prototype.toShortFormat = function () {
+        //        var month_names = ["Jan", "Feb", "Mar",
+        //            "Apr", "May", "Jun",
+        //            "Jul", "Aug", "Sep",
+        //            "Oct", "Nov", "Dec"];
+
+        //        var day = this.getDate();
+        //        var month_index = this.getMonth();
+        //        var year = this.getFullYear();
+
+        //        return "" + day + "/" + month_names[month_index] + "/" + year;
+        //    }
+
+
+        //    var today = new Date();
+        //    var getDate = $(obj).val();
+
+        //    if (today.toShortFormat() <= getDate) {
+        //        sweetAlert(' ' + text + '  can not be greater then to date !', '', 'warning');
+        //        $(obj).val('');
+        //        $(obj).focus();
+
+        //    }
+
+
+        //}
+
+
+        //function check(obj,compareField,comparemsg) {
+        //    debugger;
+        //    var a = $(obj).parent().children()[0]
+        //    var text = $(a).text();
+        //    var DateofIssueCatCard = $(obj).val();
+        //    var DateOfWings = $('#' +compareField+'').val();
+        //    if (DateOfWings > DateofIssueCatCard) {
+        //        sweetAlert(' ' + text + ' can not be less then ' + comparemsg + ' !', 'Please Re-Enter ' + text  + '', 'warning');
+        //        $(obj).val('');
+        //        $(obj).focus();
+        //    }
+        //}
+
+
+
+
+        function catCardValidation(event) {
+
+            if ((event.which < 48 || event.which > 57) && event.which != 46 ) {
+                if (event.which == 8 || event.which == 0 || event.which == 196 || event.which == 95 || event.which == 47 || event.which == 45 || event.which == 92) {
+                    return true;
+
+                }
+                else if (((event.charCode > 64 && event.charCode < 91) || (event.charCode > 96 && event.charCode < 123) || event.charCode == 32)) {
+                    return true;
+
+                }
+                else {
+                    return false;
+                }
+
+            }
+        }
+
+    </script>
+}
+

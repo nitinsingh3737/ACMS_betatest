@@ -1,0 +1,114 @@
+﻿@model IHSDC.WebApp.Models.LetterForwardedGEB
+@using IHSDC.WebApp.Connection
+@{
+    ViewBag.Title = "Appx F List";
+    ViewBag.Title = "GEB Aviator List";
+    Layout = "~/Views/Shared/_NewAA7Layout.cshtml"; int sno = 0;
+
+    var message = TempData["Message"] ?? string.Empty;
+    var messageStatus = TempData["messageStatus"] ?? string.Empty;
+    var messagemidStatus = TempData["messagemidStatus"] ?? string.Empty;
+}
+
+<div class="card-body">
+
+    <div class="row">
+        <div class="col">
+            <a class="btn btn-info float-right" href="@Url.Action("Index","Home")" target="_top">
+                Back
+            </a>
+        </div>
+    </div>
+    <br />
+
+
+    <div class="table-responsive">
+        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+            <thead>
+                <tr>
+
+                    <th class="center">S/No</th>
+
+                    <th class="center" width="350px">Aviator Name</th>
+                    <th class="center" width="350px">Appear For</th>
+                    <th class="center" width="350px">Action </th>
+
+
+
+                </tr>
+
+            </thead>
+            <tbody id="tbody">
+                @if (ViewBag.count > 0)
+                {
+                    foreach (var item in Model.ILLetterForwardedGEB)
+                    {
+                        <tr>
+                            <td>
+                                @{ sno++; }
+                                @sno
+                            </td>
+
+
+                            <td>@Html.DisplayFor(modelItem => item.AviatorName)</td>
+
+
+                            <td><b>@Html.DisplayFor(modelItem => item.AppearingFor)</b></td>
+
+                            <td>
+
+                                @if (item.IsAppxF == 0)
+                                {
+                                    <a id="btnsubmit" style="text-decoration:underline;color:#33b5e5" data-id='@IHSDC.WebApp.RepositryManager.EncryptionManager.Encryption(item.FinalAppxId.ToString())' onclick="SubmitAppx(this,'/GEB/SubmitAppx','Do you want to Select   this Aviator  for Instructor','SelectForAppxF')">
+                                        Select As Instructor
+                                    </a>
+                                }
+                                @if (item.IsAppxF == 1)
+                                {<label><a>Selected As Instr</a></label>
+                                }
+                                <span>|</span>
+                                @if (item.IsAppxG == 0)
+                                {
+                                    <a id="btnsubmit" style="text-decoration:underline;color:#33b5e5" data-id='@IHSDC.WebApp.RepositryManager.EncryptionManager.Encryption(item.FinalAppxId.ToString())' onclick="SubmitAppx(this,'/GEB/SubmitAppx','Do you want to Select   this Aviator  for Check Avitor','SelectForAppxG')">
+                                        Select As Check Avitor
+                                    </a>
+                                }
+                                @if (item.IsAppxG == 1)
+                                {<label><a>Selected As Check Aviator</a></label>
+                                }
+
+
+                            </td>
+
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <tr><td colspan="4" style="font-weight:600;color:red;text-align:center"> No Record Found!!!</td></tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+
+</div>
+<script src="~/Scripts/jquery-3.3.1.js"></script>
+<script src="~/Content/CustomJS/GEBSubmit.js"></script>
+<script src="~/Content/css/sweetalert.min.js"></script>
+<link href="~/Content/css/sweetalert.css" rel="stylesheet" />
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryui")
+    @Styles.Render("~/Content/cssjqryUi")
+
+    <script type="text/javascript">
+    var message = '@message';
+    var messageStatus = '@messageStatus';
+    var messagemidStatus = '@messagemidStatus ';
+    if (message)
+        sweetAlert(message, messagemidStatus, messageStatus);
+
+
+    </script>
+}

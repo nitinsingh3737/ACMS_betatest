@@ -1,0 +1,401 @@
+﻿@model IHSDC.WebApp.Models.LetterForwardedGEB
+@using IHSDC.WebApp.Connection
+@{
+    ViewBag.Title = "GEB Module";
+    Layout = "~/Views/Shared/_NewAA7Layout.cshtml"; int sno = 0;
+    var message = TempData["Message"] ?? string.Empty;
+    var messageStatus = TempData["messageStatus"] ?? string.Empty;
+    var messagemidStatus = TempData["messagemidStatus"] ?? string.Empty;
+}
+
+
+<div style="position:absolute; right:10px;top:10px">
+    <div class="col">
+        <a class="btn btn-info float-right" href="@Url.Action("GEBListForSqn", "GEB",new { id = Session["ViewID"] })" target="_top">
+
+            Back
+        </a>
+    </div>
+</div>
+<div class="card-body">
+
+    <br />
+
+    @*@using (Html.BeginForm("UpdateGEBDetailsForSqnCdr", "GEB", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+
+            if (ViewBag.Validiate != "Submitted to Brig Avn")
+            {
+            <div class="row">
+                <div class="col">
+                    <label><b> Aviator Name :</b></label>
+                    @Html.TextBoxFor(m => m.AviatorName, new { @class = "form-control", @onchange = "Case(this)", @ReadOnly = true })
+                    @Html.HiddenFor(h => h.Aviator_ID)
+                    @Html.HiddenFor(h => h.FinalAppxId)
+                </div>
+                <div class="col">
+                    <label><b> Rank :</b></label>
+                    @Html.DropDownListFor(m => m.Rank, (new IHSDC.WebApp.Models.MasterModels()).LoadRanks(), "--Select Rank --", new { @data_show_subtext = "true", @class = "select form-control", @data_live_search = "true", @ReadOnly = true })
+
+
+                </div>
+                <div class="col">
+                    <label><b> Present Cat :</b></label>
+                    @Html.DropDownListFor(m => m.PresentCat, (new IHSDC.WebApp.Models.MasterModels()).LoadCategory(), "--Select Present Cat --", new { @data_show_subtext = "true", @class = "select form-control", @data_live_search = "true", @ReadOnly = true })
+
+
+                </div>
+                <div class="col">
+                    <label><b> Present IR:</b></label>
+
+                    @Html.DropDownListFor(m => m.PresentIR, (new IHSDC.WebApp.Models.MasterModels()).LoadInstrumentRating(), "--Select IR--", new { @data_show_subtext = "true", @class = "select form-control", @data_live_search = "true", @ReadOnly = true })
+
+
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col">
+                    <label><b>Present CatIR Date:</b></label>
+                    @Html.TextBoxFor(m => m.PresentCatIRDate, new { @class = "form-control", @ReadOnly = true, @onchange = "Case(this)" })
+                </div>
+                <div class="col">
+                    <label><b> Present CatIR On Type:</b></label>
+
+                    @Html.DropDownListFor(m => m.PresentCatIRType, (new IHSDC.WebApp.Models.MasterModels()).LoadAircraftType(), "--Select Aircraft Name --", new { @data_show_subtext = "true", @class = "select form-control", @data_live_search = "true", @ReadOnly = true })
+
+                </div><div class="col">
+                    <label><b> Types If Any Other :</b></label>
+                    @Html.TextBoxFor(m => m.TypesIfAny, new { @class = "form-control", @ReadOnly = true, @onchange = "Case(this)" })
+                </div>
+
+                <div class="col">
+                    <label><b> Special Qualification:</b></label>
+                    @Html.TextBoxFor(m => m.SplQul, new { @class = "form-control", @ReadOnly = true, @onchange = "Case(this)" })
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col">
+                    LoadAppearingFor
+                    <label><b> Appearing For:</b></label>
+                    @Html.DropDownListFor(m => m.AppearingFor, (new IHSDC.WebApp.Models.MasterModels()).LoadAppearingFor(), "--Select Appearing For --", new { @data_show_subtext = "true", @class = "select form-control", @data_live_search = "true", @ReadOnly = true })
+
+                </div>
+                <div class="col">
+                    <label><b> Con Trg Day (Hrs Last 03 Months ) :</b></label>
+                    @Html.TextBoxFor(m => m.DayHrsLastThreeMonth, new { @class = "form-control", @ReadOnly = true, @onchange = "CheckMinute(this)", onkeypress = "return blockSpecialChar(event)" })
+                </div><div class="col">
+                    <label><b> Con Trg Night (Hrs Last 06 Months ) :</b></label>
+                    @Html.TextBoxFor(m => m.NighHrsLastSixMonth, new { @class = "form-control", @ReadOnly = true, @onchange = "CheckMinute(this)", onkeypress = "return blockSpecialChar(event)" })
+                </div>
+                <div class="col">
+                    <label><b> Aircraft Type:</b></label>
+                    @Html.DropDownListFor(m => m.AircraftType, (new IHSDC.WebApp.Models.MasterModels()).LoadAircraftType(), "--Select Aircraft Name --", new { @data_show_subtext = "true", @class = "select form-control", @data_live_search = "true", @ReadOnly = true })
+
+
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col">
+                    <label><b> QFI Cat:</b></label>
+
+                    @Html.DropDownListFor(m => m.QfiCat, (new IHSDC.WebApp.Models.MasterModels()).LoadQFI(), "--Select QFI--", new { @data_show_subtext = "true", @class = "select form-control", @data_live_search = "true", @ReadOnly = true })
+
+                </div>
+                <div class="col">
+                    <label><b> QFI Cat Date:</b></label>
+                    @Html.TextBoxFor(m => m.QfiDate, new { @class = "form-control", @ReadOnly = true, @onchange = "Case(this)" })
+                </div><div class="col">
+                    <label><b> Total Instr Hrs:</b></label>
+                    @Html.TextBoxFor(m => m.TotalInstHrs, new { @class = "form-control", @ReadOnly = true, onkeypress = "return blockSpecialChar(event)", @onchange = "CheckMinute(this)" })
+                </div>
+                <div class="col">
+                    <label><b> Check Aviator Endorsment Awarded On:</b></label>
+                    @Html.TextBoxFor(m => m.CheckAviatorEndorsmentAwardedOn, new { @class = "form-control", @ReadOnly = true, @onchange = "Case(this)", onkeypress = "return blockSpecialChar(event)" })
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col">
+                    <label><b> Award By Comd Name:</b></label>
+                    @Html.TextBoxFor(m => m.AwardByComd, new { @class = "form-control", @ReadOnly = true, @onchange = "Case(this)" })
+                </div>
+                <div class="col">
+                    <label><b> Capt Total Day Hrs On Type :</b></label>
+                    @Html.TextBoxFor(m => m.TotalCptHrsPresentTypeDay, new { @class = "form-control", @ReadOnly = true, onkeypress = "return blockSpecialChar(event)", @onchange = "CheckMinute(this)" })
+                </div><div class="col">
+                    <label><b> Capt Total  Night Hrs On Helicopters:</b></label>
+                    @Html.TextBoxFor(m => m.OnHelicoptornight, new { @class = "form-control", @ReadOnly = true, onkeypress = "return blockSpecialChar(event)", @onchange = "CheckMinute(this)" })
+                </div>
+                <div class="col">
+                    <label><b> Total Day IMC Hrs:</b></label>
+                    @Html.TextBoxFor(m => m.IMCDayHrs, new { @class = "form-control", @ReadOnly = true, onkeypress = "return blockSpecialChar(event)", @onchange = "CheckMinute(this)" })
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col">
+                    <label><b> Total Night IMC Hrs:</b></label>
+                    @Html.TextBoxFor(m => m.IMCNightHrs, new { @class = "form-control", @ReadOnly = true, onkeypress = "return blockSpecialChar(event)", @onchange = "CheckMinute(this)" })
+                </div>
+                <div class="col">
+                    <label><b> Total Day Capt Hrs  On All Types:</b></label>
+                    @Html.TextBoxFor(m => m.CaptHrsDayOnAllTypes, new { @class = "form-control", @ReadOnly = true, onkeypress = "return blockSpecialChar(event)", @onchange = "CheckMinute(this)" })
+                </div><div class="col">
+                    <label><b> Total Night Capt Hrs  On All Types:</b></label>
+                    @Html.TextBoxFor(m => m.CaptHrsNightOnAllTypes, new { @class = "form-control", @ReadOnly = true, onkeypress = "return blockSpecialChar(event)", @onchange = "CheckMinute(this)" })
+                </div>
+                <div class="col">
+                    <label><b>Day Remarks :</b></label>
+                    @Html.TextBoxFor(m => m.RemarksDay, new { @class = "form-control", @onchange = "Case(this)", @ReadOnly = true, })
+                </div>
+
+            </div>
+
+            <div class="row">
+
+                <div class="col">
+                    <label><b> Night Remarks :</b></label>
+                    @Html.TextBoxFor(m => m.RemarksNight, new { @class = "form-control", @onchange = "Case(this)", @ReadOnly = true, })
+                </div>
+                <div class="col">
+                    <label><b>RemarksAppearing:</b></label>
+                    @Html.TextBoxFor(m => m.RemarksAppearing, new { @class = "form-control", @onchange = "Case(this)", @ReadOnly = true, })
+                </div>
+
+
+                <div class="col">
+                    <label><b>Recom For Cat:</b></label>
+
+                    @Html.DropDownListFor(m => m.RecomForCat, (new IHSDC.WebApp.Models.MasterModels()).LoadCategory(), "--Select Recom Cat --", new { @data_show_subtext = "true", @class = "select form-control", @data_live_search = "true" })
+                </div>
+                <div class="col">
+                    <label><b>Recom For IR:</b></label>
+                    @Html.DropDownListFor(m => m.RecomForIR, (new IHSDC.WebApp.Models.MasterModels()).LoadInstrumentRating(), "--Select Recom IR--", new { @data_show_subtext = "true", @class = "select form-control", @data_live_search = "true" })
+
+                </div>
+
+
+
+            </div>
+
+
+            <br />
+
+            <div class="row">
+                <div class="col">
+                    <button type="submit" value="@ViewBag.ButtonName" name="btnval" class="btn btn-info">@ViewBag.ButtonName</button>
+                </div>
+            </div>
+                }
+            }*@
+
+    <div class="table-responsive">
+        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+            <thead>
+                <tr>
+                    <th width="36px" class="center">S/No</th>
+
+
+                    @*@if (ViewBag.Validiate != "Submitted to Brig Avn")
+                        {
+                            <th class="center"> Update GEB Details</th>
+                        }*@
+                    <th class="center">AviatorName</th>
+                    <th class="center">Status</th>
+                    <th class="center">Appear For</th>
+                    <th class="center">Recome cat IR</th>
+
+                    @*<th class="center"> View</th>*@
+
+
+                </tr>
+            </thead>
+            <tbody id="tbody">
+                @foreach (var item in Model.ILLetterForwardedGEB)
+                {
+                    <tr>
+                        <td>
+                            @{ sno++; }
+                            @sno
+                        </td>
+                        @*@if (ViewBag.Validiate != "Submitted to Brig Avn" )
+                            {
+                                <td>
+                                    <a class="btn btn-link" style="text-decoration:underline;color:#33b5e5" onclick="location.href='@Url.Action("EditGEBDetails", "GEB", new { fid = IHSDC.WebApp.RepositryManager.EncryptionManager.Encryption(item.FinalAppxId.ToString()) })'">
+                                        Edit
+                                    </a>
+                                </td>
+                            }*@
+                        <td>@Html.DisplayFor(modelItem => item.AviatorName)</td>
+                        <td>
+                            @if (item.PresentCatIR != null && item.PresentCatIRType != null)
+                            {
+
+                                <label><b>Update</b></label>
+
+                            }
+                            else
+                            {
+
+                                <label><b>Not Update</b></label>
+
+                            }
+
+                            @if (item.IsRejectBrig == true && SessionManager.Role == "SquadronCommander")
+                            {
+                                <span>|</span>
+                                <label><b>Rejeted By Brig Avn </b></label>
+                            }
+                            @if (item.IsRejectGSO == true && SessionManager.Role == "SquadronCommander")
+                            {
+                                <span>|</span>
+                                <label><b>Rejeted By GSO1AA7 </b></label>
+                            }
+                        </td>
+
+                        <td>@Html.DisplayFor(modelItem => item.AppearingFor)</td>
+                        <td>@Html.DisplayFor(modelItem => item.RecomForCatIR)</td>
+                        @*<td>
+                                <a class="btn btn-link" style="text-decoration:underline;color:#33b5e5" onclick="location.href='@Url.Action("GEBDetails", "GEB", new { fid = IHSDC.WebApp.RepositryManager.EncryptionManager.Encryption(item.FinalAppxId.ToString()) })'">
+                                    Appx E
+                                </a>
+                            </td>*@
+
+                        @*<td>
+                                <table>
+                                    <tr>
+
+                                        <th class="center">Present Cat IR </th>
+                                        <th class="center">Present Cat IR Date</th>
+                                        <th class="center">Present Cat IR Type</th>
+
+                                        <th class="center">TypesIfAny</th>
+                                        <th class="center">Specail Qualification</th>
+                                        <th class="center">Appearing For</th>
+                                        <th class="center">Day  Last 03 Month</th>
+                                        <th class="center">Night  Last 06 Month</th>
+                                        <th class="center">Total Inst </th>
+                                        <th class="center">Total Capt  Present Type Day</th>
+                                        <th class="center">Total Capt Present Type Night</th>
+                                        <th class="center">On Helicopter Day</th>
+                                        <th class="center">On Helicopter Night</th>
+                                        <th class="center">IMC Day </th>
+                                        <th class="center">IMC Night </th>
+                                        <th class="center">Capt Day On All Types</th>
+                                        <th class="center">Capt Night On All Types</th>
+                                        <th class="center">Aircraft Type</th>
+                                        <th class="center">QFI Cat</th>
+                                        <th class="center">QFI  Date</th>
+                                        <th class="center">Check Aviator Endorsment Awarded On</th>
+                                        <th class="center">Award By Comd</th>
+                                        <th class="center">Remarks Day</th>
+                                        <th class="center">Remarks Night</th>
+                                        <th class="center">Recom For Cat IR</th>
+                                        <th class="center">Remarks Appearing</th>
+                                    </tr>
+                                    <tr>
+
+
+                                        <td>@Html.DisplayFor(modelItem => item.PresentCatIR)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.PresentCatIRDate)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.PresentCatIRType)</td>
+
+                                        <td>@Html.DisplayFor(modelItem => item.TypesIfAny)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.SplQul)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.AppearingFor)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.DayHrsLastThreeMonth)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.NighHrsLastSixMonth)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.TotalInstHrs)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.TotalCptHrsPresentTypeDay)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.TotalCptHrsPresentTypeNight)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.OnHelicoptorDay)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.OnHelicoptornight)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.IMCDayHrs)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.IMCNightHrs)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.CaptHrsDayOnAllTypes)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.CaptHrsNightOnAllTypes)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.AircraftType)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.QfiCat)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.QfiDate)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.CheckAviatorEndorsmentAwardedOn)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.AwardByComd)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.RemarksDay)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.RemarksNight)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.RecomForCatIR)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.RemarksAppearing)</td>
+                                    </tr>
+
+                                </table>
+
+                            </td>*@
+
+
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+
+<script src="~/Scripts/jquery-3.3.1.js"></script>
+<script src="~/Content/CustomJS/DeleteConfirmation.js"></script>
+<script src="~/Content/CustomJS/AviatorJS.js"></script>
+<script src="~/Content/css/sweetalert.min.js"></script>
+<link href="~/Content/css/sweetalert.css" rel="stylesheet" />
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryui")
+    @Styles.Render("~/Content/cssjqryUi")
+
+    <script type="text/javascript">
+
+	function blockSpecialChar(e) {
+		if ((e.which < 48 || e.which > 57) && e.which != 46) {
+			if (e.which == 8 || e.which == 0) {
+				return true;
+			}
+			else {
+				return false;
+			}
+		}
+
+
+			}
+
+			$('#QfiDate').datepicker({
+				uiLibrary: 'bootstrap4',
+				dateFormat: "dd/M/yy",
+				autoclose: true
+			});
+			$('#PresentCatIRDate').datepicker({
+				uiLibrary: 'bootstrap4',
+				dateFormat: "dd/M/yy",
+				autoclose: true
+			});
+
+			$('#CheckAviatorEndorsmentAwardedOn').datepicker({
+				uiLibrary: 'bootstrap4',
+				dateFormat: "dd/M/yy",
+				autoclose: true
+			});
+
+			$('#PresentCatIRDate').datepicker({
+				uiLibrary: 'bootstrap4',
+				dateFormat: "dd/M/yy",
+				autoclose: true
+			});
+
+
+      var message = '@message';
+    var messageStatus = '@messageStatus';
+    var messagemidStatus = '@messagemidStatus ';
+    if (message)
+			sweetAlert(message, messagemidStatus, messageStatus);
+    </script>
+}

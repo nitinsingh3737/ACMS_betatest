@@ -1,0 +1,390 @@
+﻿@model IHSDC.WebApp.Models.AASQN
+@using IHSDC.WebApp.Helper
+@using IHSDC.WebApp.Connection
+@{
+    var message = TempData["Message"] ?? string.Empty;
+    var messageStatus = TempData["messageStatus"] ?? string.Empty;
+    var messagemidStatus = TempData["messagemidStatus"] ?? string.Empty;
+    ViewBag.Title = "Aviator state of AASQN(UH)";
+    Layout = "~/Views/Shared/_NewAA7Layout.cshtml"; int sno = 0; int sno1 = 0;
+}
+<style id="table_style" type="text/css">
+
+
+    table {
+        border: 1px solid #808080;
+        border-collapse: collapse;
+    }
+
+        table th {
+            background-color: #e8e8e8 !important;
+            print-color-adjust: exact;
+            color: #333;
+            font-weight: bold;
+        }
+
+        table th, table td {
+            padding: 5px;
+            border: 1px solid #000000;
+        }
+
+    @@media print {
+        @@page {
+            size: A3 landscape;
+        }
+    }
+</style>
+<style>
+
+
+</style>
+<body>
+    <div class="card-body" style="box-shadow: -1px 2px 16px 3px; padding: 0.5rem;">
+        <div class="col-12" style="box-shadow: -1px 2px 16px 3px;">
+            <form class="form-horizontal" method="post" action="/AA7/AASQNReport1">
+                <div class="d-flex">
+                    <span id="usertypeid" class="d-none">@SessionManager.UserType</span>
+                    <div class="col">
+                        <label><b>Date</b></label>
+                        <input type="text" id="dateTime" required name="dateTime" placeholder="Enter Date" data-date-format="M/yyyy" class="form-control monthPicker1 datepicker">
+
+                    </div>
+
+
+                    @*@if (SessionManager.UserType == "8")
+                    {*@
+                    <div class="col">
+                        <label><b>Comd</b></label>
+                        <select ComdId="Corps" id="ComdId" name="ComdId" class="select form-control">
+                            <option value=0>-All Comd-</option>
+                        </select>
+                    </div>
+                    @*}
+                    @if (SessionManager.UserType == "1" || SessionManager.UserType == "8")
+                    {*@
+                    <div class="col">
+                        <label><b>Corps</b></label>
+
+                        <select name="CorpsId" id="CorpsId" class="select form-control">
+                            <option value=0>-All Corps-</option>
+                        </select>
+                    </div>
+                    @*}
+                    @if (SessionManager.UserType == "3" || SessionManager.UserType == "1" || SessionManager.UserType == "8")
+                    {*@
+                    <div class="col">
+                        <label><b>Bde/CAT</b></label>
+
+                        <select name="BdeCatId" id="BdeCatId" class="select form-control">
+                            <option value=0>-All Bde/Cat-</option>
+                        </select>
+                    </div>
+                    @*}
+                    @if (SessionManager.UserType == "4" || SessionManager.UserType == "3" || SessionManager.UserType == "1" || SessionManager.UserType == "8")
+                    {*@
+                    <div class="col">
+                        <label><b>SQN</b></label>
+
+
+                        <select name="Sqn" id="SqnId" class="select form-control">
+                            <option value=0>-All SQN-</option>
+                        </select>
+                    </div>
+                    @*}
+                    @if (SessionManager.UserType == "5" || SessionManager.UserType == "4" || SessionManager.UserType == "3" || SessionManager.UserType == "1" || SessionManager.UserType == "8")
+                    {*@
+                    <div class="col">
+                        <label><b>Unit Name</b></label>
+
+
+                        <select name="UnitId" id="UnitId" class="select form-control">
+                            <option value=0>-All Unit Name-</option>
+                        </select>
+
+                    </div>
+                    @*}*@
+
+                    <div style="margin-top:15px;">
+                        <div class="float-left mt-2">
+                            <input type="submit" id="btnsearch1" value="Generate Report" onclick="getdate()" class="btn btn-success m-3" />
+
+
+                            @*  <input type="button" class="btn btn-info" id="btnExport" value="Export Pdf" />*@
+
+
+                            <img src="~/Images/PDF.png" onclick="PrintDiv()" alt="" width="40" height="45">
+
+
+                        </div>
+                    </div>
+
+                </div>
+            </form>
+        </div>
+        <div class="page" id="printAppxC">
+
+
+
+            <div class="row">
+                <div class="col-12">
+                    <div style="text-align:center"><b><u>AVIATOR STATE OF AASQN(UH) <span id="date"></span></u></b></div>
+                </div>
+            </div>
+            <br /> <br />
+            <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                        <tr style="text-align:center">
+                            <th rowspan="3" class="align-top">S.No</th>
+                            <th rowspan="3" class="align-top">IC No Rank &#38; Name</th>
+                            <th rowspan="3" class="align-top">Civ Qual</th>
+                            <th rowspan="3" class="align-top">Appt</th>
+                            <th rowspan="3" class="align-top">Dt of Comn/Seniority</th>
+                            <th rowspan="3" class="align-top">Parent Arm</th>
+                            <th rowspan="3" class="align-top">TOS</th>
+                            <th colspan="5" class="align-top">Heptrs</th>
+                            <th colspan="3" class="align-top">RPAS</th>
+                            <th colspan="7" class="align-top">Course</th>
+                            <th rowspan="1" class="align-top">Med Cat</th>
+                            <th rowspan="1" class="align-top">Remarks</th>
+                        </tr>
+                        <tr style="text-align:center">
+                            <th rowspan="1" class="align-top">Cat/IR with dt &#38; Instr Cat</th>
+                            <th rowspan="1" class="align-top">Capt Hrs</th>
+                            <th rowspan="1" class="align-top">Instrs Hrs</th>
+                            <th rowspan="1" class="align-top">ALH Sml Hrs</th>
+                            <th rowspan="1" class="align-top">NVG Hrs</th>
+
+
+                            <th rowspan="1" class="align-top">Cat with dt &#38; Instr Cat</th>
+                            <th rowspan="1" class="align-top">Indl Hrs</th>
+                            <th rowspan="1" class="align-top">Instrs Hrs</th>
+
+                            <th rowspan="1" class="align-top">CT/CG/BA TCO</th>
+                            <th rowspan="1" class="align-top">JC</th>
+                            <th rowspan="1" class="align-top">DSSC/TSOC/ISC/AL/MC</th>
+                            <th rowspan="1" class="align-top">QFIC/AHIC/LGSC</th>
+                            <th rowspan="1" class="align-top">TP/PTP</th>
+                            <th rowspan="1" class="align-top">FCC/ACTC/BCTC</th>
+                            <th rowspan="1" class="align-top">FS and Cat</th>
+
+                            <th rowspan="1"></th>
+                            <th rowspan="1"></th>
+                        </tr>
+
+                    </thead>
+                    <tbody>
+                        @if (Model.IAASQN != null)
+                        {
+                            foreach (var item in Model.IAASQN)
+                            {
+
+
+                                <tr>
+                                    <td>
+                                        <b>
+                                            @{ sno++; }
+                                            @sno
+                                        </b>
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.AviatorName)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.CivEdn)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Appt)
+                                    </td>
+                                    <td>
+                                        <u> @Html.DisplayFor(modelItem => item.DateOfCommision)</u>
+                                        <br />
+                                        <u> @Html.DisplayFor(modelItem => item.DateOfSeniority)</u>
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.ArmServiceName)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.TOS)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.CatIR)
+                                        <br />
+                                        @Html.DisplayFor(modelItem => item.CatIRDate)
+                                        <br />
+                                        @Html.DisplayFor(modelItem => item.InstrCAT)
+                                        <br />
+                                        @Html.DisplayFor(modelItem => item.InstrCATDate)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.captionHrs)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Instrs)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.ALHSmlHrs)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.NVGExp)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.CatIR_rpas) <br />
+                                        @Html.DisplayFor(modelItem => item.InstrCat_rpas) <br />
+                                        @Html.DisplayFor(modelItem => item.CatIRDate_rpas)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.RPA_Inl)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.RPA_Instrs)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.CT_CG_BA_TCO)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.JC)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.DSSC_TSOC_ISC_AL_MC)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.QFIC_AHIC_LGSC)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.TP_PTP)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.FCC_ACTC_BCTC)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.FS_AI)
+                                    </td>
+
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Medcat)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Remarks)
+                                    </td>
+                                </tr>
+
+
+
+
+                            }
+                            if (sno == 0)
+                            {
+                                <tr class="text-center"><td colspan="20" class="text-center">No Record </td></tr>
+                            }
+                        }
+                        else
+                        {
+                            <tr class="text-center"><td colspan="20" class="text-center">No Record </td></tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+            <br /> <br />
+            <div class="row">
+                <div class="col-12">
+                </div>
+                <div class="col-12">
+                    <div style="text-align:center" class=""><b><u>SUMMARY </u></b></div>
+                    <br /> <br />
+                    <div class="table-responsive">
+                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                            <thead>
+                                <tr style="text-align:center">
+                                    <th rowspan="1" class="align-top">Unit Name</th>
+                                    <th rowspan="1" class="align-top">AMG</th>
+                                    <th rowspan="1" class="align-top">BMG</th>
+                                    <th rowspan="1" class="align-top">BG</th>
+                                    <th rowspan="1" class="align-top">CG</th>
+                                    <th rowspan="1" class="align-top">CW</th>
+                                    <th rowspan="1" class="align-top">DW</th>
+                                    <th rowspan="1" class="align-top">CR</th>
+                                    <th rowspan="1" class="align-top">CT</th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @if (@ViewBag.Summary != null)
+                                {
+                                    foreach (var sum in (IList<IHSDC.WebApp.Models.AASQNSummary>)@ViewBag.Summary)
+                                    {
+                                        sno1++;
+                                        <tr>
+                                            <td class="text-center">@sum.UnitName</td>
+                                            <td class="text-center">@sum.AMG</td>
+                                            <td class="text-center">@sum.BMG</td>
+                                            <td class="text-center">@sum.BG</td>
+                                            <td class="text-center">@sum.CG</td>
+                                            <td class="text-center">@sum.CW</td>
+                                            <td class="text-center">@sum.DW</td>
+                                            <td class="text-center">@sum.CR</td>
+                                            <td class="text-center">@sum.CT</td>
+                                        </tr>
+
+                                    }
+                                    if (sno1 == 0)
+                                    {
+                                        <tr class="text-center"><td colspan="9" class="text-center">No Record </td></tr>
+                                    }
+                                }
+                                else
+                                {
+                                    <tr class="text-center"><td colspan="9" class="text-center">No Record </td></tr>
+                                }
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+                <div class="col-12">
+                </div>
+            </div>
+
+        </div>
+
+        <form action="~/Home/Upload" method="post" id="myForm">
+            <input type="hidden" name="data1" id="data1">
+            <input type="hidden" name="filename" id="filename" value="AppxC">
+
+        </form>
+    </div>
+
+</body>
+<script src="~/Scripts/jquery-3.3.1.js"></script>
+<script src="~/Content/CustomJS/AviatorJS.js"></script>
+<script src="~/Scripts/pdfmake.min.js"></script>
+<script src="~/Scripts/html2canvas.min.js"></script>
+<script src="~/Content/CustomJS/Filter2.js"></script>
+<script>
+    $(document).ready(function () {
+
+
+    });
+    function getdate() {
+        sessionStorage.param1 = $("#dateTime").val();
+        /* Or */
+
+
+    }
+    $("#date").html(sessionStorage.param1.replace("/"," "));
+      function PrintDiv() {
+          var divToPrint = document.getElementById('printAppxC');
+        var popupWin = window.open('', '_blank', 'top=100,width=900,height=500,location=no');
+        popupWin.document.open();
+        var table_style = document.getElementById("table_style").innerHTML;
+        popupWin.document.write('<style type = "text/css">');
+        popupWin.document.write(table_style);
+        popupWin.document.write('</style>')
+        popupWin.document.title = '@(ViewBag.FileName)'
+        popupWin.document.write('<html><body onload="window.print()">' + divToPrint.innerHTML + '<div style="transform: rotate(-45deg);z-index:10000;opacity: 0.3;color: BLACK; position:fixed;top: auto; left: 6%; top: 39%;color: #8e9191;font-size: 80px; font-weight: 500px;display: grid;justify-content: center;align-content: center;">' + '@(ViewBag.ipadd)' + "" + '</html>');
+        popupWin.document.close();
+    }
+
+
+
+</script>

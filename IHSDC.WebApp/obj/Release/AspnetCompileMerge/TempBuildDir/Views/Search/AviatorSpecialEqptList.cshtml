@@ -1,0 +1,184 @@
+﻿
+@model IHSDC.WebApp.Models.AviatorSpecialEqptCRUD
+@using IHSDC.WebApp.Connection
+
+@{
+    var message = TempData["Message"] ?? string.Empty;
+    var messageStatus = TempData["messageStatus"] ?? string.Empty;
+    var messagemidStatus = TempData["messagemidStatus"] ?? string.Empty;
+    ViewBag.Title = "Aviator Special Eqpt ";
+    Layout = "~/Views/Shared/_NewAA7Layout_Search.cshtml"; int sno = 0;
+}
+
+
+<div class="card-body">
+
+
+    <div id="accordion">
+        <div class="card" style="box-shadow: 1px 0px 9px -1px;">
+            @*<div class="card-header collapsCol" id="headingOne">
+                <h5 class="mb-0">
+                    <button class="btn btn-link btnCol" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                        Search
+                    </button>
+                </h5>
+            </div>*@
+            @*<div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">*@
+            <div class="card-body" style="padding: 0.6rem;">
+
+                @using (Html.BeginForm("AviatorSpecialEqptList", "Search", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                {
+
+                    <div class="row">
+                        <div class="col">
+                            <label><b>Criteria 1</b></label>
+                            @Html.DropDownListFor(m => m.Col1, (new IHSDC.WebApp.Models.MasterModels()).LoadAViatorEQPTCol(), "--Select--", new { @data_show_subtext = "true", @class = "select form-control", @data_live_search = "true", @required = true })
+
+                        </div>
+                        <div class="col">
+                            <label><b>Contains</b></label>
+                            @Html.DropDownListFor(m => m.ColContains1, (new IHSDC.WebApp.Models.MasterModels()).LoadContainsCol(), new { @data_show_subtext = "true", @class = "select form-control", @data_live_search = "true" })
+                        </div>
+                        <div class="col">
+                            <label><b>Value</b></label>
+                            @Html.TextBoxFor(m => m.ColVal1, new { @class = "form-control", @onkeypress = "return onlyAlphaNumeric(event)" })
+                        </div>
+                        <div class="col">
+                            <label><b>Criteria 2</b></label>
+                            @Html.DropDownListFor(m => m.Col2, (new IHSDC.WebApp.Models.MasterModels()).LoadAViatorEQPTCol(), "--Select--", new { @data_show_subtext = "true", @class = "select form-control", @data_live_search = "true" })
+                        </div>
+                        <div class="col">
+                            <label><b>Contains</b></label>
+                            @Html.DropDownListFor(m => m.ColContains2, (new IHSDC.WebApp.Models.MasterModels()).LoadContainsCol(), new { @data_show_subtext = "true", @class = "select form-control", @data_live_search = "true" })
+                        </div>
+                        <div class="col">
+                            <label><b>Value</b></label>
+                            @Html.TextBoxFor(m => m.ColVal2, new { @class = "form-control", @onkeypress = "return onlyAlphaNumeric(event)" })
+                        </div>
+                    </div>
+
+                    <br />
+                    <div class="row">
+                        <div class="col">
+                            <input class="btn btn-info" type="submit" value="Search" />
+                        </div>
+                    </div>
+                }
+
+            </div>
+            @*</div>*@
+        </div>
+    </div>
+
+    <hr style="border: solid 1px #ababab" />
+
+
+    <div class="row">
+        <div class="col-10">
+        </div>
+        <div class="col-2">
+            <div class="dropdown">
+                <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown">
+                    Download & Print
+                </button>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item" onclick="convertIntoPDF('AviatorSpecialEqptList');">PDF</a>
+                    @*<a class="dropdown-item" onclick="convertIntoWord('AviatorSpecialEqptList')">WORD</a>*@
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <br />
+
+
+
+    <div class="table-responsive">
+        <table class="table table-striped" id="dataTable" width="100%" cellspacing="0">
+            <thead class="bg-info text-white">
+                <tr>
+                    <th class="center">S/No</th>
+                    <th class="center">Aviator Name</th>
+                    <th class="center">Special  Eqpt Name</th>
+                    <th class="center">Special  Eqpt Date</th>
+                    @*<th class="center">View</th>*@
+
+                </tr>
+            </thead>
+            <tbody id="tbody">
+                @if (ViewBag.count > 0)
+                {
+                    foreach (var item in Model.ILAviatorSpecialEqptCRUD)
+                    {
+                        <tr>
+                            <td>
+                                @{ sno++; }
+                                @sno
+                            </td>
+                            <td>@Html.DisplayFor(modelItem => item.AviatorName)</td>
+                            <td>@Html.DisplayFor(modelItem => item.SpecialEqptName)</td>
+
+                            <td>@Html.DisplayFor(modelItem => item.SpecialEqptDate)</td>
+                            @*<td>
+                            <a onclick="location.href='@Url.Action("ViewAviatorDetails", "AA7", new { id = IHSDC.WebApp.RepositryManager.EncryptionManager.Encryption(item.Aviator_ID.ToString()) })'">
+                                <i class="fa fa-eye" style="font-size:25px" aria-hidden="true"></i>
+                            </a>
+
+                        </td>*@
+
+
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <tr><td colspan="4" style="font-weight:600;color:red;text-align:center"> No Record Found!!!</td></tr>
+                }
+            </tbody>
+        </table>
+
+
+
+
+
+        <form action="~/Home/Upload" method="post" id="myForm">
+            <input type="hidden" name="data1" id="data1">
+            <input type="hidden" name="filename" id="filename" value="AviatorSpecialEqptList">
+
+        </form>
+
+
+        <script src="~/Scripts/jquery-3.3.1.js"></script>
+
+        <script src="~/Content/CustomJS/alphanumeric.js"></script>
+        <script src="~/Scripts/pdf.js"></script>
+        <script src="~/Scripts/htmlCanvas.js"></script>
+        <script src="~/Content/CustomJS/printFunctions.js"></script>
+        <script type="text/javascript">
+            function convertIntoPDF(filename) {
+                //debugger;
+                html2canvas(document.getElementById('dataTable'), {
+                    onrendered: function (canvas) {
+                        var data = canvas.toDataURL();
+                        var docDefinition = {
+                            content: [{
+                                image: data,
+                                width: 500
+                            }]
+                        };
+
+                        const pdfDocGenerator = pdfMake.createPdf(docDefinition);
+                        pdfDocGenerator.getBase64((data) => {
+                            $('#data1').val(data);
+                            $("#myForm").submit();
+                        });
+                        ///pdfMake.createPdf(docDefinition).download(filename + ".pdf");
+                    }
+                });
+            }
+        </script>
+    </div>
+</div>
+
+
+

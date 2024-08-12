@@ -1,0 +1,47 @@
+08-08-2024 11:47:22:  test log...
+model FileName invoice20240808113616861.pdf
+
+
+08-08-2024 11:47:25: proc_AP_CRUD @procId='1',@id='6140',@Inbox_ID='6140',@RefId='4046',@ComdId='1178',@Branch='0',@Title='TEST123',@Upload='invoice20240808113616861.pdf',@UploadPath='http://localhost:8080/Uploads/6_test conf by RSC/pdf/invoice20240808113616861.pdf',@Summary='Summary(1000 Characters)',@Status='0',@DateTimeOfUpdate='',@LastUpdatedBy='',@IsVisibleToAll='False' ,@AllowEdit='False' , @UserId='1423',@Unit_ID  = '1178',@CategoryId='0',@SponsorCategoryId='0',@NodalCategoryId='0',@WordFile='ACMS2024040916030381520240808113616864.docx',@WordFilePath='http://localhost:8080/Uploads/6_test conf by RSC/Word/ACMS2024040916030381520240808113616864.docx'
+08-08-2024 11:47:26: proc_AP_CRUD @procId='8',@id='6140',@Inbox_ID='6140',@RefId='0',@ComdId='0',@Branch='0',@Title='',@Upload='',@UploadPath='',@Summary='',@Status='0',@DateTimeOfUpdate='',@LastUpdatedBy='',@IsVisibleToAll='False' ,@AllowEdit='False' , @UserId='1423',@Unit_ID  = '0',@CategoryId='0',@SponsorCategoryId='0',@NodalCategoryId='0',@WordFile='',@WordFilePath=''
+08-08-2024 11:48:02: proc_AP_CRUD @procId='8',@id='6140',@Inbox_ID='6140',@RefId='0',@ComdId='0',@Branch='0',@Title='',@Upload='',@UploadPath='',@Summary='',@Status='0',@DateTimeOfUpdate='',@LastUpdatedBy='',@IsVisibleToAll='False' ,@AllowEdit='False' , @UserId='1423',@Unit_ID  = '0',@CategoryId='0',@SponsorCategoryId='0',@NodalCategoryId='0',@WordFile='',@WordFilePath=''
+08-08-2024 11:48:07:  test log...
+model FileName invoice20240808113616861.pdf
+
+
+08-08-2024 11:48:19: proc_AP_CRUD @procId='1',@id='6140',@Inbox_ID='6140',@RefId='4046',@ComdId='1178',@Branch='0',@Title='TEST123',@Upload='invoice20240808113616861.pdf',@UploadPath='http://localhost:8080/Uploads/6_test conf by RSC/pdf/invoice20240808113616861.pdf',@Summary='Summary(1000 Characters)',@Status='0',@DateTimeOfUpdate='',@LastUpdatedBy='',@IsVisibleToAll='False' ,@AllowEdit='False' , @UserId='1423',@Unit_ID  = '1178',@CategoryId='0',@SponsorCategoryId='0',@NodalCategoryId='0',@WordFile='ACMS2024040916030381520240808113616864.docx',@WordFilePath='http://localhost:8080/Uploads/6_test conf by RSC/Word/ACMS2024040916030381520240808113616864.docx'
+08-08-2024 11:48:20: proc_AP_CRUD @procId='8',@id='6140',@Inbox_ID='6140',@RefId='0',@ComdId='0',@Branch='0',@Title='',@Upload='',@UploadPath='',@Summary='',@Status='0',@DateTimeOfUpdate='',@LastUpdatedBy='',@IsVisibleToAll='False' ,@AllowEdit='False' , @UserId='1423',@Unit_ID  = '0',@CategoryId='0',@SponsorCategoryId='0',@NodalCategoryId='0',@WordFile='',@WordFilePath=''
+08-08-2024 11:52:28: proc_AP_CRUD @procId='8',@id='6140',@Inbox_ID='6140',@RefId='0',@ComdId='0',@Branch='0',@Title='',@Upload='',@UploadPath='',@Summary='',@Status='0',@DateTimeOfUpdate='',@LastUpdatedBy='',@IsVisibleToAll='False' ,@AllowEdit='False' , @UserId='1423',@Unit_ID  = '0',@CategoryId='0',@SponsorCategoryId='0',@NodalCategoryId='0',@WordFile='',@WordFilePath=''
+08-08-2024 11:53:38:  test log...
+model Upload Lorem ipsum20240808115248550.pdf
+
+model FileName invoice20240808113616861.pdf
+
+
+08-08-2024 11:53:56: proc_AP_CRUD @procId='1',@id='6140',@Inbox_ID='6140',@RefId='4046',@ComdId='1178',@Branch='0',@Title='TEST123',@Upload='Lorem ipsum20240808115248550.pdf',@UploadPath='http://localhost:8080/Uploads/6_test conf by RSC/pdf/Lorem ipsum20240808115248550.pdf',@Summary='Summary(1000 Characters)',@Status='0',@DateTimeOfUpdate='',@LastUpdatedBy='',@IsVisibleToAll='False' ,@AllowEdit='False' , @UserId='1423',@Unit_ID  = '1178',@CategoryId='0',@SponsorCategoryId='0',@NodalCategoryId='0',@WordFile='ACMS2024040916030381520240808113616864.docx',@WordFilePath='http://localhost:8080/Uploads/6_test conf by RSC/Word/ACMS2024040916030381520240808113616864.docx'
+08-08-2024 11:53:57: proc_AP_CRUD @procId='8',@id='6140',@Inbox_ID='6140',@RefId='0',@ComdId='0',@Branch='0',@Title='',@Upload='',@UploadPath='',@Summary='',@Status='0',@DateTimeOfUpdate='',@LastUpdatedBy='',@IsVisibleToAll='False' ,@AllowEdit='False' , @UserId='1423',@Unit_ID  = '0',@CategoryId='0',@SponsorCategoryId='0',@NodalCategoryId='0',@WordFile='',@WordFilePath=''
+08-08-2024 12:01:08: proc_AP_CRUD @procId='8',@id='6140',@Inbox_ID='6140',@RefId='0',@ComdId='0',@Branch='0',@Title='',@Upload='',@UploadPath='',@Summary='',@Status='0',@DateTimeOfUpdate='',@LastUpdatedBy='',@IsVisibleToAll='False' ,@AllowEdit='False' , @UserId='1423',@Unit_ID  = '0',@CategoryId='0',@SponsorCategoryId='0',@NodalCategoryId='0',@WordFile='',@WordFilePath=''
+08-08-2024 12:01:37:  test log...
+model FileName Lorem ipsum20240808115248550.pdf
+
+
+08-08-2024 12:01:43: proc_AP_CRUD @procId='1',@id='6140',@Inbox_ID='6140',@RefId='4046',@ComdId='1178',@Branch='0',@Title='TEST123',@Upload='Lorem ipsum20240808115248550.pdf',@UploadPath='http://localhost:8080/Uploads/6_test conf by RSC/pdf/Lorem ipsum20240808115248550.pdf',@Summary='Summary(1000 Characters)',@Status='0',@DateTimeOfUpdate='',@LastUpdatedBy='',@IsVisibleToAll='False' ,@AllowEdit='False' , @UserId='1423',@Unit_ID  = '1178',@CategoryId='0',@SponsorCategoryId='0',@NodalCategoryId='0',@WordFile='ACMS2024040916030381520240808113616864.docx',@WordFilePath='http://localhost:8080/Uploads/6_test conf by RSC/Word/ACMS2024040916030381520240808113616864.docx'
+08-08-2024 12:01:44: proc_AP_CRUD @procId='8',@id='6140',@Inbox_ID='6140',@RefId='0',@ComdId='0',@Branch='0',@Title='',@Upload='',@UploadPath='',@Summary='',@Status='0',@DateTimeOfUpdate='',@LastUpdatedBy='',@IsVisibleToAll='False' ,@AllowEdit='False' , @UserId='1423',@Unit_ID  = '0',@CategoryId='0',@SponsorCategoryId='0',@NodalCategoryId='0',@WordFile='',@WordFilePath=''
+08-08-2024 12:02:45: proc_AP_CRUD @procId='8',@id='6140',@Inbox_ID='6140',@RefId='0',@ComdId='0',@Branch='0',@Title='',@Upload='',@UploadPath='',@Summary='',@Status='0',@DateTimeOfUpdate='',@LastUpdatedBy='',@IsVisibleToAll='False' ,@AllowEdit='False' , @UserId='1423',@Unit_ID  = '0',@CategoryId='0',@SponsorCategoryId='0',@NodalCategoryId='0',@WordFile='',@WordFilePath=''
+08-08-2024 12:06:16:  test log...
+model Upload invoice20240808120302593.pdf
+
+model FileName Lorem ipsum20240808115248550.pdf
+
+
+08-08-2024 12:06:18: proc_AP_CRUD @procId='1',@id='6140',@Inbox_ID='6140',@RefId='4046',@ComdId='1178',@Branch='0',@Title='TEST123',@Upload='invoice20240808120302593.pdf',@UploadPath='http://localhost:8080/Uploads/6_test conf by RSC/pdf/invoice20240808120302593.pdf',@Summary='Summary(1000 Characters)',@Status='0',@DateTimeOfUpdate='',@LastUpdatedBy='',@IsVisibleToAll='False' ,@AllowEdit='False' , @UserId='1423',@Unit_ID  = '1178',@CategoryId='0',@SponsorCategoryId='0',@NodalCategoryId='0',@WordFile='ACMS2024040916030381520240808113616864.docx',@WordFilePath='http://localhost:8080/Uploads/6_test conf by RSC/Word/ACMS2024040916030381520240808113616864.docx'
+08-08-2024 12:06:19: proc_AP_CRUD @procId='8',@id='6140',@Inbox_ID='6140',@RefId='0',@ComdId='0',@Branch='0',@Title='',@Upload='',@UploadPath='',@Summary='',@Status='0',@DateTimeOfUpdate='',@LastUpdatedBy='',@IsVisibleToAll='False' ,@AllowEdit='False' , @UserId='1423',@Unit_ID  = '0',@CategoryId='0',@SponsorCategoryId='0',@NodalCategoryId='0',@WordFile='',@WordFilePath=''
+08-08-2024 12:06:44: proc_AP_CRUD @procId='8',@id='6140',@Inbox_ID='6140',@RefId='0',@ComdId='0',@Branch='0',@Title='',@Upload='',@UploadPath='',@Summary='',@Status='0',@DateTimeOfUpdate='',@LastUpdatedBy='',@IsVisibleToAll='False' ,@AllowEdit='False' , @UserId='1423',@Unit_ID  = '0',@CategoryId='0',@SponsorCategoryId='0',@NodalCategoryId='0',@WordFile='',@WordFilePath=''
+08-08-2024 12:08:02:  test log...
+model Upload invoice20240808120656097.pdf
+
+model FileName invoice20240808120302593.pdf
+
+
+08-08-2024 12:08:04: proc_AP_CRUD @procId='1',@id='6140',@Inbox_ID='6140',@RefId='4046',@ComdId='1178',@Branch='0',@Title='TEST123',@Upload='invoice20240808120656097.pdf',@UploadPath='http://localhost:8080/Uploads/6_test conf by RSC/pdf/invoice20240808120656097.pdf',@Summary='Summary(1000 Characters)',@Status='0',@DateTimeOfUpdate='',@LastUpdatedBy='',@IsVisibleToAll='False' ,@AllowEdit='False' , @UserId='1423',@Unit_ID  = '1178',@CategoryId='0',@SponsorCategoryId='0',@NodalCategoryId='0',@WordFile='ACMS2024040916030381520240808113616864.docx',@WordFilePath='http://localhost:8080/Uploads/6_test conf by RSC/Word/ACMS2024040916030381520240808113616864.docx'
+08-08-2024 12:08:05: proc_AP_CRUD @procId='8',@id='6140',@Inbox_ID='6140',@RefId='0',@ComdId='0',@Branch='0',@Title='',@Upload='',@UploadPath='',@Summary='',@Status='0',@DateTimeOfUpdate='',@LastUpdatedBy='',@IsVisibleToAll='False' ,@AllowEdit='False' , @UserId='1423',@Unit_ID  = '0',@CategoryId='0',@SponsorCategoryId='0',@NodalCategoryId='0',@WordFile='',@WordFilePath=''

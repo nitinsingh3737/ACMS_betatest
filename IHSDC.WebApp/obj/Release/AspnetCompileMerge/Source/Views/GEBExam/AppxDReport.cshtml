@@ -1,0 +1,286 @@
+﻿@model IHSDC.WebApp.Models.NominalRollForGEB
+@using IHSDC.WebApp.Connection
+@{
+    ViewBag.Title = "Appx D";
+    Layout = "~/Views/Shared/_NewAA7Layout.cshtml"; int sno = 0;
+}
+
+<style id="table_style" type="text/css">
+    body {
+        font-family: Arial;
+        font-size: 10pt;
+    }
+
+    table {
+        border: 1px solid #808080;
+        border-collapse: collapse;
+    }
+
+        table th {
+            background-color: #e8e8e8 !important;
+            print-color-adjust: exact;
+            color: #333;
+            font-weight: bold;
+        }
+
+        table th, table td {
+            padding: 5px;
+            border: 1px solid #000000;
+        }
+
+    @@media print {
+        @@page {
+            size: A3 landscape;
+            margin-top: 10px;
+            margin-bottom: 10px;
+        }
+
+        body::after {
+            content: none !important;
+        }
+
+        .card-page {
+            break-after: page;
+        }
+
+            .card-page:last-of-type {
+                break-after: auto;
+            }
+
+        footer {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 10px;
+            background-color: gray;
+            color: white;
+            text-align: center;
+            padding: 10px;
+        }
+
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 10px;
+            background-color: gray;
+            color: white;
+            text-align: center;
+            padding: 10px;
+        }
+    }
+</style>
+<body>
+
+    <div class="card-body" style="box-shadow: -1px 2px 16px 3px; padding: 0.3rem;">
+        <div class="row">
+            <div class="col">
+                <a class="btn btn-info float-right mb-1" href="javascript:history.back()" target="_top">Back</a>
+                <input type="button" class="btn btn-info float-left" id="btnExport" download="AppxD.pdf" value="Export Pdf" onclick="PrintDiv()" />
+            </div>
+        </div>
+        <div class="page" id="printAppxG" style="background-color:lightcyan">
+
+            <header style="text-align:center"><span><b><u>RESTRICTED</u></b></span></header>
+            <br />
+            <br />
+
+            <div class="row  float-right" style="text-align:right;margin-right:10px">
+                <div class="col-12">
+                    <b><u>Appendix D</u></b>
+                    <br />
+                    <b>
+                        <span>(Refers to para 26 of </span><br />
+                        <span>AO : 15/2020/AA-7)</span>
+                    </b>
+                </div>
+            </div>
+            <br />
+            <div class="row" style="margin-top: 5px; text-align:center">
+                <div class="col-12">
+                    <span style="text-align:center"><b><u>VISIT OF THE GEB : NOMINAL ROLL OF AVIATORS : _____________________(UNIT)</u></b></span>
+                </div>
+            </div>
+            <br />
+            <div class="table-responsive">
+                <table class="table table-striped align-top" id="dataTable" width="100%" cellspacing="0">
+                    <thead class="bg-info text-white">
+                        <tr style="text-align:center">
+                            <th rowspan="3" style="padding-bottom: 183px;">Ser</th>
+
+                            <th rowspan="3" style="padding-bottom: 170px;">IC No,Rank and Name</th>
+                            <th rowspan="3" style="padding-bottom: 139px;">Cat Card No</th>
+                            <th rowspan="3" style="padding-bottom: 139px;">Present Cat and Date</th>
+                            <th rowspan="3" style="padding-bottom: 162px;">Special Qual</th>
+                            <th rowspan="3" style="padding-bottom: 162px;">Appearing For</th>
+                            <th colspan="3" style="padding-bottom: 64px;">Con Trg details</th>
+                            <th colspan="3" style="padding-bottom: 41px;">Total Captain Hours (Day & Night )</th>
+                            <th rowspan="3" style="padding-bottom: 172px;">Total IMC+SIF</th>
+                            <th colspan="4" style="padding-bottom: 63px;">Exhibited Performance</th>
+                            <th colspan="3" style="padding-bottom: 63px;">Examiner Flow with</th>
+                            <th rowspan="3" style="padding-bottom: 168px;">Cat/IR Awarded</th>
+                            <th rowspan="3" style="padding-bottom: 143px;">Remarks</th>
+                        </tr>
+                        <tr style="text-align:center">
+
+                            <th rowspan="2" style="padding-bottom: 46px;">Day(last 03 months)</th>
+                            <th rowspan="2" style="padding-bottom: 46px;">Night(last 06 months)</th>
+                            <th rowspan="2" style="padding-bottom: 46px;">SIF</th>
+                            <th rowspan="2" style="padding-bottom: 44px;">On present Type</th>
+                            <th rowspan="2" style="padding-bottom: 70px;">On Heptrs </th>
+                            <th rowspan="2" style="padding-bottom: 70px;">All Types</th>
+                            <th colspan="2">Flying Marks=(a+b+c+d)+(e+f) </th>
+                            <th colspan="2">Ground Subjects</th>
+                            <th rowspan="2" style="padding-bottom:93px;">Day</th>
+                            <th rowspan="2" style="padding-bottom:70px;">Special Exs</th>
+                            <th rowspan="2" style="padding-bottom:93px;">Night</th>
+
+
+                        </tr>
+                        <tr style="text-align:center">
+
+                            <th style="padding-bottom: 43px;">Day/ Spl Exs (a)/ Role (b)/ Navig (c)/ AOR(d) </th>
+                            <th style="padding-bottom: 42px;">Night(e)/IF(f) </th>
+                            <th style="padding-bottom: 42px;">Flying </th>
+                            <th style="padding-bottom: 19px;">Special to Role/Supervision </th>
+
+                        </tr>
+
+                    </thead>
+                    <tbody id="tbody">
+                        @if (ViewBag.Units != null)
+                        {
+                            foreach (var u in ViewBag.Units)
+                            {
+                                <tr>
+                                    <td colspan="8">
+                                        <span style="font-size: 20px;font-weight:bold">  Unit Name:   </span>     <b style="font-size: 20px; text-decoration: underline;">  @u</b>
+                                    </td>
+                                </tr>
+
+                                foreach (var item in Model.ILLetterForwardedGEB.Where(x => x.UnitName == u))
+                                {
+                                    <tr>
+                                        <td>
+                                            @{ sno++; }
+                                            @sno
+                                        </td>
+                                        <td>
+
+                                            <label>@item.ANumber  @item.RankName  @item.AviatorName</label>
+                                        </td>
+                                        <td>
+
+                                            <label>@item.Col1</label>
+                                        </td>
+
+                                        <td>
+                                            <label>@item.PresentCatIR</label><br />
+                                            <label>@item.PresentCatIRDate</label>
+                                        </td>
+                                        <td>
+
+                                            <label>@item.SpecialQualName</label>
+                                        </td>
+                                        <td>
+                                            <label>@item.AppearingForName</label>
+                                        </td>
+                                        <td>
+                                            <label>@item.ConvertFlyingHrs(item.DayHrsLastThreeMonth)</label>
+
+                                        </td>
+                                        <td>
+                                            <label>@item.ConvertFlyingHrs(item.NighHrsLastSixMonth)</label>
+                                        </td>
+                                        <td>
+                                            <label>@item.ConvertFlyingHrs(item.SIFHrs)</label>
+                                        </td>
+
+                                        <td>
+                                            <label>@item.ConvertFlyingHrs(item.TotalCptHrsPresentTypeDay + item.TotalCptHrsPresentTypeNight)</label>
+                                        </td>
+                                        <td>
+                                            <label>@item.ConvertFlyingHrs(item.OnHelicoptorDay + item.OnHelicoptornight)</label>
+                                        </td>
+                                        <td>
+                                            <label>@item.ConvertFlyingHrs(item.CaptHrsDayOnAllTypes + item.CaptHrsNightOnAllTypes)</label>
+                                        </td>
+                                        <td>
+                                            <label>@item.ConvertFlyingHrs(item.IMCDayHrs + item.IMCNightHrs + item.SIFHrs)</label>
+                                        </td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td>@item.PresentCatIR</td>
+                                        <td>@item.RemarksAppearing</td>
+                                    </tr>
+
+                                }
+                            }
+                        }
+
+
+                    </tbody>
+                </table>
+                <form action="~/Home/Upload" method="post" id="myForm">
+                    <input type="hidden" name="data1" id="data1">
+                    <input type="hidden" name="filename" id="filename" value="AppxD">
+
+                </form>
+
+            </div>
+            <br />
+            <div class="row" style="margin-top: 33px;margin-left: 10px; text-align:left">
+                <div class="col-12">
+                    <span style="text-align:left"><b><u>Note </u></b></span><span><b>:- Remarks to include appearing/ not appearing/ on leave or courses etc.</b></span>
+                </div>
+            </div>
+            <footer style="text-align:center"><span style="text-align:center"><b><u>RESTRICTED</u></b></span></footer>
+        </div>
+    </div>
+</body>
+<script src="~/Scripts/jquery-3.3.1.min.js"></script>
+<script src="~/Scripts/pdfmake.min.js"></script>
+<script src="~/Scripts/html2canvas.min.js"></script>
+<script>
+    //$("body").on("click", "#btnExport", function () {
+    //    html2canvas($('#printAppxG')[0], {
+    //        onrendered: function (canvas) {
+    //            var data = canvas.toDataURL();
+    //            var docDefinition = {
+    //                content: [{
+    //                    image: data,
+    //                    width: 500
+    //                }]
+    //            };
+    //           //pdfMake.createPdf(docDefinition).download("AppxD.pdf");
+    //            const pdfDocGenerator = pdfMake.createPdf(docDefinition);
+    //            pdfDocGenerator.getBase64((data) => {
+    //                $('#data1').val(data);
+    //                $("#myForm").submit();
+    //            });
+    //        }
+    //    });
+    //});
+
+    function PrintDiv() {
+        var divToPrint = document.getElementById('printAppxG');
+        var popupWin = window.open('', '_blank', 'top=100,width=900,height=500,location=no');
+        popupWin.document.open();
+        var table_style = document.getElementById("table_style").innerHTML;
+        popupWin.document.write('<style type = "text/css">');
+        popupWin.document.write(table_style);
+        popupWin.document.write('</style>')
+        popupWin.document.title = 'AppxD_' + '@ViewBag.GEBRefNo';
+        popupWin.document.write('<html><body onload="window.print()">' + divToPrint.innerHTML + '<div style="transform: rotate(-45deg);z-index:10000;opacity: 0.3;color: BLACK; position:fixed;top: auto; left: 6%; top: 39%;color: #8e9191;font-size: 80px; font-weight: 500px;display: grid;justify-content: center;align-content: center;">' + '@(ViewBag.ipadd)' + "" + '</html>');
+        popupWin.document.close();
+    }
+</script>
+
+

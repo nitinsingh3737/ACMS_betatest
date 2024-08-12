@@ -1,0 +1,272 @@
+﻿
+@model IHSDC.WebApp.Models.LetterForwardedGEB
+@using IHSDC.WebApp.Connection
+@{
+    ViewBag.Title = "GEB Module";
+    Layout = "~/Views/Shared/_NewAA7Layout.cshtml"; int sno = 0;
+    var message = TempData["Message"] ?? string.Empty;
+    var messageStatus = TempData["messageStatus"] ?? string.Empty;
+    var messagemidStatus = TempData["messagemidStatus"] ?? string.Empty;
+
+
+
+}
+
+
+@if (SessionManager.Role == "GSO1AA7" || SessionManager.Role == "DirAA7" && Session["typeOfFLT"].ToString() != "INDEPENDENT"      )
+{
+    <div style="position:absolute; right:10px;top:10px">
+        <a class="btn btn-info float-right" href="@Url.Action("GEBLetterBrigAvnNormal","GEB", new {fid = Session["sfid"].ToString(), Uid= Session["sUid"].ToString() })" target="_top">
+            Back
+        </a>
+    </div>
+}
+@if (SessionManager.Role == "GSO1AA7" || SessionManager.Role == "DirAA7" && Session["typeOfFLT"].ToString() == "INDEPENDENT")
+{
+    
+    <div style="position:absolute; right:10px;top:10px">
+        <a class="btn btn-info float-right" href="@Url.Action("GEBLetterBrigAvn","GEB", new {fid = Session["fid"] })" target="_top">
+            Back
+        </a>
+
+    </div>
+}
+
+
+
+
+
+
+
+
+
+<div class="card-body">
+
+    <br />
+    <div class="table-responsive">
+        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+            <thead>
+                <tr>
+                    <th rowspan="2" width="36px" class="center">S/No</th>
+
+
+                    <th rowspan="2" class="center">Unit</th>
+                    <th rowspan="2" class="center">Rank</th>
+                    <th rowspan="2" class="center" width="227.006px">AviatorName</th>
+                    <th colspan="3" class="center">Cat IR</th>
+                    @*<th class="center">Recome cat IR</th>
+                        <th class="center" width="100px">Appearing For</th>*@
+
+                    <th rowspan="2" class="center" width="347px">Status</th>
+
+                    @if (SessionManager.Role == "GSO1AA7" || Convert.ToString(SessionManager.Role) == "DirAA7")
+                    {
+                        if (SessionManager.AppxC == "AppxC")
+                        {
+                            <th rowspan="2" class="center">Performance  For Appx</th>
+                        }
+                    }
+                    @if (SessionManager.Role == "GSO1AA7" || SessionManager.Role == "BrigAvn" || Convert.ToString(SessionManager.Role) == "DirAA7")
+                    {
+                        <th rowspan="2" class="center" width="347px">Action/Status</th>
+                    }
+                </tr>
+                <tr>
+
+                    <th class="center">Present Cat IR</th>
+                    <th class="center" width="100px">Appearing For</th>
+                    <th class="center" width="200">Recommended cat IR</th>
+
+                </tr>
+            </thead>
+            <tbody id="tbody">
+                @foreach (var item in Model.ILLetterForwardedGEB)
+                {
+                    <tr>
+                        <td>
+                            @{ sno++; }
+                            @sno
+                        </td>
+                        <td><b>@Html.DisplayFor(modelItem => item.UnitName)</b></td>
+                        <td><b>@Html.DisplayFor(modelItem => item.Rank)</b></td>
+                        <td><b>@Html.DisplayFor(modelItem => item.AviatorName)</b></td>
+                        <td><b>@Html.DisplayFor(modelItem => item.PresentCatIR)</b></td>
+
+                        <td>
+                            <label><b>@Html.DisplayFor(modelItem => item.AppearingFor)</b></label>
+                        </td>
+                        <td><b>@Html.DisplayFor(modelItem => item.RecomForCat)</b></td>
+                        <td>
+                            <!--------------------------------------------------------Appx ------------------------------------------ -->
+
+                            @if (item.Validation == "Submitted to Brig Avn" && item.CounterValidation == null)
+                            {
+                                <span>|</span>
+                                <label><b>Submitted by flt Cdr</b></label>
+                                <span>|</span>
+                                <a id="btnsubmit" data-id='@IHSDC.WebApp.RepositryManager.EncryptionManager.Encryption(item.FinalAppxId.ToString())' onclick="SubmitAppx(this,'/GEB/SubmitAppx','Do you want to Submit  this  Aviator  GS01AA7','SubmitGS01AA7')">
+                                    <img src="~/images/CheckSubmit.png" width="30" height="30" border="0" />
+                                </a>
+                            }
+                            @if (item.Validation == "Submitted to Sqn" && item.CounterValidation == "Submitted to Brig Avn")
+                            {
+                                <span>|</span>
+                                <label><b>Submitted by Sqn Cdr</b></label>
+                                <span>|</span>
+                                <a id="btnsubmit" data-id='@IHSDC.WebApp.RepositryManager.EncryptionManager.Encryption(item.FinalAppxId.ToString())' onclick="SubmitAppx(this,'/GEB/SubmitAppx','Do you want to Submit  this  Aviator  GS01AA7','SubmitGS01AA7')">
+                                    <img src="~/images/CheckSubmit.png" width="30" height="30" border="0" />
+                                </a>
+                            }
+                            @if (SessionManager.Role == "BrigAvn")
+                            {
+                                if (item.CounterValidation == "Submitted to GS01AA7")
+                                {
+
+                                    <label><b>Submitted to GSO1AA7  </b></label>
+                                }
+                            }
+                            @if (SessionManager.Role == "GSO1AA7" || Convert.ToString(SessionManager.Role) == "DirAA7")
+                            {
+                                if (item.CounterValidation == "Submitted to GS01AA7")
+                                {
+
+                                    <label><b>Submitted by  Brig Avn</b></label>
+                                    <span>|</span>
+                                }
+                            }
+                            @if (item.PresentCatIR != null && item.PresentCatIRType != null)
+                            {
+
+                                if (item.IsRejectBrig == false && item.IsRejectGSO == false)
+                                {
+                                    if (SessionManager.AppxC == "AppxC")
+                                    {
+                                        <a class="btn btn-link" style="text-decoration:underline;color:#33b5e5" onclick="location.href='@Url.Action("AppxE", "GEB", new { fid = IHSDC.WebApp.RepositryManager.EncryptionManager.Encryption(item.FinalAppxId.ToString()) })'">
+                                            Appx E
+                                        </a>
+
+                                        if (item.IsAppxF == true)
+                                        {<span>|</span>
+                                            <a class="btn btn-link" style="text-decoration:underline;color:#33b5e5" onclick="location.href='@Url.Action("AppxF", "GEB", new { apid = IHSDC.WebApp.RepositryManager.EncryptionManager.Encryption(item.FinalAppxId.ToString()) })'">
+                                                AppxF
+                                            </a>
+                                        }
+                                        if (item.IsAppxG == true)
+                                        {
+                                            <span>|</span>
+                                            <a class="btn btn-link" style="text-decoration:underline;color:#33b5e5" onclick="location.href='@Url.Action("AppxG", "GEB", new { apid = IHSDC.WebApp.RepositryManager.EncryptionManager.Encryption(item.FinalAppxId.ToString()) })'">
+                                                AppxG
+                                            </a>
+                                        }
+                                    }
+                                }
+                                if (SessionManager.AppxC == "AppxD")
+                                {
+                                    <label><b> Updated</b></label>
+
+                                    @*<a class="btn btn-link" style="text-decoration:underline;color:#33b5e5" onclick="location.href='@Url.Action("AppxE", "GEB", new { fid = IHSDC.WebApp.RepositryManager.EncryptionManager.Encryption(item.FinalAppxId.ToString()) })'">
+                                            View Details
+                                        </a>*@
+                                }
+
+
+                            }
+                            else
+                            {
+
+                                <label><b>Not Updated</b></label>
+
+                            }
+                        </td>
+                        @if (SessionManager.Role == "GSO1AA7" || Convert.ToString(SessionManager.Role) == "DirAA7")
+                        {
+                            if (SessionManager.AppxC == "AppxC")
+                            {
+                                <td>
+
+                                    <a class="btn btn-link" style="text-decoration:underline;color:#33b5e5" onclick="location.href='@Url.Action("AppxEPerformance", "GEB", new { apid = IHSDC.WebApp.RepositryManager.EncryptionManager.Encryption(item.FinalAppxId.ToString()) })'">
+                                        AppxEPereformance
+                                    </a>
+                                    @if (item.IsAppxF == true)
+                                    {
+                                        <span>|</span>
+                                        <a class="btn btn-link" style="text-decoration:underline;color:#33b5e5" onclick="location.href='@Url.Action("AppxFPerformance", "GEB", new { apid = IHSDC.WebApp.RepositryManager.EncryptionManager.Encryption(item.FinalAppxId.ToString()) })'">
+                                            AppxFPereformance
+                                        </a>
+                                    }
+                                    @if (item.IsAppxG == true && item.IsApprovedByGSO == true)
+                                    {
+                                        <span>|</span>
+                                        <a class="btn btn-link" style="text-decoration:underline;color:#33b5e5" onclick="location.href='@Url.Action("AppxGPerformance", "GEB", new { apid = IHSDC.WebApp.RepositryManager.EncryptionManager.Encryption(item.FinalAppxId.ToString()) })'">
+                                            AppxGPereformance
+                                        </a>
+                                    }
+
+                                </td>
+                            }
+                        }
+                        @if (SessionManager.Role == "GSO1AA7" || SessionManager.Role == "BrigAvn" || Convert.ToString(SessionManager.Role) == "DirAA7")
+                        {
+                            <td>
+                                @if (item.IsRejectBrig == false && SessionManager.Role == "BrigAvn" && SessionManager.AppxC == "AppxC")
+                                {
+                                    <a style="text-decoration:underline;color:#33b5e5" id="btnsubmit" data-id='@IHSDC.WebApp.RepositryManager.EncryptionManager.Encryption(item.FinalAppxId.ToString())' onclick="SubmitAppx(this,'/GEB/SubmitAppx','Do you want to Reject this Aviator ','RejectedBrigAvn')">
+                                        @*<img src="~/images/Reject.png" width="30" height="30" border="0" />*@
+                                        Reject This Aviator
+                                    </a>
+                                }
+                                @if (item.IsRejectGSO == false && SessionManager.Role == "GSO1AA7" && SessionManager.AppxC == "AppxC")
+                                {
+                                    <a style="text-decoration:underline;color:#33b5e5" id="btnsubmit" data-id='@IHSDC.WebApp.RepositryManager.EncryptionManager.Encryption(item.FinalAppxId.ToString())' onclick="SubmitAppx(this,'/GEB/SubmitAppx','Do you want to Reject this Aviator ','RejectedGSO1AA7')">
+                                        @*<img src="~/images/Reject.png" width="30" height="30" border="0" />*@
+                                        Reject This Aviator
+                                    </a>
+                                }
+                                @if (item.IsRejectBrig == true && SessionManager.AppxC == "AppxD")
+                                {
+                                    <lable><b>Rejected By Brig Avn</b></lable>
+                                }
+                                @if (item.IsRejectGSO == true && SessionManager.AppxC == "AppxD")
+                                {
+                                    <lable><b>Rejected By GSO1AA7</b></lable>
+                                }
+                                @*@if (Convert.ToString(SessionManager.Role) == "DirAA7")
+                                    {
+                                        if (item.CounterValidation == null)
+                                        {
+                                            <a id="btnsubmit" data-id='@IHSDC.WebApp.RepositryManager.EncryptionManager.Encryption(item.FinalAppxId.ToString())' onclick="SubmitAppx(this,'/GEB/SubmitAppx','Do you want to Validate All GEB Details! ','SubmitDirAA7')">
+                                                <img src="~/images/CheckSubmit.png" width="30" height="30" border="0" />
+                                            </a>
+                                        }
+                                        if (item.CounterValidation != null)
+                                        {
+                                            <lable><b>This Aviator is Validated</b></lable>
+                                        }
+                                    }*@
+                            </td>
+                        }
+
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script src="~/Scripts/jquery-3.3.1.js"></script>
+<script src="~/Content/CustomJS/GEBSubmit.js"></script>
+<script src="~/Content/css/sweetalert.min.js"></script>
+<link href="~/Content/css/sweetalert.css" rel="stylesheet" />
+
+
+<script type="text/javascript">
+       var message = '@message';
+    var messageStatus = '@messageStatus';
+    var messagemidStatus = '@messagemidStatus ';
+    if (message)
+            sweetAlert(message, messagemidStatus, messageStatus);
+
+
+
+</script>
+

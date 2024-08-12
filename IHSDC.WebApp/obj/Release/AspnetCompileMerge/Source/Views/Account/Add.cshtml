@@ -1,0 +1,407 @@
+﻿@model IHSDC.WebApp.Models.RegisterViewModel
+@{
+    /**/
+
+    ViewBag.Title = "Add User";
+    Layout = "~/Views/Shared/_NewAA7Layout.cshtml";
+}
+
+<style>
+    .form-group {
+        margin-bottom: 0rem !important;
+    }
+
+    
+</style>
+
+<div class="row" style="background-color: aliceblue; border-radius: 10px; box-shadow: -1px 2px 16px 3px; padding: 0.5rem;" >
+
+    @using (Html.BeginForm("Add", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+    {
+        @Html.AntiForgeryToken()
+
+        <h4 class="ajs" style="padding: 9px;">Create a New User @*for @User.Identity.Name.*@</h4>
+     <br />
+
+        <div class="row" style="margin-top: -2rem;">
+            <div class="col-md-3">
+                <div class="form-group" style="width:325px;">
+                    @Html.LabelFor(m => m.Username, new { @class = "col-md-12 control-label" })
+                    <div class="col-md-12">
+                        @Html.TextBoxFor(m => m.Username, new { @class = "form-control", @onkeyup = "ValInData(this)" })
+                    </div>
+                </div>
+                <div class="form-group" style="width: 325px;">
+                    @Html.LabelFor(m => m.Password, new { @class = "col-md-12 control-label" })
+                    <div class="col-md-12">
+                        @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+                    </div>
+                </div>
+                <div class="form-group" style="width: 325px;">
+                    @Html.LabelFor(m => m.ConfirmPassword, new { @class = "col-md-12 control-label" })
+                    <div class="col-md-12">
+                        @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
+                    </div>
+                </div>
+
+
+            </div>
+
+
+
+            <div class="col-md-3">
+
+                <div class="form-group" style="width:350px;">
+                    @Html.LabelFor(m => m.UserTypeId, new { @class = "col-md-12 control-label" })
+                    <div class="col-md-12">
+
+                        @Html.DropDownListFor(m => m.UserTypeId, (new IHSDC.WebApp.Models.MasterModels()).LoadUserType(), "--Select--", new { @data_show_subtext = "true", @class = "select form-control", @data_live_search = "true", @required = true })
+
+                    </div>
+                </div>
+
+
+                <div class="form-group" style="width:350px;">
+                    @Html.LabelFor(m => m.Roles, new { @class = "col-md-12 control-label" })
+                    <div class="col-md-12">
+                        @*@Html.ListBoxFor(m => m.Roles, (IEnumerable<SelectListItem>)ViewBag.Roles, new { @class = "listbox form-control" })*@
+
+                        @Html.DropDownList("Roles", (IEnumerable<SelectListItem>)ViewData["Roles"], new { style = "width:320px;height:33px;pointer-events:none;background-color:#f2f2f2" })
+
+                        @*@Html.DropDownList("Roles", (IEnumerable<SelectListItem>)ViewData["Roles"], new { style = "width:320px;height:33px", @Class = "Roles", })*@
+                        @* @Html.TextBoxFor(m => m.Roles, new { @class = "form-control", @readonly = true })*@
+
+
+                    </div>
+                </div>
+                <div class="form-group" style="width:350px;">
+                    @Html.LabelFor(m => m.Unit_ID, new { @class = "col-md-12 control-label Unit_ID" })
+                    <div class="col-md-12">
+
+                        @Html.DropDownList("Unit_ID", (IEnumerable<SelectListItem>)ViewData["Unit_ID"], "--Select--", new { style = "width:320px;height:33px", @class = "Unit_ID" })
+
+
+                    </div>
+                    @*<label class="col-md-12 control-label lblParentId ParentId1" for="ParentId">ParentId</label>
+                <div class="col-md-12">
+                    <select id="ParentId1" class="ak form-control ParentId1"></select>
+
+                    @Html.TextBoxFor(m => m.ParentId, new { @class = "form-control d-none" })
+                </div>*@
+                </div>
+                <!--<div class="form-group" style="width:350px;">
+        @Html.LabelFor(m => m.DEFwdAuth, new { @class = "col-md-12 control-label" })
+        <div class="col-md-12">-->
+                @*@Html.TextBoxFor(m => m.DEFwdAuth, new { @class = "form-control" })*@
+                <!--@Html.DropDownListFor(m => m.DEFwdAuth, (new IHSDC.WebApp.Models.MasterModels()).LoadUserList(""), "--Select--", new { @data_show_subtext = "true", @class = "select form-control", @data_live_search = "true"})
+
+            </div>
+        </div>
+        <div class="form-group" style="width:350px;">
+            @Html.LabelFor(m => m.GEBFwdAuth, new { @class = "col-md-12 control-label" })
+            <div class="col-md-12">
+                @Html.DropDownListFor(m => m.GEBFwdAuth, (new IHSDC.WebApp.Models.MasterModels()).LoadUserList(""), "--Select--", new { @data_show_subtext = "true", @class = "select form-control", @data_live_search = "true"})
+            </div>
+        </div>-->
+
+
+
+            </div>
+
+
+
+
+            <div class="col-md-3">
+
+                <div class="form-group" style="width:350px;">
+                    @Html.LabelFor(m => m.Rank, new { @class = "col-md-12 control-label" })
+                    <div class="col-md-12">
+
+                        @Html.DropDownListFor(m => m.Rank, (new IHSDC.WebApp.Models.MasterModels()).LoadRanks(), "--Select--", new { @data_show_subtext = "true", @class = "select form-control", @data_live_search = "true", @required = true })
+
+                    </div>
+                </div>
+
+                <div class="form-group" style="width:350px;">
+                    @Html.LabelFor(m => m.Number, new { @class = "col-md-12 control-label" })
+                    <div class="col-md-12">
+                        @Html.TextBoxFor(m => m.Number, new { @class = "form-control", @maxlength = "10", @onkeyup = "ValInData1(this)" })
+                    </div>
+                </div>
+                <div class="form-group" style="width:350px;">
+                    @Html.LabelFor(m => m.FullName, new { @class = "col-md-12 control-label" })
+                    <div class="col-md-12">
+                        @Html.TextBoxFor(m => m.FullName, new { @class = "form-control" , @onkeyup = "ValInData(this)" })
+                    </div>
+                </div>
+
+            </div>
+
+
+
+            <div class="col-md-3">
+
+                <div class="form-group" style="width:325px;">
+                    @*@Html.LabelFor(m => m.Appointment, new { @class = "col-md-12 control-label" })*@
+                
+                    <p class="mb-0">Appt</p>
+                    <div class="col-md-12">
+                        @*@Html.TextBoxFor(m => m.Appointment, new { @class = "form-control" })*@
+                        @Html.DropDownListFor(m => m.Appointment, (new IHSDC.WebApp.Models.MasterModels()).LoadAppointment(), "--Select--", new { @data_show_subtext = "true", @class = "select form-control", @data_live_search = "true", @required = true })
+
+                    </div>
+                </div>
+
+
+
+                <div class="form-group" style="width:325px;">
+                    @Html.LabelFor(m => m.EstablishmentAbbreviation, new { @class = "col-md-12 control-label" })
+                    <div class="col-md-12">
+                        @Html.TextBoxFor(m => m.EstablishmentAbbreviation, new { @class = "form-control", @onkeyup = "ValInData(this)" })
+                    </div>
+                </div>
+
+
+                <div class="form-group" style="width:350px;">
+                    @Html.LabelFor(m => m.ASCON, new { @class = "col-md-12 control-label" })
+                    <div class="col-md-11">
+                        @Html.TextBoxFor(m => m.ASCON, new { @class = "form-control", @maxlength = "10", @onkeyup = "ValInData(this)" })
+                    </div>
+                </div>
+
+            </div>
+            <div class="form-group" style=" width: 325px; margin-left: 1rem;">
+                @Html.LabelFor(model => model.Active, htmlAttributes: new { @class = "control-label col-md-12" })
+                <div class="col-md-12">
+                    @Html.DropDownListFor(model => model.Active, (new IHSDC.WebApp.Models.MasterModels()).LoadActive(), "--Select --", new { @data_show_subtext = "true", @class = "select form-control", @data_live_search = "true", @required = true })
+                </div>
+            </div>
+
+
+
+        </div>
+
+        <div class="row">
+            <div class="col-12">
+                @Html.ValidationSummary("", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-12">
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" class="btn btn-primary" value="Add" />
+                        <span>
+
+                            @Html.ActionLink("View Users", "Hierarchy", "Account", new object { }, new { @class = "btn btn-primary" })
+
+                        </span>
+
+                    </div>
+                </div>
+              
+            </div>
+        </div>
+    }
+</div>
+<script src="~/Scripts/jquery-3.3.1.js"></script>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+<script>
+    $(document).ready(function () {
+
+
+        //$('#UserTypeId').change(function () {
+        //    $(".Roles").val("UnitEdit");
+        //    if ($('#UserTypeId').val() == 1 || $('#UserTypeId').val() == 3 || $('#UserTypeId').val() == 4 || $('#UserTypeId').val() == 5) {
+
+        //        $('#Roles').val('UnitEditView');
+        //       // $('#Roles').val("UnitEdit");
+        //    }
+        //    else if ($('#UserTypeId').val() == 6) {
+        //        $('#Roles').val('UnitEditView');
+        //    }
+        //    else if ($('#UserTypeId').val() == 8) {
+        //      //  $('#Roles').val('AvnDte');
+        //        $('#Roles').val('UnitEditView');
+        //    }
+        //});
+
+        //if ($('#UserTypeId').val() != 6) {
+        //    $('#Unit_ID').val(0);
+
+        //    $('.Unit_ID').addClass('d-none');
+        //    $('.ParentId1').addClass('d-none');
+        //}
+        //else {
+        //    $('.Unit_ID').removeClass('d-none');
+        //    $('#ParentId').val(0);
+        //    $('.ParentId1').removeClass('d-none');
+        //}
+        //$('#ParentId1').change(function () {
+        //    $('#ParentId').val($('#ParentId1').val());
+        //});
+        //$('#UserTypeId').change(function () {
+
+        //    if ($('#UserTypeId').val() != 6) {
+        //        $('#Unit_ID').val(0);
+        //        $('.Unit_ID').addClass('d-none');
+        //        $('.lblParentId').html($("#UserTypeId option:selected").text()+" Name");
+        //        $('.ParentId1').removeClass('d-none')
+        //        if ($('#UserTypeId').val() == 1) {
+        //            GetCommand();
+        //        }
+        //        if ($('#UserTypeId').val() == 3) {
+        //            GetCorps();
+        //        }
+        //        if ($('#UserTypeId').val() == 4) {
+        //            GetBde();
+        //        }
+        //        if ($('#UserTypeId').val() == 5) {
+        //            GetSqn();
+        //        }
+        //    }
+        //    else {
+        //        $('#Unit_ID').val('');
+        //        $('.Unit_ID').removeClass('d-none');
+        //        $('.ParentId1').addClass('d-none')
+        //        $('#ParentId').val(0);
+
+        //    }
+        //});
+    });
+        //function GetCommand() {
+        //    var list = '';
+        //    list = '<option value="">Select Command</option>';
+        //    $.ajax({
+        //        url: '/Master/LoadCommandName',
+        //        type: 'POST',
+        //        data: { "ComdId": 0 }, //get the search string
+        //        success: function (result) {
+
+
+        //            if (result.length > 0) {
+
+
+        //                for (var j = 0; j < result.length; j++) {
+
+
+        //                    list += '<option value=' + result[j].Value + '>' + result[j].Text + '</option>';
+        //                }
+
+
+
+        //            }
+        //            $('#ParentId1').html(list);
+
+
+
+        //        }
+        //    });
+
+
+
+        //}
+
+
+        //function GetCorps() {
+        //    var list = '';
+        //    list = '<option value="">Select Corps</option>';
+        //    $.ajax({
+        //        url: '/Master/LoadCorpsAll',
+        //        type: 'POST',
+        //        data: { "Id": 0 }, //get the search string
+        //        success: function (result) {
+
+
+        //            if (result.length > 0) {
+
+
+
+
+        //                for (var j = 0; j < result.length; j++) {
+
+
+        //                    list += '<option value=' + result[j].Value + '>' + result[j].Text + '</option>';
+        //                }
+
+
+
+        //            }
+        //            $('#ParentId1').html(list);
+
+        //        }
+        //    });
+
+
+
+        //}
+
+        //function GetBde() {
+
+        //    var list = '';
+        //    list = '<option value="">Select Bde/CAT</option>';
+        //    $.ajax({
+        //        url: '/Master/LoadBdeCATAll',
+        //        type: 'POST',
+        //        data: { "Id": 0 }, //get the search string
+        //        success: function (result) {
+
+
+        //            if (result.length > 0) {
+
+
+
+
+        //                for (var j = 0; j < result.length; j++) {
+
+
+        //                    list += '<option value=' + result[j].Value + '>' + result[j].Text + '</option>';
+        //                }
+
+
+
+        //            }
+        //            $('#ParentId1').html(list);
+
+        //        }
+        //    });
+
+
+
+        //}
+        //function GetSqn() {
+        //    var list = '';
+        //    list = '<option value="">Select Sqn</option>';
+        //    $.ajax({
+        //        url: '/Master/LoadSqnAll',
+        //        type: 'POST',
+        //        data: { "Id": 0 }, //get the search string
+        //        success: function (result) {
+
+
+        //            if (result.length > 0) {
+
+
+
+
+        //                for (var j = 0; j < result.length; j++) {
+
+
+        //                    list += '<option value=' + result[j].Value + '>' + result[j].Text + '</option>';
+        //                }
+
+
+
+        //            }
+        //            $('#ParentId1').html(list);
+
+        //        }
+        //    });
+
+
+
+        //}
+</script>

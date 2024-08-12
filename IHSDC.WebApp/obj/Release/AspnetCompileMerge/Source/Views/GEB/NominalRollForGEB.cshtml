@@ -1,0 +1,104 @@
+﻿@model IHSDC.WebApp.Models.NominalRollForGEB
+@using IHSDC.WebApp.Connection
+@{
+
+
+    ViewBag.Title = "Appx E ,  F &  G";
+    Layout = "~/Views/Shared/_NewAA7Layout.cshtml"; int sno = 0;
+}
+
+<div style="position:absolute; right:10px;top:10px">
+    <div class="col">
+        <a class="btn btn-info float-right" href="@Url.Action("GEBList","GEBExam")" target="_top">
+            Back
+        </a>
+    </div>
+</div>
+<div class="card-body">
+
+    <br />
+    <div class="table-responsive">
+        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+            <thead>
+                <tr>
+                    <th rowspan="2" class="center">Sno</th>
+                    <th rowspan="2" class="center">Rank</th>
+                    <th rowspan="2" class="center">Name</th>
+                    <th rowspan="2" class="center">Present Cat/IR</th>
+                    <th rowspan="2" class="center">Recom  of CO/OC</th>
+                    <th colspan="2" class="center">Flg Hrs </th>
+                    <th rowspan="2" class="center">View Reports</th>
+                </tr>
+                <tr>
+                    <th class="center">Total</th>
+                    <th class="center">On Type</th>
+                </tr>
+
+            </thead>
+            <tbody id="tbody">
+                @if (ViewBag.Units != null)
+                {
+                    foreach (var u in ViewBag.Units)
+                    {
+                        <tr>
+                            <td colspan="8">
+                                <span style="font-size: 20px;font-weight:bold">  Unit Name:   </span>     <b style="font-size: 20px; text-decoration: underline;">  @u</b>
+                            </td>
+                        </tr>
+
+                        foreach (var item in Model.ILLetterForwardedGEB.Where(x => x.UnitName == u))
+                        {
+                            <tr>
+                                <td>
+                                    @{ sno++; }
+                                    @sno
+                                </td>
+                                <td>
+                                    <label><b>@item.Rank</b></label>
+                                </td>
+                                <td>
+                                    <label><b>@item.AviatorName</b></label>
+                                </td>
+                                <td>
+                                    <label><b>@item.PresentCatIR</b></label>
+                                </td>
+                                <td>
+                                    <label><b>@item.RecomForCatIR</b></label>
+                                </td>
+                                <td>
+                                    <label><b>@item.ConvertFlyingHrs(item.CaptHrsNightOnAllTypes)</b></label>
+                                </td>
+                                <td>
+                                    <label><b>@item.ConvertFlyingHrs(item.TotalCptHrsPresentTypeNight)</b></label>
+                                </td>
+                                <td>
+                                    <a class="btn btn-link" style="text-decoration:underline;color:#33b5e5" onclick="location.href='@Url.Action("AppxEReport", "GEBExam", new { fid = IHSDC.WebApp.RepositryManager.EncryptionManager.Encryption(item.FinalAppxId.ToString()) })'">
+                                        Appx E
+                                    </a>
+                                    @if (item.IsAppxF == true)
+                                    {
+                                        <a class="btn btn-link" style="text-decoration:underline;color:#33b5e5" onclick="location.href='@Url.Action("AppxFReport", "GEBExam", new { fid = IHSDC.WebApp.RepositryManager.EncryptionManager.Encryption(item.FinalAppxId.ToString()) })'">
+                                            Appx F
+                                        </a>
+                                    }
+                                    @if (item.IsAppxG == true)
+                                    {
+                                        <a class="btn btn-link" style="text-decoration:underline;color:#33b5e5" onclick="location.href='@Url.Action("AppxGReport", "GEBExam", new { fid = IHSDC.WebApp.RepositryManager.EncryptionManager.Encryption(item.FinalAppxId.ToString()) })'">
+                                            Appx G
+                                        </a>
+                                    }
+                                </td>
+
+                            </tr>
+
+                        }
+                    }
+                }
+
+
+            </tbody>
+        </table>
+
+    </div>
+</div>
+

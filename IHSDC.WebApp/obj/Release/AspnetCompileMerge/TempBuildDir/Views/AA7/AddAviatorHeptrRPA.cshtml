@@ -1,0 +1,656 @@
+﻿
+@model IHSDC.WebApp.Models.AviatorHeptrRPACRUD
+@using IHSDC.WebApp.Connection
+
+@{
+
+    var message = TempData["Message"] ?? string.Empty;
+    var messageStatus = TempData["messageStatus"] ?? string.Empty;
+    var messagemidStatus = TempData["messagemidStatus"] ?? string.Empty;
+    ViewBag.Title = " Aviator Heptr & RPA";
+    Layout = "~/Views/Shared/_NewAA7LayoutMenu.cshtml";
+    int sno = 0;
+}
+
+
+@using (Html.BeginForm("AddAviatorHeptrRPA", "AA7", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+
+
+
+    <div class="card-body">
+        <div class="modal fade" id="SelfDeclaration">
+            <div class="modal-dialog" style="margin-top:350px">
+                <div class="modal-content">
+                    <h4 style="text-align:center">Declaration</h4>
+                    <p style="margin-left:10px;margin-right:10px;font-size:14px;font-family:Arial">I <b><u>@SessionManager.UserName</u></b> solemnly declare the information mentioned herein is true and correct to the best of my beliefs.</p>
+                    <div class="modal-footer">
+                        <button type="submit" id="btnval" value="@ViewBag.ButtonName" name="btnval" class="btn btn-success">@ViewBag.ButtonName</button>
+                        <a id="btnCancel" style="color:white;" class="btn btn-danger" data-dismiss="modal">Cancel</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        @if (SessionManager.IsPermission == 1 || SessionManager.IsPermission == 3 || SessionManager.IsPermission == 5)
+        {
+            <div class="rcorners">
+
+
+                <div class="row">
+
+                    <div class="col-2">
+                        <p class="mb-0"> Aviator Name</p>
+                        @*@Html.DropDownListFor(m => m.Aviator_ID, (new IHSDC.WebApp.Models.MasterModels()).LoadAviatorName(), "--Select Aviator  Name --", new { @data_show_subtext = "true", @class = "select form-control", @data_live_search = "true", @required = true })*@
+
+                        @Html.HiddenFor(m => m.Aviator_ID)
+                        @Html.HiddenFor(m => m.IsHistory)
+
+                        @Html.TextBoxFor(m => m.AviatorName, new { @class = "form-control", @required = true, @onkeyup = "ValInData(this)", style = "font-weight: bold;color: black; font-size: 14px;", @readonly = true })
+
+                    </div>
+
+                    <div class="col-2">
+                        <p class="mb-0">Status</p>
+                        @Html.DropDownListFor(m => m.StatusAircraftId, (new IHSDC.WebApp.Models.MasterModels()).LoadStatusAircraft(), "--Select Status Aircraft --", new { @onChange = "check(this,'StatusAircraft','RPA Instr CAT Date')", @data_show_subtext = "true", @class = "select form-control", @data_live_search = "true", @required = true })
+
+                    </div>
+
+
+                    <div class="col-2">
+                        <p class="mb-0"> Aircraft Type</p>
+
+
+                        <span id="TypesIfAnyID2" class="d-none">@ViewBag.AircraftTypeId</span>
+                        @*@Html.DropDownListFor(m => m.AircraftTypeId, (new IHSDC.WebApp.Models.MasterModels()).LoadHeptrRPAType(), "--Select Aircraft Type --", new { @data_show_subtext = "true", @class = "select form-control", @data_live_search = "true", @required = true, @readonly = "readonly" })*@
+                        @*@Html.HiddenFor(m => m.AircraftTypeId)*@
+                        @Html.DropDownListFor(m => m.AircraftTypeId, (new IHSDC.WebApp.Models.MasterModels()).LoadHeptrRPAType(), "--Select Aircraft Type --", new { @data_show_subtext = "true", @class = "select form-control", @data_live_search = "true", @required = true })
+
+                        @*@Html.TextBoxFor(m => m.AircraftType, new { @class = "form-control", @onkeyup = "ValInData(this)", @required = true, style = "font-weight: bold;color: black; font-size: 14px;", @readonly = true })*@
+
+                    </div>
+                    <div class="col-2">
+                        <p class="mb-0"> Aircraft</p>
+                        @*<select name="Aircraft" id="Aircraft">
+                                <option value='0'>-- Select One --</option>
+                            </select>*@
+                        <span id="HeptrRPAMasterId2" class="d-none">@ViewBag.HeptrRPAMasterId</span>
+
+                        @Html.DropDownListFor(m => m.HeptrRPAMasterId, (new IHSDC.WebApp.Models.MasterModels()).LoadHeptrRPAName(0), "--Select Aircraft --", new { @data_show_subtext = "true", @class = "select form-control", @data_live_search = "true", @required = true })
+
+
+                        @*<select id="HeptrRPAMasterId" name="HeptrRPAMasterId" data-show-subtext="true" class="select form-control" data-live-search="true" required>
+                                <option value="">-- Select Aircraft --</option>
+                                @foreach (var item in (new IHSDC.WebApp.Models.MasterModels()).LoadHeptrRPAName(0))
+                                {
+                                    <option value="@item.Value">@item.Text</option>
+                                }
+                            </select>*@
+
+                    </div>
+                    @*@if (Model.AircraftTypeId == 1)
+                        {*@
+                    <div class="col-2">
+                        <p class="mb-0">Heptr Cat Card No</p>
+                        @Html.TextBoxFor(m => m.CatCardNo, new { @class = "form-control", onkeyup = "ValInData1(this)", onkeypress = "return catCardValidation(event)", @maxlength = "5" })
+                    </div>
+
+
+
+                    <div class="col-2">
+                        <p class="mb-0">
+                            CAT Card Date
+                        </p>
+                        @Html.TextBoxFor(m => m.CatCardDate, new { @class = "form-control datepicker3", @onkeyup = "ValInData(this)", @onchange = "isDate(this), checkDate(this)", @placeholder = "dd/mm/yyyy", })
+
+                    </div>
+
+                    <div class="col-2">
+                        <p class="mb-0"> CAT/IR</p>
+                        @Html.DropDownListFor(m => m.CatIRId, (new IHSDC.WebApp.Models.MasterModels()).LoadCatIR(), "--Select Cat/IR --", new { @onChange = "check(this,'CatIR','Aircraft Type')", @data_show_subtext = "true", @class = "select form-control", @data_live_search = "true", @required = true })
+                    </div>
+
+                    <div class="col-2">
+                        <p class="mb-0">CAT/IR Date</p>
+                        @Html.TextBoxFor(m => m.CatIRDate, new { @class = "form-control datepicker3", @onkeyup = "ValInData(this)", @onchange = "isDate(this), checkDate(this)", @placeholder = "dd/mm/yyyy", })
+
+                    </div>
+
+
+                    <div class="col-2">
+                        <p class="mb-0">Instr CAT</p>
+                        @Html.DropDownListFor(m => m.InstrCATId, (new IHSDC.WebApp.Models.MasterModels()).LoadInstrCAT(), "--Select Instr CAT --", new { @onChange = "check(this,'InstrCat','CAT/IR Date')", @data_show_subtext = "true", @class = "select form-control", @data_live_search = "true" })
+                    </div>
+
+                    <div class="col-2">
+                        <p class="mb-0">
+                            Instr CAT Date
+                        </p>
+
+                        @Html.TextBoxFor(m => m.InstrCatDate, new { @class = "form-control datepicker3", @onkeyup = "ValInData(this)", @onchange = "isDate(this), checkDate(this)", @placeholder = "dd/mm/yyyy" })
+
+                    </div>
+                    @*}*@
+
+                    @*@if (Model.AircraftTypeId == 3)
+                        {*@
+                    <div class="col-2">
+                        <p class="mb-0"> RPAS Date of Wings</p>
+                        @Html.TextBoxFor(m => m.RPAdowDate, new { @class = "form-control datepicker3", @onkeyup = "ValInData(this)", @onchange = "isDate(this), checkDate(this)", @placeholder = "dd/mm/yyyy", @required = true })
+
+                    </div>
+                    <div class="col-2">
+                        <p class="mb-0"> RPAS Substream</p>
+                        @Html.DropDownListFor(m => m.RPA_SubstreamId, (new IHSDC.WebApp.Models.MasterModels()).LoadRPASubstream(), "--Select RPA Substream --", new { @onChange = "check(this,'RPASubstream','RPA DOW')", @data_show_subtext = "true", @class = "select form-control", @data_live_search = "true" })
+                    </div>
+                    <div class="col-2">
+                        <p class="mb-0"> RPAS CAT Card No</p>
+                        @Html.TextBoxFor(m => m.RPA_CatCardNo, new { @onkeyup = "ValInData1(this)", @class = "form-control", @maxlength = "5",onkeypress = "return catCardValidation(event)" })
+                    </div>
+                    <div class="col-2">
+                        <p class="mb-0">RPAS CAT Card Date</p>
+                        @Html.TextBoxFor(m => m.RPA_CatCardDate, new { @class = "form-control datepicker3", @onkeyup = "ValInData(this)", @onchange = "isDate(this), checkDate(this)", @placeholder = "dd/mm/yyyy", @required = true })
+
+                    </div>
+                    <div class="col-2">
+                        <p class="mb-0">RPAS CAT</p>
+                        @Html.DropDownListFor(m => m.RPACatId, (new IHSDC.WebApp.Models.MasterModels()).LoadRPACat(), "--Select RPAS CAT --", new { @onChange = "check(this,'RPACat','RPA CAT Card Date')", @data_show_subtext = "true", @class = "select form-control", @data_live_search = "true" })
+                    </div>
+
+                    <div class="col-2">
+                        <p class="mb-0">RPAS CAT Date</p>
+
+                        @Html.TextBoxFor(m => m.RPA_CatDate, new { @class = "form-control datepicker3", @onkeyup = "ValInData(this)", @onchange = "isDate(this), checkDate(this)", @placeholder = "dd/mm/yyyy", })
+
+                    </div>
+
+                    <div class="col-2">
+                        <p class="mb-0">RPAS Instr CAT</p>
+                        @Html.DropDownListFor(m => m.RPAInstrCatId, (new IHSDC.WebApp.Models.MasterModels()).LoadRPAInstrCat(), "--Select RPAS Instr CAT --", new { @onChange = "check(this,'RPAInstrCat','RPA CATS Date')", @data_show_subtext = "true", @class = "select form-control", @data_live_search = "true" })
+
+                    </div>
+
+                    <div class="col-2">
+                        <p class="mb-0">RPAS Instr CAT Date</p>
+                        @Html.TextBoxFor(m => m.RPA_Instr_CatDate, new { @class = "form-control datepicker3", @onkeyup = "ValInData(this)", @onchange = "isDate(this), checkDate(this)", @placeholder = "dd/mm/yyyy", })
+
+                    </div>
+                    @*}*@
+
+
+
+
+                </div>
+
+                <div class="d-flex justify-content-center" style="margin-top:10px;padding-left:5px;">
+                    @if (ViewBag.ButtonName == "Update")
+                    {
+                        <button type="button" data-toggle="modal" data-target="#SelfDeclaration" id="BtnDeclaration" value="HeptrRPA" class="btn btn-success">Save</button>
+                    }
+                    &nbsp;&nbsp;&nbsp;
+                    <a class="btn btn-info" href="@Url.Action("AddAviatorHeptrRPA","AA7",new { id = string.Empty })" target="_top">
+                        Back
+                    </a>
+                </div>
+
+
+                <div style="float:right;margin-top:-15px; font-size:12px;color:red;">
+
+                    @if (string.IsNullOrEmpty(Model.DateTimeOfUpdate))
+                    {
+                        <label></label>
+                    }
+                    else
+                    {
+
+                        <label> Last updated by @Model.LastUpdatedBy  @Model.DateTimeOfUpdate</label>
+
+
+                    }
+
+                </div>
+
+
+            </div>
+
+        }
+
+        <div class="dropdown-divider"></div>
+        <div class="card-body" style="box-shadow: -1px 2px 16px 3px; padding: 0.3rem; border: 1px solid #89CFF0;">
+            <div class="aj" style="padding: 0.5rem;">
+
+                <a onclick="location.href='@Url.Action("AddAviatorHeptrRPA", "AA7", new { UnitId=IHSDC.WebApp.RepositryManager.EncryptionManager.Encryption("0") })'">
+                    <span class="btn btn-primary"> All</span>
+                </a>
+                <a onclick="location.href='@Url.Action("AddAviatorHeptrRPA", "AA7", new { UnitId=IHSDC.WebApp.RepositryManager.EncryptionManager.Encryption("1") })'">
+                    <span class="btn btn-info">  Unit Data</span>
+                </a>
+                @if (Model.IsHistory.ToString() != "0")
+                {
+                    <a style="text-align:center;margin-left:500px;">
+                        <span style="text-align: center; font-size: 25px; font-family: Arial; color: blueviolet;"><b>History of Heptr/RPAS : @Model.ILAviatorHeptrRPACRUD[0].AviatorName</b></span>
+                    </a>
+                }
+            </div>
+
+
+
+
+
+
+
+            <div class="table-responsive" style="width:100%">
+                <table class="table table-striped" id="dataTable" width="100%" cellspacing="0">
+                    <thead class="bg-info text-white">
+                        <tr>
+                            <th class="center">S/No</th>
+                            <th class="center">Pers No</th>
+                            <th class="center">Rank & Name</th>
+                            <th class="center">Unit</th>
+                            <th class="center">Aircraft Type</th>
+                            <th class="center">Aircraft Name</th>
+                            <th class="center">Heptr Cat Card No</th>
+                            <th class="center">Heptr Cat Card Date</th>
+                            <th class="center">Heptr Cat/IR</th>
+                            @*
+                                <th class="center">Cat IR</th>
+                                <th class="center">Cat IR Date</th>
+                                <th class="center">Instr Cat</th>
+                                <th class="center">Instr Cat Date</th>
+                                <th class="center">RPA DOW</th>
+                                <th class="center">RPA Substream</th>*@
+                            <th class="center">RPAS Cat Card No</th>
+                            <th class="center">RPAS Cat Card Date</th>
+                            <th class="center">RPAS Cat</th>
+                            @*<th class="center">RPAS Cat Card Date</th>
+                                <th class="center">RPA Cat</th>
+                                <th class="center">RPA Instr Cat</th>
+                                <th class="center">RPA Instr Cat Date</th>*@
+                            <th class="center"> Status</th>
+                            <th class="center"> Active</th>
+
+                            <th class="center"> Action </th>
+                            <th>History</th>
+
+                            <th>View</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tbody">
+                        @if (ViewBag.count > 0)
+                        {
+                            foreach (var item in Model.ILAviatorHeptrRPACRUD)
+                            {
+                                <tr>
+                                    <td>
+                                        @{ sno++; }
+                                        @sno
+                                    </td>
+                                    <td>@Html.DisplayFor(modelItem => item.ArmyNumber)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.AviatorName)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.UnitName)</td>
+
+                                    @*<td>@Html.DisplayFor(modelItem => item.AircraftName, (new IHSDC.WebApp.Models.MasterModels()).LoadHeptrRPAType())</td>*@
+
+                                    <td>@Html.DisplayFor(modelItem => item.AircraftType)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.AircraftName)</td>
+                                    <td>
+                                        @if (!string.IsNullOrEmpty(item.CatCardNo))
+                                        {
+                                            if (item.CatCardNo != "0")
+                                            {
+                                                @Html.DisplayFor(modelItem => item.CatCardNo)
+                                            }
+                                        }
+
+                                    </td>
+
+                                    <td>@Html.DisplayFor(modelItem => item.CatCardDate)</td>
+
+
+                                    <td>
+
+                                        @*@Html.DisplayFor(modelItem => item.CatIR)*@
+
+                                        @if (!string.IsNullOrEmpty(item.CatIR))
+                                        {
+                                            if (item.CatIR != "0" && item.CatIR != "None")
+                                            {
+                                                @Html.DisplayFor(modelItem => item.CatIR)
+                                            }
+                                        }
+
+                                    </td>
+                                    @*<td>@Html.DisplayFor(modelItem => item.CatCardDate)</td>
+        <td>@Html.DisplayFor(modelItem => item.CatIR)</td>
+        <td>@Html.DisplayFor(modelItem => item.CatIRDate)</td>
+        <td>@Html.DisplayFor(modelItem => item.InstrCAT)</td>
+        <td>@Html.DisplayFor(modelItem => item.InstrCatDate)</td>
+        <td>@Html.DisplayFor(modelItem => item.RPAdowDate)</td>
+        <td>@Html.DisplayFor(modelItem => item.RPA_Substream)</td>*@
+                                    <td>
+                                        @*@Html.DisplayFor(modelItem => item.RPA_CatCardNo)*@
+                                        @if (!string.IsNullOrEmpty(item.RPA_CatCardNo))
+                                        {
+                                            if (item.RPA_CatCardNo != "0")
+                                            {
+                                                @Html.DisplayFor(modelItem => item.RPA_CatCardNo)
+                                            }
+                                        }
+
+                                    </td>
+
+                                    <td>@Html.DisplayFor(modelItem => item.RPA_CatCardDate)</td>
+
+                                    <td>
+
+                                        @*@Html.DisplayFor(modelItem => item.RPACat)*@
+
+                                        @if (!string.IsNullOrEmpty(item.RPACat))
+                                        {
+                                            if (item.RPACat != "0" && item.RPACat != "None")
+                                            {
+                                                @Html.DisplayFor(modelItem => item.RPACat)
+                                            }
+                                        }
+
+                                    </td>
+                                    @*<td>@Html.DisplayFor(modelItem => item.RPA_CatCardDate)</td>
+        <td>@Html.DisplayFor(modelItem => item.RPACat)</td>
+        <td>@Html.DisplayFor(modelItem => item.RPA_CatDate)</td>
+        <td>@Html.DisplayFor(modelItem => item.RPAInstrCat)</td>
+        <td>@Html.DisplayFor(modelItem => item.RPA_Instr_CatDate)</td>*@
+                                    <td>@Html.DisplayFor(modelItem => item.StatusAircraft)</td>
+
+                                    <td>
+
+                                        @if (item.IsCurrent == true)
+                                        {
+
+                                            <span class="green"></span>
+                                        }
+                                        else
+                                        {
+
+                                            <span class="red"></span>
+                                        }
+
+
+                                    </td>
+
+
+                                    @if (item.IsPermission == 1)
+                                    {
+                                        <td>
+
+                                            <a onclick="location.href='@Url.Action("AddAviatorHeptrRPA", "AA7", new { id = IHSDC.WebApp.RepositryManager.EncryptionManager.Encryption(item.AviatorHeptrRPA_ID.ToString()),ViewId= IHSDC.WebApp.RepositryManager.EncryptionManager.Encryption(item.Aviator_ID.ToString()),IsHist=IHSDC.WebApp.RepositryManager.EncryptionManager.Encryption(item.IsHistory.ToString()) })'">
+                                                <img src="~/images/Editnew.png" width="20" height="20" border="0">
+
+                                            </a>
+
+
+                                            @*<span>|</span>
+
+                <a id="btndel" data-id='@IHSDC.WebApp.RepositryManager.EncryptionManager.Encryption(item.AviatorHeptrRPA_ID.ToString())' onclick="DeleteConfirmation(this,'/AA7/DeleteAviatorHeptrRPA')">
+                    <img src="~/images/Delete.png" width="20" height="20" border="0" />
+                </a>*@
+                                        </td>
+
+                                        <td>
+                                            <a onclick="location.href='@Url.Action("AddAviatorHeptrRPA", "AA7", new { id = IHSDC.WebApp.RepositryManager.EncryptionManager.Encryption(item.Aviator_ID.ToString()),TypeRpt=IHSDC.WebApp.RepositryManager.EncryptionManager.Encryption("1") })'">
+                                                <i class="fa fa-history" style="font-size:18px" aria-hidden="true"></i>
+
+                                            </a>
+
+                                        </td>
+
+                                        <td>
+                                            <a onclick="location.href='@Url.Action("ViewAviatorDetails", "AA7", new { id = IHSDC.WebApp.RepositryManager.EncryptionManager.Encryption(item.Aviator_ID.ToString()) })'">
+                                                <i class="fa fa-eye" style="font-size:22px" aria-hidden="true"></i>
+                                            </a>
+
+                                        </td>
+                                    }
+                                    else if (item.IsPermission == 5)
+                                    {
+                                        <td>
+                                            <a onclick="location.href='@Url.Action("AddAviatorHeptrRPA", "AA7", new { id = IHSDC.WebApp.RepositryManager.EncryptionManager.Encryption(item.AviatorHeptrRPA_ID.ToString()) })'">
+                                                <img src="~/images/Editnew.png" width="20" height="20" border="0">
+                                            </a>
+                                        </td>
+                                        <td>
+                                            <a onclick="location.href='@Url.Action("AddAviatorHeptrRPA", "AA7", new { id = IHSDC.WebApp.RepositryManager.EncryptionManager.Encryption(item.Aviator_ID.ToString()),TypeRpt=IHSDC.WebApp.RepositryManager.EncryptionManager.Encryption("1") })'">
+                                                <i class="fa fa-history" style="font-size:18px" aria-hidden="true"></i>
+
+                                            </a>
+
+                                        </td>
+
+                                        <td>
+                                            <a onclick="location.href='@Url.Action("ViewAviatorDetails", "AA7", new { id = IHSDC.WebApp.RepositryManager.EncryptionManager.Encryption(item.Aviator_ID.ToString()) })'">
+                                                <i class="fa fa-eye" style="font-size:22px" aria-hidden="true"></i>
+                                            </a>
+
+                                        </td>
+
+                                    }
+                                    else if (item.IsPermission == 3 || item.IsPermission == 2)
+                                    {
+
+                                        <td>
+                                            <span></span>
+                                        </td>
+
+                                        <td>
+                                            <span></span>
+                                        </td>
+
+
+                                        <td>
+                                            <a onclick="location.href='@Url.Action("ViewAviatorDetails", "AA7", new { id = IHSDC.WebApp.RepositryManager.EncryptionManager.Encryption(item.Aviator_ID.ToString()) })'">
+                                                <i class="fa fa-eye" style="font-size:22px" aria-hidden="true"></i>
+                                            </a>
+
+                                        </td>
+                                    }
+
+
+
+
+                                </tr>
+                            }
+                        }
+                        else
+                        {
+                            <tr><td colspan="12" style="font-weight:900;color:red;text-align:center"> No Record Found!!!</td></tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+}
+<script src="~/Scripts/jquery-3.3.1.js"></script>
+<script src="~/Content/CustomJS/DeleteConfirmation.js"></script>
+<script src="~/Content/CustomJS/AviatorJS.js"></script>
+<script src="~/Content/CustomJS/AddUpdateFilter.js"></script>
+<script src="~/Content/css/sweetalert.min.js"></script>
+<link href="~/Content/css/sweetalert.css" rel="stylesheet" />
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryui")
+    @Styles.Render("~/Content/cssjqryUi")
+
+
+    <style>
+        .green {
+            height: 15;
+            width: 15;
+            background-color: #008000;
+            border-radius: 50%;
+            display: inline-block;
+        }
+
+        .red {
+            height: 15px;
+            width: 15px;
+            background-color: #ff0000;
+            border-radius: 50%;
+            display: inline-block;
+        }
+    </style>
+
+    <script type="text/javascript">
+    function catCardValidation(event, input) {
+    if (input.value.length >= 5) {
+    event.preventDefault();
+    return false;
+    }
+    return true;
+    }
+
+
+
+    </script>
+
+    <script type="text/javascript">
+       var message = '@message';
+    var messageStatus = '@messageStatus';
+        var messagemidStatus = '@messagemidStatus ';
+        var today = new Date();
+    if (message)
+        sweetAlert(message, messagemidStatus, messageStatus);
+
+
+
+        $(document).ready(function () {
+            if ($('#AircraftTypeId').val() == 3) {
+                $('#CatCardDate').attr('disabled', true);
+                $('#CatCardDate').val("");
+                $('#CatIRId').attr('disabled', true);
+                $('#CatIRId').val("0");
+                $('#CatIRDate').attr('disabled', true);
+                $('#CatIRDate').val("");
+                $('#InstrCATId').attr('disabled', true);
+                $('#InstrCATId').val("0");
+                $('#InstrCatDate').attr('disabled', true);
+                $('#InstrCatDate').val("");
+                $('#CatCardNo').attr('disabled', true);
+                $('#CatCardNo').val("");
+                $('#RPAdowDate').attr('disabled', false);
+                $('#RPA_SubstreamId').attr('disabled', false);
+                $('#RPA_CatCardNo').attr('disabled', false);
+                $('#RPA_CatCardDate').attr('disabled', false);
+                $('#RPACatId').attr('disabled', false);
+                $('#RPA_CatDate').attr('disabled', false);
+                $('#RPAInstrCatId').attr('disabled', false);
+                $('#RPA_Instr_CatDate').attr('disabled', false);
+            }
+            else if ($('#AircraftTypeId').val() == 1) {
+
+                $('#CatCardDate').attr('disabled', false);
+                $('#CatIRId').attr('disabled', false);
+                $('#CatIRDate').attr('disabled', false);
+                $('#InstrCATId').attr('disabled', false);
+                $('#InstrCatDate').attr('disabled', false);
+                $('#CatCardNo').attr('disabled', false);
+                $('#RPAdowDate').attr('disabled', true);
+                $('#RPAdowDate').val("");
+                $('#RPA_SubstreamId').attr('disabled', true);
+                $('#RPA_SubstreamId').val("0");
+                $('#RPA_CatCardNo').attr('disabled', true);
+                $('#RPA_CatCardNo').val("");
+                $('#RPA_CatCardDate').attr('disabled', true);
+                $('#RPA_CatCardDate').val("");
+                $('#RPACatId').attr('disabled', true);
+                $('#RPACatId').val("0");
+                $('#RPA_CatDate').attr('disabled', true);
+                $('#RPA_CatDate').val("");
+                $('#RPAInstrCatId').attr('disabled', true);
+                $('#RPAInstrCatId').val("0");
+                $('#RPA_Instr_CatDate').attr('disabled', true);
+                $('#RPA_Instr_CatDate').val("");
+            }
+            else {
+                $('#CatCardDate').attr('disabled', false);
+                $('#CatIRId').attr('disabled', false);
+                $('#CatIRDate').attr('disabled', false);
+                $('#InstrCATId').attr('disabled', false);
+                $('#InstrCatDate').attr('disabled', false);
+                $('#CatCardNo').attr('disabled', false);
+                $('#RPAdowDate').attr('disabled', false);
+                $('#RPA_SubstreamId').attr('disabled', false);
+                $('#RPA_CatCardNo').attr('disabled', false);
+                $('#RPA_CatCardDate').attr('disabled', false);
+                $('#RPACatId').attr('disabled', false);
+                $('#RPA_CatDate').attr('disabled', false);
+                $('#RPAInstrCatId').attr('disabled', false);
+                $('#RPA_Instr_CatDate').attr('disabled', false);
+            }
+        });
+        
+
+
+   //     $('#CatCardDate').datepicker({
+   //         uiLibrary: 'bootstrap4',
+   //         dateFormat: "dd/M/yy",
+   //         autoclose: true,
+   //         maxDate: today
+   //     });
+
+
+   //     $('#CatIRDate').datepicker({
+			//uiLibrary: 'bootstrap4',
+   //         dateFormat: "dd/M/yy",
+   //         autoclose: true ,
+   //          maxDate: today
+   //     });
+
+   //     $('#InstrCatDate').datepicker({
+   //         uiLibrary: 'bootstrap4',
+   //         dateFormat: "dd/M/yy",
+   //         autoclose: true,
+   //         maxDate: today
+   //     });
+
+   //     $('#RPAdowDate').datepicker({
+   //         uiLibrary: 'bootstrap4',
+   //         dateFormat: "dd/M/yy",
+   //         autoclose: true,
+   //         maxDate: today
+   //     });
+
+
+   //     $('#RPA_CatCardDate').datepicker({
+   //         uiLibrary: 'bootstrap4',
+   //         dateFormat: "dd/M/yy",
+   //         autoclose: true,
+   //         maxDate: today
+   //     });
+
+   //     $('#RPA_CatDate').datepicker({
+   //         uiLibrary: 'bootstrap4',
+   //         dateFormat: "dd/M/yy",
+   //         autoclose: true,
+   //         maxDate: today
+   //     });
+
+   //     $('#RPA_Instr_CatDate').datepicker({
+   //         uiLibrary: 'bootstrap4',
+   //         dateFormat: "dd/M/yy",
+   //         autoclose: true,
+   //         maxDate: today
+   //     });
+
+        //function check(obj, compareField, comparemsg) {
+        //    //debugger;
+        //    var a = $(obj).parent().children()[0]
+        //    var text = $(a).text();
+        //    var DateofIssueCatCard = $(obj).val();
+        //    var DateOfWings = $('#' + compareField + '').val();
+        //    if (DateOfWings > DateofIssueCatCard) {
+        //        sweetAlert(' ' + text + ' can not be less then ' + comparemsg + ' !', 'Please Re-Enter ' + text + '', 'warning');
+        //        $(obj).val('');
+        //        $(obj).focus();
+        //    }
+        //}
+    </script>
+}

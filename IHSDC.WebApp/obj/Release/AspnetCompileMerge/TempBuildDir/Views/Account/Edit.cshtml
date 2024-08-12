@@ -1,0 +1,217 @@
+﻿@model IHSDC.WebApp.Models.EditUserViewModel
+
+@{ ViewBag.Title = "Edit User";
+    Layout = "~/Views/Shared/_NewAA7Layout.cshtml"; }
+
+@*<h2>@ViewBag.Title.</h2>*@
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @*<h4 style="color: #044C92; font-size: 2rem;">Update details for @ViewBag.EditUsername.</h4>*@
+    @*<hr />*@
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <div class="form-group">
+        <div class="col-md-12">
+            @Html.HiddenFor(model => model.UserId, new { htmlAttributes = new { @class = "form-control disabled" } })
+        </div>
+    </div>
+    <div class="card-body" style="background-color: aliceblue; border-radius: 10px;  box-shadow: -1px 2px 16px 3px; ">
+        <h4 style="color: #044C92; font-size: 2rem;">Update  details for @ViewBag.EditUsername.</h4>
+        <hr />
+        <div class="row">
+            <div class="col-md-3">
+                <div class="form-group" style="width:350px;">
+                    @Html.LabelFor(m => m.Username, new { @class = "col-md-12 control-label" })
+                    <div class="col-md-12">
+                        @Html.TextBoxFor(m => m.Username, new { @class = "form-control" })
+                    </div>
+                </div>
+
+                @*/////*@
+                <div class="form-group" style="width:350px;">
+                    @Html.LabelFor(m => m.UserTypeId, new { @class = "col-md-12 control-label" })
+                    <div class="col-md-12">
+
+                        @Html.DropDownListFor(m => m.UserTypeId, (new IHSDC.WebApp.Models.MasterModels()).LoadUserType(), "--Select--", new { @data_show_subtext = "true", @class = "select form-control", @data_live_search = "true", @required = true })
+
+
+                    </div>
+                </div>
+                <div class="form-group" style="width:350px;">
+                    @Html.LabelFor(m => m.Unit_ID, new { @class = "col-md-12 control-label Unit_ID" })
+                    <div class="col-md-12">
+
+                        @Html.DropDownListFor(m => m.Unit_ID, (IEnumerable<SelectListItem>)ViewData["Unit_ID"], "--Select--", new { style = "width:320px;height:33px", @class = "Unit_ID" })
+
+
+                    </div>
+                </div>
+
+
+                @*<div class="form-group" style="width:350px;">
+                    @Html.LabelFor(m => m.Roles, new { @class = "col-md-12 control-label" })
+                    <div class="col-md-12">
+
+                        @Html.DropDownList("Roles", (IEnumerable<SelectListItem>)ViewData["Roles"], new { style = "width:320px;height:33px" })
+
+                    </div>
+                </div>*@
+                @*<div class="form-group" style="width:350px;">
+                    @Html.LabelFor(m => m.Unit_ID, new { @class = "col-md-12 control-label Unit_ID" })
+                    <div class="col-md-12">
+
+                        @Html.DropDownList("Unit_ID", (IEnumerable<SelectListItem>)ViewData["Unit_ID"], "select", new { style = "width:320px;height:33px", @class = "Unit_ID" })
+
+
+                    </div>
+
+                </div>*@
+                <!--<div class="form-group" style="width:350px;">
+            @Html.LabelFor(m => m.DEFwdAuth, new { @class = "col-md-12 control-label" })
+            <div class="col-md-12">-->
+                @*@Html.TextBoxFor(m => m.DEFwdAuth, new { @class = "form-control" })*@
+                <!--@Html.DropDownListFor(m => m.DEFwdAuth, (new IHSDC.WebApp.Models.MasterModels()).LoadUserList(""), "--Select--", new { @data_show_subtext = "true", @class = "select form-control", @data_live_search = "true"})
+
+                </div>
+            </div>
+            <div class="form-group" style="width:350px;">
+                @Html.LabelFor(m => m.GEBFwdAuth, new { @class = "col-md-12 control-label" })
+                <div class="col-md-12">
+                    @Html.DropDownListFor(m => m.GEBFwdAuth, (new IHSDC.WebApp.Models.MasterModels()).LoadUserList(""), "--Select--", new { @data_show_subtext = "true", @class = "select form-control", @data_live_search = "true"})
+                </div>
+            </div>-->
+
+
+
+
+
+
+            </div>
+            <div class="col-md-3">
+
+                <div class="form-group" style="width:350px;">
+                    @Html.LabelFor(m => m.Appointment, new { @class = "col-md-12 control-label" })
+                    <div class="col-md-12">
+                        @*@Html.TextBoxFor(m => m.Appointment, new { @class = "form-control" })*@
+                        @Html.DropDownListFor(m => m.Appointment, (new IHSDC.WebApp.Models.MasterModels()).LoadAppointment(), "--Select--", new { @data_show_subtext = "true", @class = "select form-control", @data_live_search = "true", @required = true })
+
+                    </div>
+                </div>
+                <div class="form-group" style="width:350px;">
+                    @Html.LabelFor(m => m.Rank, new { @class = "col-md-12 control-label" })
+                    <div class="col-md-12">
+
+                        @Html.DropDownListFor(m => m.Rank, (new IHSDC.WebApp.Models.MasterModels()).LoadRanks(), "--Select--", new { @data_show_subtext = "true", @class = "select form-control", @data_live_search = "true", @required = true })
+
+
+                    </div>
+                </div>
+                <div class="form-group" style="width: 350px;">
+                    @Html.LabelFor(m => m.Password, new { @class = "col-md-12 control-label" })
+                    <div class="col-md-12">
+                        @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-md-3">
+                <div class="form-group" style="width:350px;">
+                    @Html.LabelFor(m => m.EstablishmentAbbreviation, new { @class = "col-md-12 control-label" })
+                    <div class="col-md-12">
+                        @Html.TextBoxFor(m => m.EstablishmentAbbreviation, new { @class = "form-control" })
+                    </div>
+                </div>
+                <div class="form-group" style="width:350px;">
+                    @Html.LabelFor(m => m.FullName, new { @class = "col-md-12 control-label" })
+                    <div class="col-md-12">
+                        @Html.TextBoxFor(m => m.FullName, new { @class = "form-control" })
+                    </div>
+                </div>
+                <div class="form-group" style="width:350px;">
+                    @Html.LabelFor(m => m.Roles, new { @class = "col-md-12 control-label Roles" })
+                    <div class="col-md-12">
+                        @*@Html.ListBoxFor(m => m.Roles, (IEnumerable<SelectListItem>)ViewBag.Roles, new { @class = "listbox form-control" })*@
+                        @Html.DropDownList("Roles", (IEnumerable<SelectListItem>)ViewData["Roles"], new { style = "width:320px;height:33px;pointer-events:none;background-color:#f2f2f2" })
+
+                        @*@Html.DropDownListFor(m => m.Roles, (IEnumerable<SelectListItem>)ViewData["Roles"], new { style = "width:320px;height:33px", @class = "Roles" })*@
+                        @* @Html.TextBoxFor(m => m.Roles, new { @class = "form-control", @readonly = true })*@
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+
+
+
+                @*<div class="form-group" style="width:350px;">
+                    @Html.LabelFor(m => m.UserTypeId, new { @class = "col-md-12 control-label" })
+                    <div class="col-md-12">
+
+                        @Html.DropDownListFor(m => m.UserTypeId, (new IHSDC.WebApp.Models.MasterModels()).LoadUserType(), "--Select--", new { @data_show_subtext = "true", @class = "select form-control", @data_live_search = "true", @required = true })
+
+
+                    </divEd
+                </div>*@
+
+                <div class="form-group" style="width:350px;">
+                    @Html.LabelFor(m => m.Number, new { @class = "col-md-12 control-label" })
+                    <div class="col-md-12">
+                        @Html.TextBoxFor(m => m.Number, new { @class = "form-control" })
+                    </div>
+                </div>
+                <div class="form-group" style="width:380px;">
+                    @Html.LabelFor(m => m.ASCON, new { @class = "col-md-12 control-label" })
+                    <div class="col-md-11">
+                        @Html.TextBoxFor(m => m.ASCON, new { @class = "form-control" })
+                    </div>
+                </div>
+
+
+                <div class="form-group" style="width:349px;">
+                    @Html.LabelFor(model => model.Active, htmlAttributes: new { @class = "control-label col-md-12" })
+                    <div class="col-md-12">
+                        @Html.DropDownListFor(model => model.Active, (new IHSDC.WebApp.Models.MasterModels()).LoadActive(), "--Select --", new { @data_show_subtext = "true", @class = "select form-control", @data_live_search = "true", @required = true })
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group" style="padding: 6px;">
+            <div class="col-md-offset-2 col-md-12">
+                <input type="submit" value="Save" class="btn btn-primary" />
+                <span>
+                    <a class="btn btn-primary" href="/Account/Hierarchy" style=" margin-left: 1rem;">Back to List</a>
+                </span>
+                @*<span class="btn btn-info text-light" style="color:white;">@Html.ActionLink("Back to List", "Hierarchy")</span>*@
+            </div>
+
+
+        </div>
+
+
+
+    </div>}
+<script src="~/Content/CustomJS/AviatorJS.js"></script>
+<script src="~/Scripts/jquery-3.3.1.js"></script>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+<script>
+    $(document).ready(function () {
+
+        var unit_id = '@ViewBag.sel_unit_id';
+        var roles_id = '@ViewBag.sel_roles_id';
+        var user_id = '@ViewBag.UserId';
+        var pass = '@ViewBag.pass';
+        $("#Unit_ID").val(unit_id);
+
+        $(".Roles").val(roles_id);
+        $("#Password").val(pass);
+        $("#UserId").val(user_id);
+
+
+
+
+
+    });
+
+</script>

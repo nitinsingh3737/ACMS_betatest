@@ -1,0 +1,426 @@
+﻿
+@model IHSDC.WebApp.Models.AviatorAccidentCRUD
+@using IHSDC.WebApp.Connection
+
+@{
+
+    var message = TempData["Message"] ?? string.Empty;
+    var messageStatus = TempData["messageStatus"] ?? string.Empty;
+    var messagemidStatus = TempData["messagemidStatus"] ?? string.Empty;
+    ViewBag.Title = "Aviator Accident Incident ";
+    //Layout = "~/Views/Shared/_NewAA7LayoutMenu.cshtml";
+    //int sno = 0;
+    Layout = "~/Views/Shared/_NewAA7LayoutMenu.cshtml"; int sno = 0;
+
+}
+
+@*<div class="row">
+        <div class="col">
+            <a class="btn btn-info float-right" href="@Url.Action("Index","Home")" target="_top">
+                Back
+            </a>
+        </div>
+    </div>
+    <br />*@
+@using (Html.BeginForm("AddAviatorAccident", "AA7", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <div class="card-body">
+        <div class="modal fade" id="SelfDeclaration">
+            <div class="modal-dialog" style="margin-top:350px">
+                <div class="modal-content">
+                    <h4 style="text-align:center">Declaration</h4>
+                    <p style="margin-left:10px;margin-right:10px;font-size:14px;font-family:Arial">I <b><u>@SessionManager.UserName</u></b> solemnly declare the information mentioned herein is true and correct to the best of my beliefs.</p>
+                    <div class="modal-footer">
+                        <button type="submit" id="btnval" value="@ViewBag.ButtonName" name="btnval" class="btn btn-success">@ViewBag.ButtonName</button>
+                        <a id="btnCancel" style="color:white;" class="btn btn-danger" data-dismiss="modal">Cancel</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <span id="spnDateOfAccident" style="display:none">@ViewBag.DateOfAccident</span>
+        @if (SessionManager.IsPermission == 1 || SessionManager.IsPermission == 3 || SessionManager.IsPermission == 5)
+        {
+
+            <div class="rcorners">
+
+                <div class="row">
+                    <div class="col-2">
+                        <p class="mb-0"> Aviator Name</p>
+                        @*@Html.DropDownListFor(m => m.Aviator_ID, (new IHSDC.WebApp.Models.MasterModels()).LoadAviatorName(), "--Select Aviator  Name --", new { @data_show_subtext = "true", @class = "select form-control", @data_live_search = "true", @required = true })*@
+                        @Html.HiddenFor(m => m.Aviator_ID)
+                        @Html.HiddenFor(m => m.IsHistory)
+                        @Html.TextBoxFor(m => m.AviatorName, new { @class = "form-control", @onkeyup = "ValInData(this)", @required = true, style = "font-weight: bold;color: black; font-size: 14px;", @readonly = true })
+
+
+                    </div>
+                    <div class="col-2">
+                        <p class="mb-0"> Aircraft Type</p>
+                        @Html.DropDownListFor(m => m.AircraftTypeId, (new IHSDC.WebApp.Models.MasterModels()).LoadHeptrRPAType(), "--Select Aircraft Type --", new { @data_show_subtext = "true", @class = "select form-control", @data_live_search = "true", @required = true })
+                    </div>
+                    <div class="col-2">
+                        <p class="mb-0"> Aircraft</p>
+                        @*<select name="Aircraft" id="Aircraft">
+                                <option value='0'>-- Select One --</option>
+                            </select>*@
+                        <span id="HeptrRPAMasterId2" class="d-none">@ViewBag.HeptrRPAMasterId</span>
+                        @Html.DropDownListFor(m => m.HeptrRPAMasterId, (new IHSDC.WebApp.Models.MasterModels()).LoadHeptrRPAName(0), "--Select Aircraft --", new { @onChange = "check(this,'AircraftType_ID','Aircraft Type')", @data_show_subtext = "true", @class = "select form-control", @data_live_search = "true", @required = true })
+                    </div>
+
+                    <div class="col-2">
+                        <p class="mb-0"> Accident/Incident Cat</p>
+                        @Html.DropDownListFor(m => m.AccidentCat_ID, (new IHSDC.WebApp.Models.MasterModels()).LoadAccidentCat(), "--Select Accident Sub Cat --", new { @data_show_subtext = "true", @class = "select form-control", @data_live_search = "true", @required = true })
+                    </div>
+
+
+                    <div class="col-2">
+                        <p class="mb-0"> Accident/Incident Sub Cat</p>
+                        @Html.DropDownListFor(m => m.AccidentCatSubId, (new IHSDC.WebApp.Models.MasterModels()).LoadAccidentCatSub(), "--Select Accident Sub Cat --", new { @data_show_subtext = "true", @class = "select form-control", @data_live_search = "true", @required = true })
+                    </div>
+
+                    <div class="col-2">
+                        <p class="mb-0"> Stages of Ground Accident</p>
+                        @Html.DropDownListFor(m => m.StagesGroundAccidentId, (new IHSDC.WebApp.Models.MasterModels()).LoadStagesGroundAccident(), "--Select Aviator  Name --", new { @data_show_subtext = "true", @class = "select form-control", @data_live_search = "true", @required = true })
+                    </div>
+                    <div class="col-2">
+                        <p class="mb-0"> Period of Operation</p>
+                        @Html.DropDownListFor(m => m.PeriodOperationId, (new IHSDC.WebApp.Models.MasterModels()).LoadPeriodOperation(), "--Select Aircraft Name --", new { @data_show_subtext = "true", @class = "select form-control", @data_live_search = "true", @required = true })
+                    </div>
+                    <div class="col-2">
+                        <p class="mb-0"> Class of Injury</p>
+                        @Html.DropDownListFor(m => m.ClassInjuryId, (new IHSDC.WebApp.Models.MasterModels()).LoadClassInjury(), "--Select Accident Cat Name --", new { @data_show_subtext = "true", @class = "select form-control", @data_live_search = "true", @required = true })
+                    </div>
+
+
+                    <div class="col-2">
+                        <p class="mb-0"> Date of Accident/Incident</p>
+                        @Html.TextBoxFor(m => m.DateOfAccidentIncident, new { @class = "form-control datepicker3", @onkeyup = "ValInData(this)", @onchange = "isDate(this))", @placeholder = "dd/mm/yyyy", @required = true })
+                    </div>
+
+                    <div class="col-2">
+                        <p class="mb-0">Place of Accident/Incident</p>
+                        @Html.TextBoxFor(m => m.PlaceOfAccidentIncident, new { @class = "form-control", @onkeyup = "ValInData(this)", @required = true, @OnChange = "Case(this)", @onkeypress = "return onlyAlph(event)" })
+                    </div>
+                    <div class="col-2">
+                        <p class="mb-0">Details of Accident/Incident</p>
+                        @Html.TextBoxFor(m => m.DetailsOfAccidentIncident, new { @class = "form-control", @onkeyup = "ValInData(this)", @required = true, @OnChange = "Case(this)", @onkeypress = "return onlyAlph(event)" })
+                    </div>
+                    <div class="col-2">
+                        <p class="mb-0">Blameworthy</p>
+                        @Html.DropDownListFor(m => m.Blameworthy, (new IHSDC.WebApp.Models.MasterModels()).LoadBlameWorthy(), "--Select Blameworthy --", new { @data_show_subtext = "true", @class = "select form-control", @data_live_search = "true", @required = true })
+                    </div>
+
+                    <div class="col-2">
+                        <p class="mb-0">Remarks</p>
+                        @Html.TextBoxFor(m => m.Remarks, new { @class = "form-control", @OnChange = "Case(this)", @onkeyup = "ValInData(this)", @onkeypress = "return onlyAlph(event)" })
+                    </div>
+                </div>
+
+                <div class="d-flex justify-content-center" style="margin-top:10px;padding-left:5px;">
+
+                    @if (ViewBag.ButtonName == "Update")
+                    {
+                        @*<button type="submit" value="@ViewBag.ButtonName" name="btnval" class="btn btn-success">@ViewBag.ButtonName</button>*@
+                    <button type="button" data-toggle="modal" data-target="#SelfDeclaration" id="BtnDeclaration" value="Accident" class="btn btn-success">Save</button>
+                    }
+                    &nbsp;&nbsp;&nbsp;
+                    <a class="btn btn-info" href="@Url.Action("AddAviatorAccident","AA7",new { id = string.Empty })" target="_top">
+                        Back
+                    </a>
+
+                </div>
+
+                <div style="float:right;margin-top:-15px; font-size:12px;color:red;">
+
+                    @if (string.IsNullOrEmpty(Model.DateTimeOfUpdate))
+                    {
+                        <label></label>
+                    }
+                    else
+                    {
+
+                        <label> Last updated by @Model.LastUpdatedBy  @Model.DateTimeOfUpdate</label>
+
+
+                    }
+
+                </div>
+
+
+            </div>
+
+        }
+
+        <div class="dropdown-divider"></div>
+
+        <div class="card-body" style="box-shadow: -1px 2px 16px 3px; padding: 0.3rem; border: 1px solid #89CFF0;">
+            <div class="aj" style="padding: 0.5rem;">
+                <a onclick="location.href='@Url.Action("AddAviatorAccident", "AA7", new { UnitId=IHSDC.WebApp.RepositryManager.EncryptionManager.Encryption("0") })'">
+                    <span class="btn btn-primary"> All</span>
+                </a>
+                <a onclick="location.href='@Url.Action("AddAviatorAccident", "AA7", new { UnitId=IHSDC.WebApp.RepositryManager.EncryptionManager.Encryption("1") })'">
+                    <span class="btn btn-info"> Unit Data</span>
+                </a>
+
+                @if (Model.IsHistory.ToString() != "0")
+                {
+                    <a style="text-align:center;margin-left:500px;">
+                        <span style="text-align: center; font-size: 25px; font-family: Arial; color: blueviolet;"><b>History of Accident : @Model.ILAviatorAccidentCRUD[0].AviatorName</b></span>
+                    </a>
+                }
+            </div>
+
+            <div class="table-responsive">
+                <div class="align-content-sm-start">
+                    <table class="table table-striped" id="dataTable" width="100%" cellspacing="0">
+                        <thead class="bg-info text-white">
+                            <tr>
+
+                                <th class="center">S/No</th>
+                                <th class="center">Pers No</th>
+                                <th class="center">Rank & Name</th>
+                                <th class="center">Unit</th>
+                                <th class="center">Aircraft Type</th>
+                                <th class="center">Aircraft Name</th>
+
+                                <th class="center">Accident Cat</th>
+                                @*<th class="center">Accident Sub Cat</th>
+                                    <th class="center">Stages of Ground Accident</th>
+                                    <th class="center">Period of Operation</th>*@
+                                <th class="center">Class of Injury</th>
+                                <th class="center">Date</th>
+                                @*<th class="center">Place</th>
+                                    <th class="center">Detail</th>*@
+                                @*<th class="center">Blame Worthy</th>
+                                    <th class="center">Remarks</th>*@
+
+                                <th class="center"> Action </th>
+                                <th> History</th>
+                                <th> View</th>
+
+
+                            </tr>
+                        </thead>
+                        <tbody id="tbody">
+                            @if (ViewBag.count > 0)
+                            {
+                                foreach (var item in Model.ILAviatorAccidentCRUD)
+                                {
+                                    <tr>
+                                        <td width="30px">
+                                            @{ sno++; }
+                                            @sno
+                                        </td>
+                                        <td>@Html.DisplayFor(modelItem => item.ArmyNumber)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.AviatorName)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.UnitName)</td>
+                                        <td>
+                                            @if (!string.IsNullOrEmpty(item.AircraftType))
+                                            {
+                                                if (item.AircraftType != "0")
+                                                {
+                                                    @Html.DisplayFor(modelItem => item.AircraftType)
+                                                }
+                                            }
+                                        </td>
+                                        <td>
+                                            @if (!string.IsNullOrEmpty(item.AircraftName))
+                                            {
+                                                if (item.AircraftName != "0")
+                                                {
+                                                    @Html.DisplayFor(modelItem => item.AircraftName)
+                                                }
+                                            }
+
+                                        </td>
+
+                                        <td>
+
+                                            @if (!string.IsNullOrEmpty(item.AccidentCatName))
+                                            {
+                                                if (item.AccidentCatName != "0")
+                                                {
+                                                    @Html.DisplayFor(modelItem => item.AccidentCatName)
+                                                }
+                                            }
+
+
+                                        </td>
+                                        @*<td>@Html.DisplayFor(modelItem => item.AccidentCatSub)</td>
+        <td>@Html.DisplayFor(modelItem => item.StagesGroundAccident)</td>
+        <td>@Html.DisplayFor(modelItem => item.PeriodOperation)</td>*@
+                                        <td>
+                                            @if (!string.IsNullOrEmpty(item.ClassInjury))
+                                            {
+                                                if (item.ClassInjury != "0")
+                                                {
+                                                    @Html.DisplayFor(modelItem => item.ClassInjury)
+                                                }
+                                            }
+
+                                        </td>
+                                        <td>@Html.DisplayFor(modelItem => item.DateOfAccidentIncident)</td>
+                                        @*<td>@Html.DisplayFor(modelItem => item.PlaceOfAccidentIncident)</td>
+        <td>@Html.DisplayFor(modelItem => item.DetailsOfAccidentIncident)</td>*@
+                                        @*<td>@Html.DisplayFor(modelItem => item.Blameworthy)</td>
+        <td>@Html.DisplayFor(modelItem => item.Remarks)</td>*@
+
+
+
+
+
+
+                                        @if (item.IsPermission == 1)
+                                        {
+                                            <td>
+                                                <a onclick="location.href='@Url.Action("AddAviatorAccident", "AA7", new { id = IHSDC.WebApp.RepositryManager.EncryptionManager.Encryption(item.AviatorAccidentIncident_ID.ToString()),ViewId= IHSDC.WebApp.RepositryManager.EncryptionManager.Encryption(item.Aviator_ID.ToString()),IsHist=IHSDC.WebApp.RepositryManager.EncryptionManager.Encryption(item.IsHistory.ToString()) })'">
+                                                    <img src="~/images/Editnew.png" width="20" height="20" border="0">
+                                                </a>
+
+                                                @*<span>|</span>
+                <a id="btndel" data-id='@IHSDC.WebApp.RepositryManager.EncryptionManager.Encryption(item.AviatorAccidentIncident_ID.ToString())' onclick="DeleteConfirmation(this,'/AA7/DeleteAviatorAccident')">
+                    <img src="~/images/Delete.png" width="20" height="20" border="0" />
+                </a>*@
+                                            </td>
+                                            <td>
+                                                <a onclick="location.href='@Url.Action("AddAviatorAccident", "AA7", new { id = IHSDC.WebApp.RepositryManager.EncryptionManager.Encryption(item.Aviator_ID.ToString()),TypeRpt=IHSDC.WebApp.RepositryManager.EncryptionManager.Encryption("1") })'">
+                                                    <i class="fa fa-history" style="font-size:18px" aria-hidden="true"></i>
+
+                                                </a>
+                                            </td>
+                                            <td>
+                                                <a onclick="location.href='@Url.Action("ViewAviatorDetails", "AA7", new { id = IHSDC.WebApp.RepositryManager.EncryptionManager.Encryption(item.Aviator_ID.ToString()) })'">
+                                                    <i class="fa fa-eye" style="font-size:22px" aria-hidden="true"></i>
+                                                </a>
+
+                                            </td>
+                                        }
+                                        else if (item.IsPermission == 5)
+                                        {
+                                            <td>
+                                                <a onclick="location.href='@Url.Action("AddAviatorAccident", "AA7", new { id = IHSDC.WebApp.RepositryManager.EncryptionManager.Encryption(item.AviatorAccidentIncident_ID.ToString()) })'">
+                                                    <img src="~/images/Editnew.png" width="20" height="20" border="0">
+                                                </a>
+
+                                            </td>
+                                            <td>
+                                                <a onclick="location.href='@Url.Action("AddAviatorAccident", "AA7", new { id = IHSDC.WebApp.RepositryManager.EncryptionManager.Encryption(item.Aviator_ID.ToString()),TypeRpt=IHSDC.WebApp.RepositryManager.EncryptionManager.Encryption("1") })'">
+                                                    <i class="fa fa-history" style="font-size:18px" aria-hidden="true"></i>
+
+                                                </a>
+                                            </td>
+                                            <td>
+                                                <a onclick="location.href='@Url.Action("ViewAviatorDetails", "AA7", new { id = IHSDC.WebApp.RepositryManager.EncryptionManager.Encryption(item.Aviator_ID.ToString()) })'">
+                                                    <i class="fa fa-eye" style="font-size:22px" aria-hidden="true"></i>
+                                                </a>
+
+                                            </td>
+
+                                        }
+                                        else if (item.IsPermission == 3 || item.IsPermission == 2)
+                                        {
+                                            <td>
+                                                <span></span>
+                                            </td>
+                                            <td>
+                                                <span></span>
+                                            </td>
+                                            <td>
+                                                <a onclick="location.href='@Url.Action("ViewAviatorDetails", "AA7", new { id = IHSDC.WebApp.RepositryManager.EncryptionManager.Encryption(item.Aviator_ID.ToString()) })'">
+                                                    <i class="fa fa-eye" style="font-size:22px" aria-hidden="true"></i>
+                                                </a>
+
+                                            </td>
+                                        }
+
+
+
+
+                                    </tr>
+                                }
+                            }
+                            else
+                            {
+                                <tr><td colspan="12" style="font-weight:900;color:red;text-align:center"> No Record Found!!!</td></tr>
+                            }
+                        </tbody>
+
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+}
+<script src="~/Scripts/jquery-3.3.1.js"></script>
+<script src="~/Content/CustomJS/DeleteConfirmation.js"></script>
+<script src="~/Content/CustomJS/AviatorJS.js"></script>
+<script src="~/Content/CustomJS/AddUpdateFilter.js"></script>
+<script src="~/Content/css/sweetalert.min.js"></script>
+<link href="~/Content/css/sweetalert.css" rel="stylesheet" />
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryui")
+    @Styles.Render("~/Content/cssjqryUi")
+
+    <script type="text/javascript">
+
+      var message = '@message';
+    var messageStatus = '@messageStatus';
+    var messagemidStatus = '@messagemidStatus';
+    if (message)
+            sweetAlert(message, messagemidStatus, messageStatus);
+
+
+   //     $('#DateOfAccidentIncident').datepicker({
+			//uiLibrary: 'bootstrap4',
+			//dateFormat: "dd/M/yy",
+			//autoclose: true
+   //     });
+
+
+
+        //function check(obj, compareField, comparemsg) {
+        //  //  debugger;
+        //    var a = $(obj).parent().children()[0]
+        //    var text = $(a).text();
+        //    var DateofIssueCatCard = $(obj).val();
+        //    var DateOfWings = $('#' + compareField + '').val();
+        //    if (DateOfWings > DateofIssueCatCard) {
+        //        sweetAlert(' ' + text + ' can not be less then ' + comparemsg + ' !', 'Please Re-Enter ' + text + '', 'warning');
+        //        $(obj).val('');
+        //        $(obj).focus();
+        //    }
+        //}
+
+
+
+        //function postingAuthValidation(event) {
+
+        //    if ((event.which < 48 || event.which > 57) && event.which != 46) {
+        //        if (event.which == 8 || event.which == 0 || event.which == 196 || event.which == 95 || event.which == 47 || event.which == 45 || event.which == 92) {
+        //            return true;
+
+        //        }
+        //        else if (((event.charCode > 64 && event.charCode < 91) || (event.charCode > 96 && event.charCode < 123) || event.charCode == 32)) {
+        //            return true;
+
+        //        }
+        //        else {
+        //            return false;
+        //        }
+
+        //    }
+        //}
+            //$("#BtnDeclaration").click(function () {
+            //    if ($("#DateOfAccidentIncident").val() != $("#spnDateOfAccident").html() && $("#spnDateOfAccident").html() != "") {
+            //        $("#btnval").html("Add");
+            //        $("#btnval").val("Add");
+            //    }
+            //    else {
+            //        $("#btnval").html("Update");
+            //        $("#btnval").val("Update");
+            //    }
+            //});
+
+    </script>
+}
